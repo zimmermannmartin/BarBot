@@ -102,6 +102,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + " INTEGER," +
                         COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML + " INTEGER" +
                         "PRIMARY KEY (" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "," + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ")" +
+                        "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
+                        "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ") REFERENCES " + TABLE_DRINK + "(" + COLUMN_DRINK_PK_ID_DRINK + ")" +
                 ")";
         String create_table_drink = "CREATE TABLE" + TABLE_DRINK +
                 "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER," +
