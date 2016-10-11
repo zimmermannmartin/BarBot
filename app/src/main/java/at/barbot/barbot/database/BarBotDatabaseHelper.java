@@ -47,14 +47,14 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
     //Table drink_has_ingredient columns
     private static final String COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK = "pk_fk_id_drink";
-    private static final String COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT = "pk_fk_id_drink";
-    private static final String COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML = "pk_fk_id_drink";
+    private static final String COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT = "pk_fk_id_ingredient";
+    private static final String COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML = "ingredient_amount_in_ml";
 
     //Table drink columns
     private static final String COLUMN_DRINK_PK_ID_DRINK = "pk_id_drink";
     private static final String COLUMN_DRINK_NAME = "name";
     private static final String COLUMN_DRINK_PICTURE = "picture";
-    private static final String COLUMN_DRINK_DESCRIPTION = "pk_id_drink";
+    private static final String COLUMN_DRINK_DESCRIPTION = "description";
 
     private BarBotDatabaseHelper (Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -84,7 +84,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_SLAVEUNIT_NAME + " VARCHAR(45)," +
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_BARBOT + " INTEGER," +
-                        COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + " INTEGER" +
+                        COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + " INTEGER," +
+                        "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")" +
                 ")";
         String create_table_ingredient = "CREATE TABLE" + TABLE_INGREDIENT +
                 "(" +   COLUMN_INGREDIENT_PK_ID_INGREDIENT + " INTEGER PRIMARY KEY," +
