@@ -1,8 +1,11 @@
 package at.barbot.barbot.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.nfc.Tag;
+import android.util.Log;
 
 /**
  * Created by Martin on 10.10.2016.
@@ -55,6 +58,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DRINK_NAME = "name";
     private static final String COLUMN_DRINK_PICTURE = "picture";
     private static final String COLUMN_DRINK_DESCRIPTION = "description";
+
+    private static final String TAG = "BarBotDatabaseHelper";
 
     private BarBotDatabaseHelper (Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -116,6 +121,108 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRINK_HAS_INGREDIENT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRINK);
             onCreate(db);
+        }
+    }
+
+    /**
+     * Einen neuen BarBot hinzufuegen
+     * @param barBot: Ein Model, welches den BarBot repraesentiert
+     */
+    public void addBarBot (BarBot barBot){
+        // create and/or open database
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_BARBOT_PK_ID_BARBOT, barBot.pk_id_barbot);
+            values.put(COLUMN_BARBOT_NAME, barBot.name);
+
+            db.insertOrThrow(TABLE_BARBOT, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new BarBot: " + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addSlaveunit (Slaveunit slave){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
+            values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
+            values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
+            values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
+            values.put(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT, slave.fk_id_ingredient);
+
+            db.insertOrThrow(TABLE_SLAVEUNIT, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new Slaveunit: " + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addIngredient (Ingredient ingredient){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_INGREDIENT_PK_ID_INGREDIENT, ingredient.pk_id_ingredient);
+            values.put(COLUMN_INGREDIENT_NAME, ingredient.name);
+            values.put(COLUMN_INGREDIENT_VOL_PERCENT, ingredient.vol_percent);
+
+            db.insertOrThrow(TABLE_INGREDIENT, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new Ingredient: " + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addDrinkHasIngredient (Drink_has_ingredient drinkIngredient){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT, drinkIngredient.pk_fk_id_ingredient);
+            values.put(COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK, drinkIngredient.pk_fk_id_drink);
+            values.put(COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML, drinkIngredient.ingredient_amount_in_ml);
+
+            db.insertOrThrow(TABLE_DRINK_HAS_INGREDIENT, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new drink_has_ingredient: " + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addDrink (Drink drink){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_DRINK_PK_ID_DRINK, drink.pk_id_drink);
+            values.put(COLUMN_DRINK_NAME, drink.name);
+            values.put(COLUMN_DRINK_DESCRIPTION, drink.description);
+            values.put(COLUMN_DRINK_PICTURE, drink.picture);
+
+            db.insertOrThrow(TABLE_DRINK, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new Drink: " + e);
+        }finally {
+            db.endTransaction();
         }
     }
 }
