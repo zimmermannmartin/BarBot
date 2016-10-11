@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class BarBotDatabaseHelper extends SQLiteOpenHelper {
+    //Database Instance
+    private static BarBotDatabaseHelper sInstance;
+
     //Database Info
     private static final String DATABASE_NAME = "barBot";
     private static final int DATABASE_VERSION = 1;
@@ -53,8 +56,15 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DRINK_PICTURE = "picture";
     private static final String COLUMN_DRINK_DESCRIPTION = "pk_id_drink";
 
-    public BarBotDatabaseHelper (Context context){
+    private BarBotDatabaseHelper (Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static synchronized BarBotDatabaseHelper getInstance (Context context){
+        if (sInstance == null){
+            sInstance = new BarBotDatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
     }
 
     @Override
@@ -97,7 +107,14 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
+        if (oldV != newV) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARBOT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SLAVEUNIT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRINK_HAS_INGREDIENT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRINK);
+            onCreate(db);
+        }
     }
 }
