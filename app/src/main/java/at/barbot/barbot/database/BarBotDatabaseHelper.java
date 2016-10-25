@@ -315,7 +315,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_DRINK_NAME, drink.name);
             values.put(COLUMN_DRINK_DESCRIPTION, drink.description);
             values.put(COLUMN_DRINK_PICTURE, drink.picture);
-
             int rows = db.update(TABLE_DRINK, values, COLUMN_DRINK_PK_ID_DRINK + "= ?", new String[]{""+drink.pk_id_drink});
             db.setTransactionSuccessful();
         }catch (Exception e){
