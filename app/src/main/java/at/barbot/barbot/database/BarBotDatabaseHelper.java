@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.PipedOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Martin on 10.10.2016.
  */
@@ -399,5 +403,205 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
+    }
+
+    public BarBot getBarBot(){
+        BarBot barBot = new BarBot();
+        String selectQuery = String.format(
+                "SELECT * FROM %s",
+                TABLE_BARBOT
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                barBot.pk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_BARBOT_PK_ID_BARBOT));
+                barBot.name = cursor.getString(cursor.getColumnIndex(COLUMN_BARBOT_NAME));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering BarBot" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return barBot;
+    }
+
+    public List<Slaveunit> getAllSlaveunits(){
+        List<Slaveunit> slaveunitList = new ArrayList<Slaveunit>();
+        String selectQuery = String.format(
+                "SELECT * FROM %s",
+                TABLE_SLAVEUNIT
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                do {
+                    Slaveunit slaveunit = new Slaveunit();
+                    slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
+                    slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
+                    slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
+                    slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
+                    slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
+                    slaveunitList.add(slaveunit);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering BarBot" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return slaveunitList;
+    }
+
+    public Slaveunit getSlaveunit(int pk_slave){
+        Slaveunit slaveunit = new Slaveunit();
+        String selectQuery = String.format(
+                "SELECT * FROM %s WHERE %s = %s",
+                TABLE_SLAVEUNIT,
+                COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT,
+                pk_slave
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                    slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
+                    slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
+                    slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
+                    slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
+                    slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering BarBot" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return slaveunit;
+    }
+
+    public List<Ingredient> getAllIngredients(){
+        List<Ingredient> ingredientList = new ArrayList<Ingredient>();
+
+        String selectQuery = String.format(
+                "SELECT * FROM %s",
+                TABLE_INGREDIENT
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                do {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.pk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_PK_ID_INGREDIENT));
+                    ingredient.name = cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT_NAME));
+                    ingredient.vol_percent = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_VOL_PERCENT));
+                    ingredientList.add(ingredient);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering BarBot" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return ingredientList;
+    }
+
+    public Ingredient getIngredient(int pk_ingredient){
+        Ingredient ingredient = new Ingredient();
+
+        String selectQuery = String.format(
+                "SELECT * FROM %s WHERE %s = %s",
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_PK_ID_INGREDIENT,
+                pk_ingredient
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                    ingredient.pk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_PK_ID_INGREDIENT));
+                    ingredient.name = cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT_NAME));
+                    ingredient.vol_percent = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_VOL_PERCENT));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering BarBot" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return ingredient;
+    }
+
+    public List<Drink> getAllDrinks(){
+        List<Drink> drinkList = new ArrayList<Drink>();
+        String selectQuery = String.format(
+                "SELECT * FROM %s",
+                TABLE_DRINK
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                do {
+                    Drink drink = new Drink();
+                    drink.pk_id_drink = cursor.getInt(cursor.getColumnIndex(COLUMN_DRINK_PK_ID_DRINK));
+                    drink.name = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_NAME));
+                    drink.description = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_DESCRIPTION));
+                    drink.picture = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_PICTURE));
+                    drinkList.add(drink);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering Drinks" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return drinkList;
+    }
+
+    public Drink getDrink(int pk_Drink){
+        Drink drink = new Drink();
+        String selectQuery = String.format(
+                "SELECT * FROM %s WHERE %s = %s",
+                TABLE_DRINK,
+                COLUMN_DRINK_PK_ID_DRINK,
+                pk_Drink
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                    drink.pk_id_drink = cursor.getInt(cursor.getColumnIndex(COLUMN_DRINK_PK_ID_DRINK));
+                    drink.name = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_NAME));
+                    drink.description = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_DESCRIPTION));
+                    drink.picture = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_PICTURE));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error quering Drinks" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return drink;
     }
 }
