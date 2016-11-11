@@ -126,6 +126,10 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /*
+        ----------------------- Create Actions -----------------------
+     */
+
     /**
      * Einen neuen BarBot hinzufuegen
      * @param barBot: Ein Model, welches den BarBot repraesentiert
@@ -228,6 +232,10 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /*
+        ----------------------- Update Actions -----------------------
+     */
+
     public void updateBarBot (BarBot barBot){
         SQLiteDatabase db = getWritableDatabase();
 
@@ -296,7 +304,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT, drinkHasIngredient.pk_fk_id_ingredient);
             values.put(COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML, drinkHasIngredient.ingredient_amount_in_ml);
 
-            int rows = db.update(TABLE_DRINK_HAS_INGREDIENT, values, COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + "= ? AND " + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + "= ?", new String[]{""+drinkHasIngredient.pk_fk_id_drink, ""+drinkHasIngredient.pk_fk_id_ingredient});
+            int rows = db.update(TABLE_DRINK_HAS_INGREDIENT, values, COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + "= ? AND " + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "= ?", new String[]{""+drinkHasIngredient.pk_fk_id_drink, ""+drinkHasIngredient.pk_fk_id_ingredient});
             db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error updating Drink_has_Ingredient" + e);
@@ -319,6 +327,75 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error updating Drink" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    /*
+        ----------------------- Delete Actions -----------------------
+     */
+
+    public void deleteBarBot (BarBot barBot){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            int rows = db.delete(TABLE_BARBOT, COLUMN_BARBOT_PK_ID_BARBOT + "= ?", new String[]{""+barBot.pk_id_barbot});
+        }catch (Exception e){
+            Log.d(TAG, "Error deleting BarBot" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteSlaveunit (Slaveunit slaveunit){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            int rows = db.delete(TABLE_SLAVEUNIT, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?", new String[]{""+slaveunit.pk_id_slaveunit});
+        }catch (Exception e){
+            Log.d(TAG, "Error deleting Slaveunit" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteIngredient (Ingredient ingredient){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            int rows = db.delete(TABLE_INGREDIENT, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?", new String[]{""+ingredient.pk_id_ingredient});
+        }catch (Exception e){
+            Log.d(TAG, "Error deleting ingredient" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteDrinkHasIngredient (Drink_has_ingredient drinkHasIngredient){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            int rows = db.delete(TABLE_DRINK_HAS_INGREDIENT, COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + "= ? AND " + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "= ?", new String[]{""+drinkHasIngredient.pk_fk_id_drink, ""+drinkHasIngredient.pk_fk_id_ingredient});
+        }catch (Exception e){
+            Log.d(TAG, "Error deleting Drink_has_Ingredient" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteDrink (Drink drink){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            int rows = db.delete(TABLE_DRINK, COLUMN_DRINK_PK_ID_DRINK + "= ?", new String[]{""+drink.pk_id_drink});
+        }catch (Exception e){
+            Log.d(TAG, "Error deleting Drink" + e);
         }finally {
             db.endTransaction();
         }
