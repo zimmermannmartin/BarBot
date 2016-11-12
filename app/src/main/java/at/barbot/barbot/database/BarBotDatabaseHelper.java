@@ -94,27 +94,34 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_BARBOT + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + " INTEGER," +
-                        "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")" +
+                        "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")," +
+                        "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
                 ")";
-        String create_table_ingredient = "CREATE TABLE" + TABLE_INGREDIENT +
+        String create_table_ingredient = "CREATE TABLE IF NOT EXISTS" + TABLE_INGREDIENT +
                 "(" +   COLUMN_INGREDIENT_PK_ID_INGREDIENT + " INTEGER PRIMARY KEY," +
                         COLUMN_INGREDIENT_NAME + " VARCHAR(100)," +
                         COLUMN_INGREDIENT_VOL_PERCENT + " INTEGER" +
                 ")";
-        String create_table_drink_has_ingredient = "CREATE TABLE" + TABLE_DRINK_HAS_INGREDIENT +
+        String create_table_drink_has_ingredient = "CREATE TABLE IF NOT EXISTS" + TABLE_DRINK_HAS_INGREDIENT +
                 "(" +   COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + " INTEGER," +
                         COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + " INTEGER," +
-                        COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML + " INTEGER" +
-                        "PRIMARY KEY (" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "," + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ")" +
-                        "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
+                        COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML + " INTEGER," +
+                        "PRIMARY KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "," + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ")," +
+                        "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")," +
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ") REFERENCES " + TABLE_DRINK + "(" + COLUMN_DRINK_PK_ID_DRINK + ")" +
                 ")";
-        String create_table_drink = "CREATE TABLE" + TABLE_DRINK +
+        String create_table_drink = "CREATE TABLE IF NOT EXISTS" + TABLE_DRINK +
                 "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER," +
                         COLUMN_DRINK_NAME + " VARCHAR(100)," +
                         COLUMN_DRINK_DESCRIPTION + " MEDIUMTEXT," +
                         COLUMN_DRINK_PICTURE + "VARCHAR(200)" +
                 ")";
+
+        db.execSQL(create_table_barbot);
+        db.execSQL(create_table_ingredient);
+        db.execSQL(create_table_slaveunit);
+        db.execSQL(create_table_drink);
+        db.execSQL(create_table_drink_has_ingredient);
 
     }
 
