@@ -62,6 +62,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        List<Drink> list = getDrinks();
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -72,7 +73,7 @@ public class MainFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            if (getDrinks() != null && getDrinks().size() != 0 && !getDrinks().isEmpty()){
+            if (list != null && list.size() != 0 && !list.isEmpty()){
                 recyclerView.setAdapter(new MyItemRecyclerViewAdapter(getDrinks(), mListener));
             }else {
                 View emptyView = inflater.inflate(R.layout.fragment_empty, container, false);
@@ -101,7 +102,7 @@ public class MainFragment extends Fragment {
     }
 
     public List<Drink> getDrinks(){
-        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity().getApplicationContext());
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
 
         List<Drink> drinks = databaseHelper.getAllDrinks();
         return drinks;
