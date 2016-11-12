@@ -84,11 +84,12 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_table_barbot = "CREATE TABLE IF NOT EXISTS" + TABLE_BARBOT +
+        Log.d(TAG, "onCreate: anfang: strings");
+        String create_table_barbot = "CREATE TABLE IF NOT EXISTS " + TABLE_BARBOT +
                 "(" +   COLUMN_BARBOT_PK_ID_BARBOT + " INTEGER PRIMARY KEY," +
                         COLUMN_BARBOT_NAME + " VARCHAR(45)" +
                 ")";
-        String create_table_slaveunit = "CREATE TABLE IF NOT EXISTS" + TABLE_SLAVEUNIT +
+        String create_table_slaveunit = "CREATE TABLE IF NOT EXISTS " + TABLE_SLAVEUNIT +
                 "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY," +
                         COLUMN_SLAVEUNIT_NAME + " VARCHAR(45)," +
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
@@ -97,12 +98,12 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")," +
                         "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
                 ")";
-        String create_table_ingredient = "CREATE TABLE IF NOT EXISTS" + TABLE_INGREDIENT +
+        String create_table_ingredient = "CREATE TABLE IF NOT EXISTS " + TABLE_INGREDIENT +
                 "(" +   COLUMN_INGREDIENT_PK_ID_INGREDIENT + " INTEGER PRIMARY KEY," +
                         COLUMN_INGREDIENT_NAME + " VARCHAR(100)," +
                         COLUMN_INGREDIENT_VOL_PERCENT + " INTEGER" +
                 ")";
-        String create_table_drink_has_ingredient = "CREATE TABLE IF NOT EXISTS" + TABLE_DRINK_HAS_INGREDIENT +
+        String create_table_drink_has_ingredient = "CREATE TABLE IF NOT EXISTS " + TABLE_DRINK_HAS_INGREDIENT +
                 "(" +   COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + " INTEGER," +
                         COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + " INTEGER," +
                         COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML + " INTEGER," +
@@ -110,17 +111,23 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")," +
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ") REFERENCES " + TABLE_DRINK + "(" + COLUMN_DRINK_PK_ID_DRINK + ")" +
                 ")";
-        String create_table_drink = "CREATE TABLE IF NOT EXISTS" + TABLE_DRINK +
+        String create_table_drink = "CREATE TABLE IF NOT EXISTS " + TABLE_DRINK +
                 "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER," +
                         COLUMN_DRINK_NAME + " VARCHAR(100)," +
                         COLUMN_DRINK_DESCRIPTION + " MEDIUMTEXT," +
-                        COLUMN_DRINK_PICTURE + "VARCHAR(200)" +
+                        COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
                 ")";
 
+        Log.d(TAG, "onCreate: end table strings / anfang exec: barbot");
+
         db.execSQL(create_table_barbot);
+        Log.d(TAG, "onCreate: ingredient");
         db.execSQL(create_table_ingredient);
+        Log.d(TAG, "onCreate: slaveunit");
         db.execSQL(create_table_slaveunit);
+        Log.d(TAG, "onCreate: drink");
         db.execSQL(create_table_drink);
+        Log.d(TAG, "onCreate: drink_has_ingredient");
         db.execSQL(create_table_drink_has_ingredient);
 
     }
