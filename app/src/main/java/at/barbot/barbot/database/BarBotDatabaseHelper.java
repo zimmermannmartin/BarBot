@@ -420,7 +420,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 barBot.name = cursor.getString(cursor.getColumnIndex(COLUMN_BARBOT_NAME));
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering BarBot" + e);
+            Log.d(TAG, "Error querying BarBot" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -451,7 +451,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering BarBot" + e);
+            Log.d(TAG, "Error querying Slaveunits" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -480,7 +480,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering BarBot" + e);
+            Log.d(TAG, "Error querying Slaveunit" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -510,7 +510,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering BarBot" + e);
+            Log.d(TAG, "Error querying Ingredients" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -538,7 +538,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     ingredient.vol_percent = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_VOL_PERCENT));
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering BarBot" + e);
+            Log.d(TAG, "Error querying Ingredient" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -568,7 +568,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering Drinks" + e);
+            Log.d(TAG, "Error querying Drinks" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -596,7 +596,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     drink.picture = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_PICTURE));
             }
         }catch (Exception e){
-            Log.d(TAG, "Error quering Drinks" + e);
+            Log.d(TAG, "Error querying Drink" + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();

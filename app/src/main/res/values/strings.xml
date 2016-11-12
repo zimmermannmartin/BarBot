@@ -6,6 +6,7 @@
     <string name="show_drinks">Getränke anzeigen</string>
     <string name="add">Neues Getränk erstellen</string>
     <string name="show_BarBot">Automat anzeigen</string>
+    <string name="empty_list">Noch keine Elemente vorhanden</string>
 
     <string name="action_settings">Settings</string>
 </resources>

@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import at.barbot.barbot.database.BarBotDatabaseHelper;
+import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.dummy.DummyContent;
 import at.barbot.barbot.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,7 +72,13 @@ public class MainFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            if (getDrinks() != null && getDrinks().size() != 0 && !getDrinks().isEmpty()){
+                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(getDrinks(), mListener));
+            }else {
+                View emptyView = inflater.inflate(R.layout.fragment_empty, container, false);
+                return emptyView;
+            }
+
         }
         return view;
     }
@@ -91,6 +100,13 @@ public class MainFragment extends Fragment {
         mListener = null;
     }
 
+    public List<Drink> getDrinks(){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity().getApplicationContext());
+
+        List<Drink> drinks = databaseHelper.getAllDrinks();
+        return drinks;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -103,6 +119,6 @@ public class MainFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Drink drink);
     }
 }
