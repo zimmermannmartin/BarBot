@@ -84,7 +84,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "onCreate: anfang: strings");
         String create_table_barbot = "CREATE TABLE IF NOT EXISTS " + TABLE_BARBOT +
                 "(" +   COLUMN_BARBOT_PK_ID_BARBOT + " INTEGER PRIMARY KEY," +
                         COLUMN_BARBOT_NAME + " VARCHAR(45)" +
@@ -118,16 +117,10 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
                 ")";
 
-        Log.d(TAG, "onCreate: end table strings / anfang exec: barbot");
-
         db.execSQL(create_table_barbot);
-        Log.d(TAG, "onCreate: ingredient");
         db.execSQL(create_table_ingredient);
-        Log.d(TAG, "onCreate: slaveunit");
         db.execSQL(create_table_slaveunit);
-        Log.d(TAG, "onCreate: drink");
         db.execSQL(create_table_drink);
-        Log.d(TAG, "onCreate: drink_has_ingredient");
         db.execSQL(create_table_drink_has_ingredient);
 
     }
