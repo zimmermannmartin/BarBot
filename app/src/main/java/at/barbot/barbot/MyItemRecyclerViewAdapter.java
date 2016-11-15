@@ -9,14 +9,12 @@ import android.widget.TextView;
 
 import at.barbot.barbot.MainFragment.OnListFragmentInteractionListener;
 import at.barbot.barbot.database.Drink;
-import at.barbot.barbot.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Drink} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 

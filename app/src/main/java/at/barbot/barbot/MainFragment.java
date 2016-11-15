@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
-import at.barbot.barbot.dummy.DummyContent;
-import at.barbot.barbot.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
 import java.util.List;
