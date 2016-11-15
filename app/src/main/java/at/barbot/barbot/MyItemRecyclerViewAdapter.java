@@ -1,6 +1,7 @@
 package at.barbot.barbot;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     private final List<Drink> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private static final String TAG = "ItemRecyclerViewAdapter";
 
     public MyItemRecyclerViewAdapter(List<Drink> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -37,7 +39,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mImageView.setText(mValues.get(position).pk_id_drink);
+        holder.mImageView.setText(String.format("%s", mValues.get(position).pk_id_drink));
         holder.mContentView.setText(mValues.get(position).name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
