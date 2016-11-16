@@ -10,6 +10,9 @@
     <string name="getraenke_erstellen_title">Getränke erstellen</string>
     <string name="getraenke_erstellen_button_weitere_zutaten">Weitere Zutat hinzufügen</string>
     <string name="getraenke_erstellen_button_bild">Bild auswählen</string>
+    <string name="getraenke_erstellen_textview_getraenkeName">Getränkename</string>
+    <string name="getraenke_erstellen_textview_Beschreibung">Beschreibung</string>
+    <string name="getraenke_erstellen_textview_Bild">Bildpfad</string>
 
     <string name="action_settings">Settings</string>
 

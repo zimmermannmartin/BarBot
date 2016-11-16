@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        //Ueberschrit
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
@@ -23,12 +23,13 @@
             android:textSize="36sp"
             android:textStyle="normal|bold" />
 
+        //GetrankeName Edit
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/editTextGetraenkeName"
             android:hint="Getränkename"
             android:layout_marginRight="89dp"
             android:layout_marginEnd="89dp"
@@ -37,6 +38,26 @@
             android:layout_below="@+id/textView2"
             android:layout_toLeftOf="@+id/textView2"
             android:layout_toStartOf="@+id/textView2" />
+
+
+        /GetrankeName Text
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:id="@+id/textViewGetraenkeName"
+            tools:text="@string/getraenke_erstellen_textview_getraenkeName"
+            android:textSize="18sp"
+            android:layout_alignBaseline="@+id/editTextGetraenkeName"
+            android:layout_alignBottom="@+id/editTextGetraenkeName"
+            android:layout_toLeftOf="@+id/editTextGetraenkeName"
+            android:layout_toStartOf="@+id/editTextGetraenkeName" />
+
+        Beschreibung Edit
+
+        Beschreibung Text
 
         <Spinner
             android:layout_width="wrap_content"
@@ -93,15 +114,65 @@
             android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
             android:id="@+id/button3"
             tools:text="@string/getraenke_erstellen_button_bild"
-            android:layout_alignBaseline="@+id/button2"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_alignLeft="@+id/editText"
-            android:layout_alignStart="@+id/editText"
-            android:onClick="addNewDrink"/>
+            android:onClick="addNewDrink"
+            android:layout_below="@+id/editTextGetraenkeName"
+            android:layout_alignLeft="@+id/textViewGetraenkeName"
+            android:layout_alignStart="@+id/textViewGetraenkeName"
+            android:layout_marginTop="224dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewBeschreibung"
+            tools:text="@string/getraenke_erstellen_textview_Beschreibung"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"
+            android:layout_below="@+id/editTextGetraenkeName"
+            android:layout_alignLeft="@+id/textViewGetraenkeName"
+            android:layout_alignStart="@+id/textViewGetraenkeName" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:hint="Getränkename"
+            android:singleLine="true"
+            android:layout_alignLeft="@+id/editTextGetraenkeName"
+            android:layout_alignStart="@+id/editTextGetraenkeName"
+            android:layout_above="@+id/editTextBeschreibung"
+            android:layout_alignTop="@+id/textViewBeschreibung" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            tools:text="@string/getraenke_erstellen_textview_Bild"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/textViewBeschreibung"
+            android:layout_alignStart="@+id/textViewBeschreibung" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextBeschreibung"
+            android:hint="@string/getraenke_erstellen_textview_Bild"
+            android:singleLine="true"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/editText2"
+            android:layout_alignStart="@+id/editText2" />
+
 
     </RelativeLayout>
 </FrameLayout>
