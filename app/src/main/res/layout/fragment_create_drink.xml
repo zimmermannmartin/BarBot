@@ -11,14 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="53dp"
             android:id="@+id/textView2"
-            tools:text="@string/getraenke_erstellen_title"
+            android:text="@string/getraenke_erstellen_title"
             android:textSize="36sp"
             android:textStyle="normal|bold" />
 
@@ -28,7 +27,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/editTextGetraenkeName"
-            android:hint="Getränkename"
+            android:hint="@string/getraenke_erstellen_textview_getraenkeName"
             android:layout_marginRight="89dp"
             android:layout_marginEnd="89dp"
             android:layout_marginTop="127dp"
@@ -38,13 +37,12 @@
             android:layout_toStartOf="@+id/textView2" />
 
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_marginEnd="25dp"
             android:id="@+id/textViewGetraenkeName"
-            tools:text="@string/getraenke_erstellen_textview_getraenkeName"
+            android:text="@string/getraenke_erstellen_textview_getraenkeName"
             android:textSize="18sp"
             android:layout_alignBaseline="@+id/editTextGetraenkeName"
             android:layout_alignBottom="@+id/editTextGetraenkeName"
@@ -53,13 +51,12 @@
 
 
         <Button
-            android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:layout_marginStart="100dp"
             android:id="@+id/button3"
-            tools:text="@string/getraenke_erstellen_button_bild"
+            android:text="@string/getraenke_erstellen_button_bild"
             android:onClick="addNewDrink"
             android:layout_below="@+id/editTextGetraenkeName"
             android:layout_alignLeft="@+id/textViewGetraenkeName"
@@ -67,11 +64,10 @@
             android:layout_marginTop="224dp" />
 
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewBeschreibung"
-            tools:text="@string/getraenke_erstellen_textview_Beschreibung"
+            android:text="@string/getraenke_erstellen_textview_Beschreibung"
             android:textSize="18sp"
             android:layout_marginTop="24dp"
             android:layout_below="@+id/editTextGetraenkeName"
@@ -84,7 +80,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/editText2"
-            android:hint="Getränkename"
+            android:hint="@string/getraenke_erstellen_textview_getraenkeName"
             android:singleLine="true"
             android:layout_alignLeft="@+id/editTextGetraenkeName"
             android:layout_alignStart="@+id/editTextGetraenkeName"
@@ -92,11 +88,10 @@
             android:layout_alignTop="@+id/textViewBeschreibung" />
 
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
-            tools:text="@string/getraenke_erstellen_textview_Bild"
+            android:text="@string/getraenke_erstellen_textview_Bild"
             android:textSize="18sp"
             android:layout_centerVertical="true"
             android:layout_alignLeft="@+id/textViewBeschreibung"
@@ -157,7 +152,7 @@
             android:layout_above="@+id/editText2"
             android:layout_toRightOf="@+id/bottomLeftSpinner"
             android:layout_toEndOf="@+id/bottomLeftSpinner"
-            android:hint="ml" />
+            android:hint="@string/getraenke_erstellen_ml" />
 
         <EditText
             android:inputType="number"
@@ -168,7 +163,7 @@
             android:layout_alignBottom="@+id/bottomLeftSpinner"
             android:layout_alignLeft="@+id/topRightNumberInput"
             android:layout_alignStart="@+id/topRightNumberInput"
-            android:hint="ml" />
+            android:hint="@string/getraenke_erstellen_ml" />
 
 
     </RelativeLayout>
