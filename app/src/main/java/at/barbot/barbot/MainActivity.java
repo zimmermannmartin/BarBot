@@ -19,7 +19,7 @@ import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.bar_list) {
             // Handle the camera action
         } else if (id == R.id.add_drink) {
-
+            Fragment createFragment = new CreateDrinkFragment();
+            selectItem(createFragment);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -112,4 +113,11 @@ public class MainActivity extends AppCompatActivity
     public void onListFragmentInteraction(Drink drink) {
 
     }
+
+    @Override
+    public void onCreateFragmentInteraction() {
+
+    }
+
+
 }

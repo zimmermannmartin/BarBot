@@ -5,9 +5,21 @@
     tools:context="at.barbot.barbot.CreateDrinkFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="564dp"
+            android:layout_height="711dp"
+            android:text="@string/hello_blank_fragment"
+            android:id="@+id/textView2"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+    </GridLayout>
+
 
 </FrameLayout>
