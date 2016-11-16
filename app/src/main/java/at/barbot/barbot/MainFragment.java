@@ -6,14 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
-import at.barbot.barbot.dummy.DummyContent;
-import at.barbot.barbot.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,7 @@ public class MainFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private static final String TAG = "MainFragment";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -103,7 +103,6 @@ public class MainFragment extends Fragment {
 
     public List<Drink> getDrinks(){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
-
         List<Drink> drinks = databaseHelper.getAllDrinks();
         return drinks;
     }
