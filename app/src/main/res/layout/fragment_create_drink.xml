@@ -10,7 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        //Ueberschrit
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
@@ -23,7 +22,6 @@
             android:textSize="36sp"
             android:textStyle="normal|bold" />
 
-        //GetrankeName Edit
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,57 +56,6 @@
         Beschreibung Edit
 
         Beschreibung Text
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="300dp"
-            android:id="@+id/topLeftSpinner"
-            android:minWidth="175dp" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="100dp"
-            android:layout_marginTop="100dp"
-            android:id="@+id/bottomRightNumberInput"
-            android:minWidth="75dp" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="100dp"
-            android:id="@+id/topRightNumberInput"
-            android:minWidth="75dp" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottomLeftSpinner"
-            android:minWidth="175dp"
-            android:layout_alignTop="@+id/bottomRightNumberInput"
-            android:layout_alignLeft="@+id/topLeftSpinner"
-            android:layout_alignStart="@+id/topLeftSpinner" />
-
-        <Button
-            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:id="@+id/button2"
-            android:layout_below="@+id/bottomLeftSpinner"
-            android:layout_toLeftOf="@+id/bottomRightNumberInput"
-            android:layout_toStartOf="@+id/bottomRightNumberInput"
-            android:layout_marginRight="17dp"
-            android:layout_marginEnd="17dp" />
 
         <Button
             android:text="Button"
@@ -172,6 +119,61 @@
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignLeft="@+id/editText2"
             android:layout_alignStart="@+id/editText2" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topLeftSpinner"
+            android:minWidth="175dp"
+            android:layout_below="@+id/textViewGetraenkeName"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLeftSpinner"
+            android:minWidth="175dp"
+            android:layout_below="@+id/textViewBeschreibung"
+            android:layout_alignLeft="@+id/topLeftSpinner"
+            android:layout_alignStart="@+id/topLeftSpinner" />
+
+        <Button
+            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_below="@+id/editTextBeschreibung"
+            android:layout_alignRight="@+id/bottomRightNumberInput"
+            android:layout_alignEnd="@+id/bottomRightNumberInput"
+            android:layout_marginRight="48dp"
+            android:layout_marginEnd="48dp" />
+
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topRightNumberInput"
+            android:minWidth="75dp"
+            android:layout_marginLeft="96dp"
+            android:layout_marginStart="96dp"
+            android:layout_above="@+id/editText2"
+            android:layout_toRightOf="@+id/bottomLeftSpinner"
+            android:layout_toEndOf="@+id/bottomLeftSpinner"
+            android:hint="ml" />
+
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomRightNumberInput"
+            android:minWidth="75dp"
+            android:layout_alignBottom="@+id/bottomLeftSpinner"
+            android:layout_alignLeft="@+id/topRightNumberInput"
+            android:layout_alignStart="@+id/topRightNumberInput"
+            android:hint="ml" />
 
 
     </RelativeLayout>
