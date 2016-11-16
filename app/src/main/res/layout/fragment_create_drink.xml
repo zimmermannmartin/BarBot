@@ -37,8 +37,6 @@
             android:layout_toLeftOf="@+id/textView2"
             android:layout_toStartOf="@+id/textView2" />
 
-
-        /GetrankeName Text
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
@@ -53,9 +51,6 @@
             android:layout_toLeftOf="@+id/editTextGetraenkeName"
             android:layout_toStartOf="@+id/editTextGetraenkeName" />
 
-        Beschreibung Edit
-
-        Beschreibung Text
 
         <Button
             android:text="Button"
