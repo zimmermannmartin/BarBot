@@ -9,7 +9,6 @@
 
     <GridLayout
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="match_parent">
 
         <TextView
@@ -21,10 +20,4 @@
             android:layout_column="0" />
 
     </GridLayout>
-
-=======
-        android:layout_height="match_parent"
-        android:text="@string/empty_list" />
->>>>>>> b467d7963ce23bce5d7082c004cc8bd9979eb550
-
 </FrameLayout>
