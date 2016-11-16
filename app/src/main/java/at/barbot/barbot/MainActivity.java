@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import at.barbot.barbot.database.Drink;
-import at.barbot.barbot.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnFragmentInteractionListener {

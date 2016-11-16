@@ -23,6 +23,7 @@
             android:textSize="36sp"
             android:textStyle="normal|bold" />
 
+<<<<<<< HEAD
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,4 +104,7 @@
             android:layout_alignStart="@+id/editText" />
 
     </RelativeLayout>
+=======
+    </GridLayout>
+>>>>>>> dcc867401f7e1a7d2a81a443cd32969acb38ad07
 </FrameLayout>
