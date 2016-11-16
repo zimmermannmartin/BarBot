@@ -7,6 +7,9 @@
     <string name="add">Neues Getränk erstellen</string>
     <string name="show_BarBot">Automat anzeigen</string>
     <string name="empty_list">Noch keine Elemente vorhanden</string>
+    <string name="getraenke_erstellen_title">Getränke erstellen</string>
+    <string name="getraenke_erstellen_button_weitere_zutaten">Weitere Zutat hinzufügen</string>
+    <string name="getraenke_erstellen_button_bild">Bild auswählen</string>
 
     <string name="action_settings">Settings</string>
 

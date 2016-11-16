@@ -7,24 +7,100 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="564dp"
-            android:layout_height="711dp"
-            android:text="@string/hello_blank_fragment"
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="53dp"
             android:id="@+id/textView2"
-            android:layout_row="1"
-            android:layout_column="0" />
+            tools:text="@string/getraenke_erstellen_title"
+            android:textSize="36sp"
+            android:textStyle="normal|bold" />
 
-    </GridLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:hint="Getränkename"
+            android:layout_marginRight="89dp"
+            android:layout_marginEnd="89dp"
+            android:layout_marginTop="127dp"
+            android:singleLine="true"
+            android:layout_below="@+id/textView2"
+            android:layout_toLeftOf="@+id/textView2"
+            android:layout_toStartOf="@+id/textView2" />
 
-=======
-        android:layout_height="match_parent"
-        android:text="@string/empty_list" />
->>>>>>> b467d7963ce23bce5d7082c004cc8bd9979eb550
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="300dp"
+            android:id="@+id/topLeftSpinner"
+            android:minWidth="175dp" />
 
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="100dp"
+            android:id="@+id/bottomRightNumberInput"
+            android:minWidth="75dp" />
+
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="100dp"
+            android:id="@+id/topRightNumberInput"
+            android:minWidth="75dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLeftSpinner"
+            android:minWidth="175dp"
+            android:layout_alignTop="@+id/bottomRightNumberInput"
+            android:layout_alignLeft="@+id/topLeftSpinner"
+            android:layout_alignStart="@+id/topLeftSpinner" />
+
+        <Button
+            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:id="@+id/button2"
+            android:layout_below="@+id/bottomLeftSpinner"
+            android:layout_toLeftOf="@+id/bottomRightNumberInput"
+            android:layout_toStartOf="@+id/bottomRightNumberInput"
+            android:layout_marginRight="17dp"
+            android:layout_marginEnd="17dp" />
+
+        <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:id="@+id/button3"
+            tools:text="@string/getraenke_erstellen_button_bild"
+            android:layout_alignBaseline="@+id/button2"
+            android:layout_alignBottom="@+id/button2"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText" />
+
+    </RelativeLayout>
 </FrameLayout>
