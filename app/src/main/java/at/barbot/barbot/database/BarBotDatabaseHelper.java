@@ -152,7 +152,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_BARBOT_PK_ID_BARBOT, barBot.pk_id_barbot);
+            //values.put(COLUMN_BARBOT_PK_ID_BARBOT, barBot.pk_id_barbot);
             values.put(COLUMN_BARBOT_NAME, barBot.name);
 
             db.insertOrThrow(TABLE_BARBOT, null, values);
@@ -170,7 +170,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
+            //values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
             values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
             values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
             values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
@@ -191,7 +191,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_INGREDIENT_PK_ID_INGREDIENT, ingredient.pk_id_ingredient);
+            //values.put(COLUMN_INGREDIENT_PK_ID_INGREDIENT, ingredient.pk_id_ingredient);
             values.put(COLUMN_INGREDIENT_NAME, ingredient.name);
             values.put(COLUMN_INGREDIENT_VOL_PERCENT, ingredient.vol_percent);
 

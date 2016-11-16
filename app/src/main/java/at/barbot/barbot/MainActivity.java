@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.bar_list) {
-            // Handle the camera action
+            Fragment mainFragment = new MainFragment();
+            selectItem(mainFragment);
         } else if (id == R.id.add_drink) {
             Fragment createFragment = new CreateDrinkFragment();
             selectItem(createFragment);
