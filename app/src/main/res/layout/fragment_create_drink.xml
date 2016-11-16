@@ -100,7 +100,8 @@
             android:layout_alignBaseline="@+id/button2"
             android:layout_alignBottom="@+id/button2"
             android:layout_alignLeft="@+id/editText"
-            android:layout_alignStart="@+id/editText" />
+            android:layout_alignStart="@+id/editText"
+            android:onClick="addNewDrink"/>
 
     </RelativeLayout>
 </FrameLayout>
