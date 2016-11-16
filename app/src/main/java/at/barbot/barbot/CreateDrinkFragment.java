@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import at.barbot.barbot.database.BarBotDatabaseHelper;
+import at.barbot.barbot.database.Drink;
 
 
 /**
@@ -105,7 +109,17 @@ public class CreateDrinkFragment extends Fragment {
     }
 
     public void addNewDrink (View view){
+        String name = ((EditText) view.getRootView().findViewById(R.id.editTextGetraenkeName)).getText().toString();
+        String desc = ((EditText) view.getRootView().findViewById(R.id.editTextBeschreibung)).getText().toString();
+        String picture = ((EditText) view.getRootView().findViewById(R.id.editTextPicture)).getText().toString();
 
+        Drink drink = new Drink();
+        drink.name = name;
+        drink.description = desc;
+        drink.picture = picture;
+
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        databaseHelper.addDrink(drink);
     }
 
     /**

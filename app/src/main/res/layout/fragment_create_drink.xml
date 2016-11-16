@@ -79,12 +79,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/editTextBeschreibung"
             android:hint="@string/getraenke_erstellen_textview_getraenkeName"
             android:singleLine="true"
             android:layout_alignLeft="@+id/editTextGetraenkeName"
             android:layout_alignStart="@+id/editTextGetraenkeName"
-            android:layout_above="@+id/editTextBeschreibung"
+            android:layout_above="@+id/editTextPicture"
             android:layout_alignTop="@+id/textViewBeschreibung" />
 
         <TextView
@@ -102,13 +102,13 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editTextBeschreibung"
+            android:id="@+id/editTextPicture"
             android:hint="@string/getraenke_erstellen_textview_Bild"
             android:singleLine="true"
             android:layout_alignBaseline="@+id/textView4"
             android:layout_alignBottom="@+id/textView4"
-            android:layout_alignLeft="@+id/editText2"
-            android:layout_alignStart="@+id/editText2" />
+            android:layout_alignLeft="@+id/editTextBeschreibung"
+            android:layout_alignStart="@+id/editTextBeschreibung" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
             android:minWidth="75dp"
             android:layout_marginLeft="96dp"
             android:layout_marginStart="96dp"
-            android:layout_above="@+id/editText2"
+            android:layout_above="@+id/editTextBeschreibung"
             android:layout_toRightOf="@+id/bottomLeftSpinner"
             android:layout_toEndOf="@+id/bottomLeftSpinner"
             android:hint="@string/getraenke_erstellen_ml" />
