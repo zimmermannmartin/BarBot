@@ -139,7 +139,6 @@ public class CreateDrinkFragment extends Fragment {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     /**

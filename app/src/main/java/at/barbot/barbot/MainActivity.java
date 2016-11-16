@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             Fragment mainFragment = new MainFragment();
-            selectItem(mainFragment);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content_frame, mainFragment).commit();
         }
     }
 
