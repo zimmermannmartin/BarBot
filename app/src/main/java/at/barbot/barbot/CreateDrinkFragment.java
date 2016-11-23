@@ -1,14 +1,20 @@
 package at.barbot.barbot;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import at.barbot.barbot.database.BarBotDatabaseHelper;
+import at.barbot.barbot.database.Drink;
 
 
 /**
@@ -105,7 +111,34 @@ public class CreateDrinkFragment extends Fragment {
     }
 
     public void addNewDrink (View view){
+        final EditText name_field = (EditText) view.getRootView().findViewById(R.id.editTextGetraenkeName);
+        final EditText desc_field = (EditText) view.getRootView().findViewById(R.id.editTextBeschreibung);
+        final EditText picture_field = (EditText) view.getRootView().findViewById(R.id.editTextPicture);
+        String name = name_field.getText().toString();
+        String desc = desc_field.getText().toString();
+        String picture = picture_field.getText().toString();
 
+        Drink drink = new Drink();
+        drink.name = name;
+        drink.description = desc;
+        drink.picture = picture;
+
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        databaseHelper.addDrink(drink);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.getraenk_erstellen_success)
+                .setTitle(R.string.getraenke_erstellen_title)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        name_field.setText("");
+                        desc_field.setText("");
+                        picture_field.setText("");
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +72,7 @@ public class MainFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             if (list != null && list.size() != 0 && !list.isEmpty()){
-                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(getDrinks(), mListener));
+                recyclerView.setAdapter(new DrinkItemRecyclerViewAdapter(getDrinks(), mListener));
             }else {
                 View emptyView = inflater.inflate(R.layout.fragment_empty, container, false);
                 return emptyView;

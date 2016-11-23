@@ -1,7 +1,6 @@
 package at.barbot.barbot;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,13 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link Drink} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class DrinkItemRecyclerViewAdapter extends RecyclerView.Adapter<DrinkItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Drink> mValues;
     private final OnListFragmentInteractionListener mListener;
     private static final String TAG = "ItemRecyclerViewAdapter";
 
-    public MyItemRecyclerViewAdapter(List<Drink> items, OnListFragmentInteractionListener listener) {
+    public DrinkItemRecyclerViewAdapter(List<Drink> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

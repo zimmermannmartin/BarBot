@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,8 @@ import at.barbot.barbot.database.Drink;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnFragmentInteractionListener {
+
+    private static final String TAG = "Main Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             Fragment mainFragment = new MainFragment();
-            selectItem(mainFragment);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content_frame, mainFragment).commit();
         }
     }
 
@@ -81,7 +85,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.bar_list) {
-            // Handle the camera action
+            Fragment mainFragment = new MainFragment();
+            selectItem(mainFragment);
         } else if (id == R.id.add_drink) {
             Fragment createFragment = new CreateDrinkFragment();
             selectItem(createFragment);
@@ -110,7 +115,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Drink drink) {
-
+        Log.d(TAG, "onListFragmentInteraction: " + drink.name);
     }
 
     @Override

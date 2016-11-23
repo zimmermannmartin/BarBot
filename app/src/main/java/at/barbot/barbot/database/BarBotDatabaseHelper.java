@@ -85,11 +85,11 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_table_barbot = "CREATE TABLE IF NOT EXISTS " + TABLE_BARBOT +
-                "(" +   COLUMN_BARBOT_PK_ID_BARBOT + " INTEGER PRIMARY KEY," +
+                "(" +   COLUMN_BARBOT_PK_ID_BARBOT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_BARBOT_NAME + " VARCHAR(45)" +
                 ")";
         String create_table_slaveunit = "CREATE TABLE IF NOT EXISTS " + TABLE_SLAVEUNIT +
-                "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY," +
+                "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_SLAVEUNIT_NAME + " VARCHAR(45)," +
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_BARBOT + " INTEGER," +
@@ -98,7 +98,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
                 ")";
         String create_table_ingredient = "CREATE TABLE IF NOT EXISTS " + TABLE_INGREDIENT +
-                "(" +   COLUMN_INGREDIENT_PK_ID_INGREDIENT + " INTEGER PRIMARY KEY," +
+                "(" +   COLUMN_INGREDIENT_PK_ID_INGREDIENT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_INGREDIENT_NAME + " VARCHAR(100)," +
                         COLUMN_INGREDIENT_VOL_PERCENT + " INTEGER" +
                 ")";
@@ -111,7 +111,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ") REFERENCES " + TABLE_DRINK + "(" + COLUMN_DRINK_PK_ID_DRINK + ")" +
                 ")";
         String create_table_drink = "CREATE TABLE IF NOT EXISTS " + TABLE_DRINK +
-                "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER PRIMARY KEY," +
+                "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_DRINK_NAME + " VARCHAR(100)," +
                         COLUMN_DRINK_DESCRIPTION + " MEDIUMTEXT," +
                         COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
@@ -152,7 +152,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_BARBOT_PK_ID_BARBOT, barBot.pk_id_barbot);
+            //values.put(COLUMN_BARBOT_PK_ID_BARBOT, barBot.pk_id_barbot);
             values.put(COLUMN_BARBOT_NAME, barBot.name);
 
             db.insertOrThrow(TABLE_BARBOT, null, values);
@@ -170,7 +170,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
+            //values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
             values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
             values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
             values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
@@ -191,7 +191,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_INGREDIENT_PK_ID_INGREDIENT, ingredient.pk_id_ingredient);
+            //values.put(COLUMN_INGREDIENT_PK_ID_INGREDIENT, ingredient.pk_id_ingredient);
             values.put(COLUMN_INGREDIENT_NAME, ingredient.name);
             values.put(COLUMN_INGREDIENT_VOL_PERCENT, ingredient.vol_percent);
 
@@ -229,7 +229,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_DRINK_PK_ID_DRINK, drink.pk_id_drink);
+
+            //values.put(COLUMN_DRINK_PK_ID_DRINK, drink.pk_id_drink);
             values.put(COLUMN_DRINK_NAME, drink.name);
             values.put(COLUMN_DRINK_DESCRIPTION, drink.description);
             values.put(COLUMN_DRINK_PICTURE, drink.picture);
