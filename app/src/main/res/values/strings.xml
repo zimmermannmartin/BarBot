@@ -16,7 +16,18 @@
     <string name="getraenke_erstellen_ml">ml</string>
     <string name="getraenk_erstellen_success">Das Getränk wurde erfoldgreich erstellt</string>
     <string name="ok">OK</string>
+    <string name="drinkDetailTitle">Getränkename</string>
+    <string name="drinkDetailDescription">Beschreibung: </string>
+    <string name="drinkDetailPlaceholder">Hier kommt die Beschreibung des Getränkes hin....</string>
+    <string name="drinkDetailIngr">Zutaten: </string>
+    <string name="drinkDetailOrderButton">Getränk Bestellen</string>
+
+
+
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
