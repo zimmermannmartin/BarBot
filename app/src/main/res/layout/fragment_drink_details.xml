@@ -31,7 +31,8 @@
             android:layout_marginStart="116dp"
             android:layout_alignTop="@+id/drinkDetailsPicture"
             android:layout_toRightOf="@+id/drinkDetailsPicture"
-            android:layout_toEndOf="@+id/drinkDetailsPicture" />
+            android:layout_toEndOf="@+id/drinkDetailsPicture"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:layout_width="wrap_content"

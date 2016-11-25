@@ -23,7 +23,10 @@
     <string name="drinkDetailIngr">Zutaten: </string>
     <string name="drinkDetailOrderButton">Getränk Bestellen</string>
 
-
+    <string name="createIngredientTitle">Zutat erstellen</string>
+    <string name="createIngredientNameOfIngredient">Name der Zutat</string>
+    <string name="createIngredientPictureButton">Bild auswählen</string>
+    <string name="createIngredientCreateButton">Zutat erstellen</string>
 
 
     <string name="action_settings">Settings</string>
