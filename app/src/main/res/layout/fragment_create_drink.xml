@@ -50,19 +50,6 @@
             android:layout_toStartOf="@+id/editTextGetraenkeName" />
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"
-            android:id="@+id/button3"
-            android:text="@string/getraenke_erstellen_button_bild"
-            android:onClick="addNewDrink"
-            android:layout_below="@+id/editTextGetraenkeName"
-            android:layout_alignLeft="@+id/textViewGetraenkeName"
-            android:layout_alignStart="@+id/textViewGetraenkeName"
-            android:layout_marginTop="224dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,6 +151,16 @@
             android:layout_alignLeft="@+id/topRightNumberInput"
             android:layout_alignStart="@+id/topRightNumberInput"
             android:hint="@string/getraenke_erstellen_ml" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:text="@string/getraenke_erstellen_textview_BestellenButton"
+            android:onClick="addNewDrink"
+            android:layout_marginTop="113dp"
+            android:layout_below="@+id/button2"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

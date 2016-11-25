@@ -13,6 +13,7 @@
     <string name="getraenke_erstellen_textview_getraenkeName">Getränkename</string>
     <string name="getraenke_erstellen_textview_Beschreibung">Beschreibung</string>
     <string name="getraenke_erstellen_textview_Bild">Bildpfad</string>
+    <string name="getraenke_erstellen_textview_BestellenButton">Getränk erstellen</string>
     <string name="getraenke_erstellen_ml">ml</string>
     <string name="getraenk_erstellen_success">Das Getränk wurde erfoldgreich erstellt</string>
     <string name="ok">OK</string>
