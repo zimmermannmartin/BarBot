@@ -4,8 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="show_drinks">Getränke anzeigen</string>
-    <string name="add">Neues Getränk erstellen</string>
+    <string name="addDrink">Neues Getränk erstellen</string>
     <string name="show_BarBot">Automat anzeigen</string>
+    <string name="addIngredient">Neue Zutat hinzufügen</string>
+    <string name="show_ingredients">Zutaten anzeigen</string>
+
     <string name="empty_list">Noch keine Elemente vorhanden</string>
     <string name="getraenke_erstellen_title">Getränke erstellen</string>
     <string name="getraenke_erstellen_button_weitere_zutaten">Weitere Zutat hinzufügen</string>
@@ -15,7 +18,8 @@
     <string name="getraenke_erstellen_textview_Bild">Bildpfad</string>
     <string name="getraenke_erstellen_textview_BestellenButton">Getränk erstellen</string>
     <string name="getraenke_erstellen_ml">ml</string>
-    <string name="getraenk_erstellen_success">Das Getränk wurde erfoldgreich erstellt</string>
+    <string name="getraenk_erstellen_success">Das Getränk wurde erfolgreich erstellt</string>
+    <string name="ingredient_erstellen_sucess">Die Zutat wurde erfolgreich erstellt</string>
     <string name="ok">OK</string>
     <string name="drinkDetailTitle">Getränkename</string>
     <string name="drinkDetailDescription">Beschreibung: </string>

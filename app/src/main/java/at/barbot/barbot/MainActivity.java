@@ -17,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Ingredient;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener,
+        CreateIngredientFragment.OnCreateIngredientFragmentInteractionListener, ListIngredientFragment.OnIngredientListFragmentInteractionListener{
 
     private static final String TAG = "Main Activity";
 
@@ -88,8 +90,14 @@ public class MainActivity extends AppCompatActivity
             Fragment mainFragment = new MainFragment();
             selectItem(mainFragment);
         } else if (id == R.id.add_drink) {
-            Fragment createFragment = new CreateDrinkFragment();
-            selectItem(createFragment);
+            Fragment createDrinkFragment = new CreateDrinkFragment();
+            selectItem(createDrinkFragment);
+        } else if (id == R.id.show_ingredients){
+            Fragment showIngredientsFragment = new ListIngredientFragment();
+            selectItem(showIngredientsFragment);
+        } else if (id == R.id.add_ingredient){
+            Fragment createIngredientFragment = new CreateIngredientFragment();
+            selectItem(createIngredientFragment);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -123,5 +131,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onCreateIngredientFragmentInteraction() {
 
+    }
+
+    public void onIngredientListFragmentInteraction(Ingredient ingredient){
+
+    }
 }

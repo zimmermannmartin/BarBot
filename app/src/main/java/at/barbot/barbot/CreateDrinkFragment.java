@@ -20,11 +20,11 @@ import at.barbot.barbot.database.Drink;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateDrinkFragment.OnFragmentInteractionListener} interface
+ * {@link CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener} interface
  * to handle interaction events.
  */
 public class CreateDrinkFragment extends Fragment {
-    private OnFragmentInteractionListener mListener;
+    private OnCreateDrinkFragmentInteractionListener mListener;
 
     private static final String TAG = "CreateDrinkFragment";
 
@@ -63,11 +63,11 @@ public class CreateDrinkFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnCreateDrinkFragmentInteractionListener) {
+            mListener = (OnCreateDrinkFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnCreateDrinkFragmentInteractionListener");
         }
     }
 
@@ -118,7 +118,7 @@ public class CreateDrinkFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnCreateDrinkFragmentInteractionListener {
         // TODO: Update argument type and name
         void onCreateFragmentInteraction();
     }

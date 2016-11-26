@@ -30,7 +30,7 @@
             android:layout_below="@+id/textView9"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
-            android:id="@+id/editText"
+            android:id="@+id/editTextZutatName"
             android:hint="@string/createIngredientNameOfIngredient"
             android:textAlignment="center" />
 
@@ -48,7 +48,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/editTextZutatName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="38dp"
             android:id="@+id/button"
@@ -72,7 +72,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="69dp"
-            android:id="@+id/button4"
+            android:id="@+id/zutatHinzufügen"
             android:textSize="18sp" />
     </RelativeLayout>
 </FrameLayout>
