@@ -7,8 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Ingredient;
 
 
 /**
@@ -20,21 +25,26 @@ import at.barbot.barbot.database.Drink;
 public class DrinkDetailsFragment extends Fragment {
     private static final String ARG_PKDRINK = "pk_drink";
 
-    private int drinkIdParam;
-
-    private OnDrinkDetailsFragmentInteractionListener mListener;
-
     private Drink drink;
+    private HashMap<Ingredient, Integer> ingredient_amount;
+    private OnDrinkDetailsFragmentInteractionListener mListener;
 
     public DrinkDetailsFragment() {
         // Required empty public constructor
+    }
+
+    public Drink getDrink() {
+        return drink;
+    }
+
+    public void setDrink(Drink drink_obj) {
+        this.drink = drink_obj;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            drinkIdParam = getArguments().getInt(ARG_PKDRINK);
         }
     }
 
@@ -68,10 +78,9 @@ public class DrinkDetailsFragment extends Fragment {
         mListener = null;
     }
 
-    public void getInformation(int pk_Drink){
+    public void getIngredientsWithAmounts(Drink drink){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
-        drink = databaseHelper.getDrink(pk_Drink);
-
+        ingredient_amount = databaseHelper.getIngredientswithAmounts(drink);
     }
 
     /**

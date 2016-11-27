@@ -9,7 +9,9 @@ import android.util.Log;
 
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Martin on 10.10.2016.
@@ -611,5 +613,50 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return drink;
+    }
+
+    public HashMap<Ingredient, Integer> getIngredientswithAmounts (Drink drink){
+        HashMap<Ingredient, Integer> ingrWAmount = new HashMap<>();
+        String query = String.format("select %s.%s, %s.%s, %s.%s, %s.%s " +
+                "from %s " +
+                "join %s on %s.%s = %s.%s " +
+                "join %s on %s.%s = %s.%s;",
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_PK_ID_INGREDIENT,
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_NAME,
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_VOL_PERCENT,
+                TABLE_DRINK_HAS_INGREDIENT,
+                COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML,
+                TABLE_DRINK,
+                TABLE_DRINK_HAS_INGREDIENT,
+                TABLE_DRINK,
+                COLUMN_DRINK_PK_ID_DRINK,
+                TABLE_DRINK_HAS_INGREDIENT,
+                COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK,
+                TABLE_INGREDIENT,
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_PK_ID_INGREDIENT,
+                TABLE_DRINK_HAS_INGREDIENT,
+                COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT);
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        try {
+            if (cursor.moveToFirst()){
+                do {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.pk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_PK_ID_INGREDIENT));
+                    ingredient.name = cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT_NAME));
+                    ingredient.vol_percent = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_VOL_PERCENT));
+                    Integer amount = cursor.getInt(cursor.getColumnIndex(COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML));
+                    ingrWAmount.put(ingredient, amount);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.d(TAG, "getIngredientswithAmounts: " + e);
+        }
+        return ingrWAmount;
     }
 }
