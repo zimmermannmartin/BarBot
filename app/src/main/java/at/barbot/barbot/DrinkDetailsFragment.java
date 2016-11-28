@@ -23,8 +23,6 @@ import at.barbot.barbot.database.Ingredient;
  * to handle interaction events.
  */
 public class DrinkDetailsFragment extends Fragment {
-    private static final String ARG_PKDRINK = "pk_drink";
-
     private Drink drink;
     private HashMap<Ingredient, Integer> ingredient_amount;
     private OnDrinkDetailsFragmentInteractionListener mListener;

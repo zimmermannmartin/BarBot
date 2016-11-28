@@ -619,7 +619,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         HashMap<Ingredient, Integer> ingrWAmount = new HashMap<>();
         String query = String.format("select %s.%s, %s.%s, %s.%s, %s.%s " +
                 "from %s " +
-                "join %s on %s.%s = %s.%s " +
+                "join %s on %s.%s = %s " +
                 "join %s on %s.%s = %s.%s;",
                 TABLE_INGREDIENT,
                 COLUMN_INGREDIENT_PK_ID_INGREDIENT,
@@ -631,10 +631,9 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML,
                 TABLE_DRINK,
                 TABLE_DRINK_HAS_INGREDIENT,
-                TABLE_DRINK,
-                COLUMN_DRINK_PK_ID_DRINK,
                 TABLE_DRINK_HAS_INGREDIENT,
                 COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK,
+                drink.pk_id_drink,
                 TABLE_INGREDIENT,
                 TABLE_INGREDIENT,
                 COLUMN_INGREDIENT_PK_ID_INGREDIENT,

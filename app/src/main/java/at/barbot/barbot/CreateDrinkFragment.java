@@ -119,7 +119,6 @@ public class CreateDrinkFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnCreateDrinkFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onCreateFragmentInteraction();
     }
 }
