@@ -10,11 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Ingredient;
 
 
 /**
@@ -50,6 +56,7 @@ public class CreateDrinkFragment extends Fragment {
                 addNewDrink(view);
             }
         });
+
         return view;
     }
 
@@ -106,6 +113,17 @@ public class CreateDrinkFragment extends Fragment {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public List<String> getAllIngredients(){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        List<Ingredient> ingrList = databaseHelper.getAllIngredients();
+        List<String> ingrNameList = new ArrayList<String>();
+        for (Ingredient item : ingrList){
+            ingrNameList.add(item.name);
+        }
+
+        return ingrNameList;
     }
 
     /**
