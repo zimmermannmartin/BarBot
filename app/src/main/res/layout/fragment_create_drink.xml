@@ -97,60 +97,16 @@
             android:layout_alignLeft="@+id/editTextBeschreibung"
             android:layout_alignStart="@+id/editTextBeschreibung" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/topLeftSpinner"
-            android:minWidth="175dp"
-            android:layout_below="@+id/textViewGetraenkeName"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_marginLeft="19dp"
-            android:layout_marginStart="19dp" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottomLeftSpinner"
-            android:minWidth="175dp"
-            android:layout_below="@+id/textViewBeschreibung"
-            android:layout_alignLeft="@+id/topLeftSpinner"
-            android:layout_alignStart="@+id/topLeftSpinner" />
-
         <Button
             android:text="@string/getraenke_erstellen_button_weitere_zutaten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
-            android:layout_below="@+id/editTextBeschreibung"
-            android:layout_alignRight="@+id/bottomRightNumberInput"
-            android:layout_alignEnd="@+id/bottomRightNumberInput"
-            android:layout_marginRight="48dp"
-            android:layout_marginEnd="48dp" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/topRightNumberInput"
-            android:minWidth="75dp"
-            android:layout_marginLeft="96dp"
-            android:layout_marginStart="96dp"
-            android:layout_above="@+id/editTextBeschreibung"
-            android:layout_toRightOf="@+id/bottomLeftSpinner"
-            android:layout_toEndOf="@+id/bottomLeftSpinner"
-            android:hint="@string/getraenke_erstellen_ml" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottomRightNumberInput"
-            android:minWidth="75dp"
-            android:layout_alignBottom="@+id/bottomLeftSpinner"
-            android:layout_alignLeft="@+id/topRightNumberInput"
-            android:layout_alignStart="@+id/topRightNumberInput"
-            android:hint="@string/getraenke_erstellen_ml" />
+            android:layout_marginLeft="76dp"
+            android:layout_marginStart="76dp"
+            android:id="@+id/addIngredientButton"
+            android:layout_alignTop="@+id/editTextGetraenkeName"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_alignBottom="@+id/editTextGetraenkeName" />
 
         <Button
             android:layout_width="wrap_content"
@@ -158,9 +114,22 @@
             android:id="@+id/button3"
             android:text="@string/getraenke_erstellen_textview_BestellenButton"
             android:onClick="addNewDrink"
-            android:layout_marginTop="113dp"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="129dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/addIngredientAmount"
+            android:layout_alignTop="@+id/addIngredientButton"
+            android:layout_toRightOf="@+id/addIngredientButton"
+            android:layout_toEndOf="@+id/addIngredientButton"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:hint="@string/getraenke_erstellen_ml" />
 
 
     </RelativeLayout>

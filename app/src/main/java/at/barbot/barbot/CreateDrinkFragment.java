@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import at.barbot.barbot.database.Ingredient;
  */
 public class CreateDrinkFragment extends Fragment {
     private OnCreateDrinkFragmentInteractionListener mListener;
+    private List<Ingredient> mItems = new ArrayList<>();
+    private List<Ingredient> allIngredients = getAllIngredients();
 
     private static final String TAG = "CreateDrinkFragment";
 
@@ -48,6 +51,14 @@ public class CreateDrinkFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_drink, container, false);
+
+        Button addIgredientButton = (Button) view.findViewById(R.id.addIngredientButton);
+        addIgredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openIngredientDialog(v);
+            }
+        });
 
         Button btn = (Button) view.findViewById(R.id.button3);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -115,15 +126,49 @@ public class CreateDrinkFragment extends Fragment {
         dialog.show();
     }
 
-    public List<String> getAllIngredients(){
+    public List<Ingredient> getAllIngredients(){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         List<Ingredient> ingrList = databaseHelper.getAllIngredients();
-        List<String> ingrNameList = new ArrayList<String>();
-        for (Ingredient item : ingrList){
-            ingrNameList.add(item.name);
-        }
 
-        return ingrNameList;
+        return ingrList;
+    }
+
+    public void openIngredientDialog(View v){
+        mItems = new ArrayList<>();
+        CharSequence ingrNameList[] = new CharSequence[allIngredients.size()];
+        int counter = 0;
+        for (Ingredient item : allIngredients){
+            ingrNameList[counter] = item.name;
+            counter++;
+        }
+        final ArrayList mSelectedItems = new ArrayList();
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle(R.string.drinkDetailIngr);
+        builder.setMultiChoiceItems(ingrNameList, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    mSelectedItems.add(which);
+                } else if (mSelectedItems.contains(which)) {
+                    mSelectedItems.remove(Integer.valueOf(which));
+                }
+            }
+        });
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i=0; i<mSelectedItems.size(); i++){
+                    mItems.add(allIngredients.get((int) mSelectedItems.get(i)));
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: cancel");
+            }
+        });
+        builder.show();
     }
 
     /**

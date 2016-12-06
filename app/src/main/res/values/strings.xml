@@ -20,7 +20,6 @@
     <string name="getraenke_erstellen_ml">ml</string>
     <string name="getraenk_erstellen_success">Das Getränk wurde erfolgreich erstellt</string>
     <string name="ingredient_erstellen_sucess">Die Zutat wurde erfolgreich erstellt</string>
-    <string name="ok">OK</string>
     <string name="drinkDetailTitle">Getränkename</string>
     <string name="drinkDetailDescription">Beschreibung: </string>
     <string name="drinkDetailPlaceholder">Hier kommt die Beschreibung des Getränkes hin....</string>
@@ -32,6 +31,8 @@
     <string name="createIngredientPictureButton">Bild auswählen</string>
     <string name="createIngredientCreateButton">Zutat erstellen</string>
 
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
 
     <string name="action_settings">Settings</string>
 
