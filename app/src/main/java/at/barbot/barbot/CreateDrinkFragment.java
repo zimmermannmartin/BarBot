@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,8 +159,22 @@ public class CreateDrinkFragment extends Fragment {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                LinearLayout ll = (LinearLayout) getActivity().findViewById(R.id.drinksIngredients);
                 for (int i=0; i<mSelectedItems.size(); i++){
-                    mItems.add(allIngredients.get((int) mSelectedItems.get(i)));
+                    Ingredient in = allIngredients.get((int) mSelectedItems.get(i));
+                    mItems.add(in);
+                    LinearLayout hl = new LinearLayout(getActivity());
+                    hl.setOrientation(LinearLayout.HORIZONTAL);
+                    TextView ingr = new TextView(getActivity());
+                    EditText amount = new EditText(getActivity());
+                    ingr.setText(in.name);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(0,10,5,0);
+                    amount.setHint(R.string.getraenke_erstellen_ml);
+                    hl.addView(ingr, params);
+                    hl.addView(amount);
+                    ll.addView(hl);
                 }
             }
         });

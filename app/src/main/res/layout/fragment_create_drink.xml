@@ -98,17 +98,6 @@
             android:layout_alignStart="@+id/editTextBeschreibung" />
 
         <Button
-            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="76dp"
-            android:layout_marginStart="76dp"
-            android:id="@+id/addIngredientButton"
-            android:layout_alignTop="@+id/editTextGetraenkeName"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_alignBottom="@+id/editTextGetraenkeName" />
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button3"
@@ -130,6 +119,32 @@
             android:layout_marginLeft="28dp"
             android:layout_marginStart="28dp"
             android:hint="@string/getraenke_erstellen_ml" />
+
+        <Button
+            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="116dp"
+            android:layout_marginStart="116dp"
+            android:id="@+id/addIngredientButton"
+            android:layout_above="@+id/button3"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
+
+        <ScrollView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_above="@+id/addIngredientAmount"
+            android:layout_below="@+id/textView2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/drinksIngredients"/>
+        </ScrollView>
 
 
     </RelativeLayout>
