@@ -114,7 +114,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 ")";
         String create_table_drink = "CREATE TABLE IF NOT EXISTS " + TABLE_DRINK +
                 "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        COLUMN_DRINK_NAME + " VARCHAR(100)," +
+                        COLUMN_DRINK_NAME + " VARCHAR(100) UNIQUE," +
                         COLUMN_DRINK_DESCRIPTION + " MEDIUMTEXT," +
                         COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
                 ")";
@@ -206,7 +206,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addDrinkHasIngredient (Drink_has_ingredient drinkIngredient){
+    public void addDrinkHasIngredient(Drink_has_ingredient drinkIngredient){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -607,6 +607,34 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             }
         }catch (Exception e){
             Log.d(TAG, "Error querying Drink" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return drink;
+    }
+
+    public Drink getDrinkByName (String name){
+        Drink drink = new Drink();
+        String selectQuery = String.format(
+                "SELECT * FROM %s WHERE %s = \"%s\"",
+                TABLE_DRINK,
+                COLUMN_DRINK_NAME,
+                name
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                drink.pk_id_drink = cursor.getInt(cursor.getColumnIndex(COLUMN_DRINK_PK_ID_DRINK));
+                drink.name = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_NAME));
+                drink.description = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_DESCRIPTION));
+                drink.picture = cursor.getString(cursor.getColumnIndex(COLUMN_DRINK_PICTURE));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error querying Drink by Name: " + e);
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();

@@ -3,9 +3,12 @@ package at.barbot.barbot;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,8 @@ public class DrinkDetailsFragment extends Fragment {
     private Drink drink;
     private HashMap<Ingredient, Integer> ingredient_amount;
     private OnDrinkDetailsFragmentInteractionListener mListener;
+
+    private static final String TAG = "DrinkDetailsFragment";
 
     public DrinkDetailsFragment() {
         // Required empty public constructor
@@ -49,8 +54,25 @@ public class DrinkDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_drink_details, container, false);
+
+        TextView drinkName = (TextView) view.findViewById(R.id.detailDrinkName);
+        drinkName.setText(drink.name);
+
+        TextView desc = (TextView) view.findViewById(R.id.drinkDescription);
+        desc.setText(drink.description);
+
+        getIngredientsWithAmounts(drink);
+        LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinkDetail_IngredientsList);
+        for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
+            Ingredient in = entry.getKey();
+            int val = entry.getValue();
+            TextView tv = new TextView(getContext());
+            tv.setText("" + in.name + "     " + val + "ml");
+            lv.addView(tv);
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drink_details, container, false);
+        return view;
     }
 
     public void onButtonPressed(Drink drink) {

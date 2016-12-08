@@ -23,6 +23,7 @@ import java.util.List;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
 
 
@@ -113,6 +114,19 @@ public class CreateDrinkFragment extends Fragment {
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         databaseHelper.addDrink(drink);
 
+        drink.pk_id_drink = databaseHelper.getDrinkByName(name).pk_id_drink;
+
+        for (Ingredient i : mItems){
+            EditText ingrAmount = (EditText) view.getRootView().findViewById(i.pk_id_ingredient);
+
+            Drink_has_ingredient drink_has_ingredient = new Drink_has_ingredient();
+            drink_has_ingredient.pk_fk_id_drink = drink.pk_id_drink;
+            drink_has_ingredient.pk_fk_id_ingredient = i.pk_id_ingredient;
+            drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
+
+            databaseHelper.addDrinkHasIngredient(drink_has_ingredient);
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.getraenk_erstellen_success)
                 .setTitle(R.string.getraenke_erstellen_title)
@@ -163,16 +177,17 @@ public class CreateDrinkFragment extends Fragment {
                 for (int i=0; i<mSelectedItems.size(); i++){
                     Ingredient in = allIngredients.get((int) mSelectedItems.get(i));
                     mItems.add(in);
-                    LinearLayout hl = new LinearLayout(getActivity());
+                    LinearLayout hl = new LinearLayout(getContext());
                     hl.setOrientation(LinearLayout.HORIZONTAL);
-                    TextView ingr = new TextView(getActivity());
-                    EditText amount = new EditText(getActivity());
+                    TextView ingr = new TextView(getContext());
+                    EditText amount = new EditText(getContext());
                     ingr.setText(in.name);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0,10,5,0);
                     amount.setHint(R.string.getraenke_erstellen_ml);
-                    hl.addView(ingr, params);
+                    amount.setId(in.pk_id_ingredient);
+                    /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(0,10,5,0);*/
+                    hl.addView(ingr/*, params*/);
                     hl.addView(amount);
                     ll.addView(hl);
                 }
