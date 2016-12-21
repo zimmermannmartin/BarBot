@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Drink drink) {
-        Log.d(TAG, "onListFragmentInteraction: " + drink.name);
         DrinkDetailsFragment drinkDetailsFragment = new DrinkDetailsFragment();
         drinkDetailsFragment.setDrink(drink);
         selectItem(drinkDetailsFragment);

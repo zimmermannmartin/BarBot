@@ -63,6 +63,7 @@ public class DrinkDetailsFragment extends Fragment {
         desc.setText(drink.description);
 
         getIngredientsWithAmounts(drink);
+        Log.d(TAG, "" + ingredient_amount);
         LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinkDetail_IngredientsList);
         for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
             Ingredient in = entry.getKey();

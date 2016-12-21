@@ -679,10 +679,15 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     ingredient.vol_percent = cursor.getInt(cursor.getColumnIndex(COLUMN_INGREDIENT_VOL_PERCENT));
                     Integer amount = cursor.getInt(cursor.getColumnIndex(COLUMN_DRINK_HAS_INGREDIENT_INGREDIENT_AMOUNT_IN_ML));
                     ingrWAmount.put(ingredient, amount);
+                    Log.d(TAG, "getIngredientswithAmounts: Name: " + ingredient.name + ", pk: " + ingredient.pk_id_ingredient + ", Amount: " + amount);
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){
             Log.d(TAG, "getIngredientswithAmounts: " + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
         }
         return ingrWAmount;
     }
