@@ -31,6 +31,11 @@
     <string name="createIngredientPictureButton">Bild auswählen</string>
     <string name="createIngredientCreateButton">Zutat erstellen</string>
 
+    <string name="Slave1">Slave Einheit 1</string>
+    <string name="Zutat">Zutat</string>
+    <string name="Speichern">Speichern</string>
+    <string name="Fuellstand">Füllstand</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
 
