@@ -1,5 +1,7 @@
 package at.barbot.barbot;
 
+import java.util.HashMap;
+
 import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Ingredient;
 
@@ -7,15 +9,17 @@ import at.barbot.barbot.database.Ingredient;
  * Created by Martin on 27.12.2016.
  */
 
-public class HandleOrder {
+public class Order {
     public Drink drink;
-    public Ingredient[] ingredients;
+    public HashMap<Ingredient, Integer> ingredients;
 
-    public HandleOrder(Drink d, Ingredient[] i){
+    public Order(Drink d, HashMap<Ingredient, Integer> i){
         drink = d;
         ingredients = i;
     }
 
+    public boolean submit(){
 
-
+        return false;
+    }
 }
