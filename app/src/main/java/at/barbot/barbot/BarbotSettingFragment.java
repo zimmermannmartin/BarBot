@@ -34,7 +34,6 @@ public class BarbotSettingFragment extends Fragment {
     private OnSettingsFragmentInteractionListener mListener;
 
     private List<Slaveunit> mItems = new ArrayList<>();
-    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     public BarbotSettingFragment() {
         // Required empty public constructor
@@ -95,32 +94,64 @@ public class BarbotSettingFragment extends Fragment {
             TextView leveltv = new TextView(getContext());
             ProgressBar pb = new ProgressBar(getContext());
 
-            headtv.setId(generateViewId());
-            iv.setId(generateViewId());
-            ingrtv.setId(generateViewId());
-            leveltv.setId(generateViewId());
-            pb.setId(generateViewId());
+            headtv.setId(View.generateViewId());
+            iv.setId(View.generateViewId());
+            ingrtv.setId(View.generateViewId());
+            leveltv.setId(View.generateViewId());
+            pb.setId(View.generateViewId());
+
+            RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            rl.setLayoutParams(rlParams);
+
+            RelativeLayout.LayoutParams headtvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            headtvParams.setMarginStart(191);
+            headtvParams.setMargins(191,243,0,0);
+            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+            headtv.setLayoutParams(headtvParams);
+
+            RelativeLayout.LayoutParams ivParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            ivParams.setMarginStart(167);
+            ivParams.leftMargin = 167;
+            ivParams.bottomMargin = 58;
+            ivParams.height = 150;
+            ivParams.width = 200;
+            ivParams.addRule(RelativeLayout.ALIGN_BOTTOM, headtv.getId());
+            ivParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            ivParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+            iv.setLayoutParams(ivParams);
+
+            RelativeLayout.LayoutParams ingrtvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,50);
+            ingrtvParams.topMargin = 30;
+            ingrtvParams.leftMargin = 15;
+            ingrtvParams.setMarginStart(15);
+            ingrtvParams.addRule(RelativeLayout.ALIGN_LEFT, leveltv.getId());
+            ingrtvParams.addRule(RelativeLayout.ALIGN_START, leveltv.getId());
+            ingrtvParams.addRule(RelativeLayout.BELOW, headtv.getId());
+            ingrtv.setLayoutParams(ingrtvParams);
+
+            RelativeLayout.LayoutParams leveltvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,50);
+            leveltvParams.rightMargin = 35;
+            leveltvParams.bottomMargin = 34;
+            leveltvParams.setMarginEnd(35);
+            leveltvParams.addRule(RelativeLayout.ALIGN_RIGHT, pb.getId());
+            leveltvParams.addRule(RelativeLayout.ALIGN_BOTTOM, pb.getId());
+            leveltvParams.addRule(RelativeLayout.ALIGN_END, pb.getId());
+            leveltv.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            leveltv.setLayoutParams(leveltvParams);
+
+            RelativeLayout.LayoutParams pbParams = new RelativeLayout.LayoutParams(150,20);
+            pbParams.topMargin = 107;
+            pbParams.addRule(RelativeLayout.BELOW, ingrtv.getId());
+            pbParams.addRule(RelativeLayout.ALIGN_LEFT, headtv.getId());
+            pbParams.addRule(RelativeLayout.ALIGN_START, headtv.getId());
+            pb.setLayoutParams(pbParams);
+
+
         }
         FrameLayout fl = (FrameLayout) getActivity().findViewById(R.id.barBot_setting);
         fl.addView(ll);
-    }
-
-    /**
-     * Generate a value suitable for use in {setId(int)}.
-     * This value will not collide with ID values generated at build time by aapt for R.id.
-     *
-     * @return a generated ID value
-     */
-    public static int generateViewId() {
-        for (;;) {
-            final int result = sNextGeneratedId.get();
-            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
-            int newValue = result + 1;
-            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
-            if (sNextGeneratedId.compareAndSet(result, newValue)) {
-                return result;
-            }
-        }
     }
 
     /**
