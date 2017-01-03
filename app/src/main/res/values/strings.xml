@@ -35,6 +35,8 @@
     <string name="Zutat">Zutat</string>
     <string name="Speichern">Speichern</string>
     <string name="Fuellstand">Füllstand</string>
+    <string name="FuellstandInMl">Füllstand in ml</string>
+    <string name="NamederSlaveunit">Name der Slave-Einheit</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
