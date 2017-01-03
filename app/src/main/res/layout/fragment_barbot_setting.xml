@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/barBot_setting"
     tools:context="at.barbot.barbot.BarbotSettingFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,6 +39,7 @@
         <ExpandableListView
             android:layout_height="100dp"
             android:layout_marginTop="18dp"
+            android:id="@+id/expandableListView"
             android:layout_below="@+id/textView3"
             android:layout_alignRight="@+id/imageView3"
             android:layout_alignEnd="@+id/imageView3"
@@ -50,10 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/expandableListView"
-            android:layout_marginTop="300dp"
             android:id="@+id/textView10"
             android:textSize="18sp"
-            android:layout_marginLeft="170dp" />
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
 
         <Button
             android:text="@string/Speichern"
@@ -79,6 +79,17 @@
             android:layout_alignEnd="@+id/expandableListView"
             android:layout_marginLeft="185dp"
             android:layout_width="175dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText3"
+            android:id="@+id/progressBar"
+            android:layout_alignRight="@+id/expandableListView"
+            android:layout_alignEnd="@+id/expandableListView"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3" />
 
     </RelativeLayout>
 </FrameLayout>

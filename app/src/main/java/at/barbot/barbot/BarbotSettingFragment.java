@@ -7,6 +7,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import at.barbot.barbot.database.BarBotDatabaseHelper;
+import at.barbot.barbot.database.Slaveunit;
 
 
 /**
@@ -19,6 +32,9 @@ import android.view.ViewGroup;
  */
 public class BarbotSettingFragment extends Fragment {
     private OnSettingsFragmentInteractionListener mListener;
+
+    private List<Slaveunit> mItems = new ArrayList<>();
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     public BarbotSettingFragment() {
         // Required empty public constructor
@@ -49,13 +65,6 @@ public class BarbotSettingFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_barbot_setting, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onSettingsFragmentInteraction();
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -71,6 +80,49 @@ public class BarbotSettingFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void showSlaveunits (){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        mItems = databaseHelper.getAllSlaveunits();
+
+        LinearLayout ll = new LinearLayout(getContext());
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        for (int i=0; i<mItems.size(); i++){
+            Slaveunit sl = mItems.get(i);
+            RelativeLayout rl = new RelativeLayout(getContext());
+            TextView headtv = new TextView(getContext());
+            ImageView iv = new ImageView(getContext());
+            TextView ingrtv = new TextView(getContext());
+            TextView leveltv = new TextView(getContext());
+            ProgressBar pb = new ProgressBar(getContext());
+
+            headtv.setId(generateViewId());
+            iv.setId(generateViewId());
+            ingrtv.setId(generateViewId());
+            leveltv.setId(generateViewId());
+            pb.setId(generateViewId());
+        }
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(R.id.barBot_setting);
+        fl.addView(ll);
+    }
+
+    /**
+     * Generate a value suitable for use in {setId(int)}.
+     * This value will not collide with ID values generated at build time by aapt for R.id.
+     *
+     * @return a generated ID value
+     */
+    public static int generateViewId() {
+        for (;;) {
+            final int result = sNextGeneratedId.get();
+            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+            int newValue = result + 1;
+            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+            if (sNextGeneratedId.compareAndSet(result, newValue)) {
+                return result;
+            }
+        }
     }
 
     /**
