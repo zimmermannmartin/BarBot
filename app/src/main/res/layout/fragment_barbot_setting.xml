@@ -45,16 +45,6 @@
             android:layout_alignEnd="@+id/imageView3"
             android:layout_width="150dp" />
 
-        <TextView
-            android:text="@string/Zutat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableListView"
-            android:id="@+id/textView10"
-            android:textSize="18sp"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3" />
-
         <Button
             android:text="@string/Speichern"
             android:layout_width="wrap_content"
@@ -66,20 +56,6 @@
             android:id="@+id/button2"
             android:layout_marginLeft="220dp" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="@string/Fuellstand"
-            android:ems="10"
-            android:layout_marginTop="410dp"
-            android:id="@+id/editText3"
-            android:textAlignment="center"
-            android:layout_below="@+id/expandableListView"
-            android:layout_alignRight="@+id/expandableListView"
-            android:layout_alignEnd="@+id/expandableListView"
-            android:layout_marginLeft="185dp"
-            android:layout_width="175dp" />
-
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
@@ -90,6 +66,30 @@
             android:layout_alignEnd="@+id/expandableListView"
             android:layout_alignLeft="@+id/imageView3"
             android:layout_alignStart="@+id/imageView3" />
+
+        <TextView
+            android:text="@string/Zutat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/expandableListView"
+            android:layout_toLeftOf="@+id/expandableListView"
+            android:layout_toStartOf="@+id/expandableListView"
+            android:layout_marginTop="15dp" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/Fuellstand"
+            android:ems="10"
+            android:layout_marginTop="14dp"
+            android:id="@+id/editText3"
+            android:textAlignment="center"
+            android:layout_width="175dp"
+            android:layout_below="@+id/expandableListView"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignEnd="@+id/textView3" />
 
     </RelativeLayout>
 </FrameLayout>
