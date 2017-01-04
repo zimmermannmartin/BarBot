@@ -1,33 +1,40 @@
 package at.barbot.barbot;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import at.barbot.barbot.database.BarBotDatabaseHelper;
+import at.barbot.barbot.database.Ingredient;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateSlaveunitFragment.OnFragmentInteractionListener} interface
+ * {@link CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CreateSlaveunitFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class CreateSlaveunitFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "CreateSlaveunitFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private OnCreateSlaveunitFragmentInteractionListener mListener;
 
-    private OnFragmentInteractionListener mListener;
+    public Ingredient mItem;
 
     public CreateSlaveunitFragment() {
         // Required empty public constructor
@@ -36,49 +43,31 @@ public class CreateSlaveunitFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment CreateSlaveunitFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static CreateSlaveunitFragment newInstance(String param1, String param2) {
+    public static CreateSlaveunitFragment newInstance() {
         CreateSlaveunitFragment fragment = new CreateSlaveunitFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_create_slaveunit, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_slaveunit, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnCreateSlaveunitFragmentInteractionListener) {
+            mListener = (OnCreateSlaveunitFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -91,6 +80,41 @@ public class CreateSlaveunitFragment extends Fragment {
         mListener = null;
     }
 
+    public void openIngredientDialog (View v){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        final List<Ingredient> allIngredients = databaseHelper.getAllIngredients();
+        CharSequence ingrNameList[] = new CharSequence[allIngredients.size()];
+        int counter = 0;
+        for (Ingredient item : allIngredients){
+            ingrNameList[counter] = item.name;
+            counter++;
+        }
+
+        final ArrayList mSelectedItems = new ArrayList();
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle(R.string.drinkDetailIngr);
+        builder.setSingleChoiceItems(ingrNameList, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: " + allIngredients.get(which).name);
+                mItem = allIngredients.get(which);
+            }
+        });
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: cancel");
+            }
+        });
+        builder.show();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -101,8 +125,7 @@ public class CreateSlaveunitFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnCreateSlaveunitFragmentInteractionListener {
+        void onCreateSlaveunitFragmentInteraction(Uri uri);
     }
 }
