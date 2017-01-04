@@ -499,6 +499,32 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         return slaveunit;
     }
 
+    public String getIngredientNameFromSlaveunit (Slaveunit sl){
+        String ingr = "";
+        String selectQuery = String.format(
+                "SELECT %s FROM %s WHERE %s = %s",
+                COLUMN_INGREDIENT_NAME,
+                TABLE_INGREDIENT,
+                COLUMN_INGREDIENT_PK_ID_INGREDIENT,
+                sl.fk_id_ingredient
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try {
+            if (cursor.moveToFirst()){
+                ingr = cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT_NAME));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error getting Name from Ingredient by Slaveunit: " + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return ingr;
+    }
+
     public List<Ingredient> getAllIngredients(){
         List<Ingredient> ingredientList = new ArrayList<Ingredient>();
 

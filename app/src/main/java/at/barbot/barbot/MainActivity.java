@@ -22,7 +22,7 @@ import at.barbot.barbot.database.Ingredient;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener,
         CreateIngredientFragment.OnCreateIngredientFragmentInteractionListener, ListIngredientFragment.OnIngredientListFragmentInteractionListener,
-        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener{
+        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener, BarbotSettingFragment.OnSettingsFragmentInteractionListener{
 
     private static final String TAG = "Main Activity";
 
@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity
             Fragment createIngredientFragment = new CreateIngredientFragment();
             selectItem(createIngredientFragment);
         } else if (id == R.id.nav_slideshow) {
-
+            Fragment barBotSettingFragment = new BarbotSettingFragment();
+            selectItem(barBotSettingFragment);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -146,6 +147,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDrinkDetailsFragmentInteraction(Drink drink){
+
+    }
+
+    @Override
+    public void onSettingsFragmentInteraction() {
 
     }
 }

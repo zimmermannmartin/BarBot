@@ -1,9 +1,14 @@
 package at.barbot.barbot;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +36,7 @@ import at.barbot.barbot.database.Slaveunit;
  * create an instance of this fragment.
  */
 public class BarbotSettingFragment extends Fragment {
+    private static final String TAG = "BarBotSettingFragment";
     private OnSettingsFragmentInteractionListener mListener;
 
     private List<Slaveunit> mItems = new ArrayList<>();
@@ -58,8 +64,11 @@ public class BarbotSettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_barbot_setting, container, false);
+        showSlaveunits(view);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_barbot_setting, container, false);
+        return view;
     }
 
     @Override
@@ -79,20 +88,20 @@ public class BarbotSettingFragment extends Fragment {
         mListener = null;
     }
 
-    public void showSlaveunits (){
+    public void showSlaveunits (View view){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         mItems = databaseHelper.getAllSlaveunits();
 
-        LinearLayout ll = new LinearLayout(getContext());
-        ll.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout ll = (LinearLayout) view.getRootView().findViewById(R.id.barBot_setting);
         for (int i=0; i<mItems.size(); i++){
             Slaveunit sl = mItems.get(i);
+
             RelativeLayout rl = new RelativeLayout(getContext());
             TextView headtv = new TextView(getContext());
             ImageView iv = new ImageView(getContext());
             TextView ingrtv = new TextView(getContext());
             TextView leveltv = new TextView(getContext());
-            ProgressBar pb = new ProgressBar(getContext());
+            ProgressBar pb = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
 
             headtv.setId(View.generateViewId());
             iv.setId(View.generateViewId());
@@ -109,6 +118,8 @@ public class BarbotSettingFragment extends Fragment {
             headtvParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             headtvParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             headtvParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+            headtv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            headtv.setTypeface(headtv.getTypeface(), Typeface.BOLD);
             headtv.setLayoutParams(headtvParams);
 
             RelativeLayout.LayoutParams ivParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -129,6 +140,8 @@ public class BarbotSettingFragment extends Fragment {
             ingrtvParams.addRule(RelativeLayout.ALIGN_LEFT, leveltv.getId());
             ingrtvParams.addRule(RelativeLayout.ALIGN_START, leveltv.getId());
             ingrtvParams.addRule(RelativeLayout.BELOW, headtv.getId());
+            ingrtv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            ingrtv.setTypeface(headtv.getTypeface(), Typeface.BOLD);
             ingrtv.setLayoutParams(ingrtvParams);
 
             RelativeLayout.LayoutParams leveltvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,50);
@@ -139,6 +152,7 @@ public class BarbotSettingFragment extends Fragment {
             leveltvParams.addRule(RelativeLayout.ALIGN_BOTTOM, pb.getId());
             leveltvParams.addRule(RelativeLayout.ALIGN_END, pb.getId());
             leveltv.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            leveltv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             leveltv.setLayoutParams(leveltvParams);
 
             RelativeLayout.LayoutParams pbParams = new RelativeLayout.LayoutParams(150,20);
@@ -148,10 +162,27 @@ public class BarbotSettingFragment extends Fragment {
             pbParams.addRule(RelativeLayout.ALIGN_START, headtv.getId());
             pb.setLayoutParams(pbParams);
 
+            headtv.setText(sl.name);
+            iv.setImageResource(R.drawable.ic_menu_camera);
+            ingrtv.setText(databaseHelper.getIngredientNameFromSlaveunit(sl));
+            leveltv.setText(R.string.Fuellstand);
+            pb.setMax(1500); // 1500ml = 1,5L
+            if(Build.VERSION.SDK_INT < 24) {
+                pb.setProgress(sl.filling_level_in_ml);
+            }else {
+                pb.setProgress(sl.filling_level_in_ml, true);
+            }
 
+            // Add the View Elements of one Slaveunit to the surrounding relative Layout
+            rl.addView(headtv);
+            rl.addView(iv);
+            rl.addView(ingrtv);
+            rl.addView(leveltv);
+            rl.addView(pb);
+
+            // Add the relative Layout to the linear Layout
+            ll.addView(rl);
         }
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(R.id.barBot_setting);
-        fl.addView(ll);
     }
 
     /**
