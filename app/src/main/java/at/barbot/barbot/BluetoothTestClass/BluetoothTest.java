@@ -13,14 +13,15 @@ public class BluetoothTest {
 
 
     public static void main(String[] args) {
-        System.out.println(bluetooth("G;1:20;2:30;3:60"));
-        System.out.println(bluetooth("S;"));
-        System.out.println(bluetooth("NS;"));
-        System.out.println(bluetooth("DS;"));
+        //Test
+        bluetooth("G;1:20;2:30;3:60");
+        bluetooth("S;");
+        bluetooth("NS;");
+        bluetooth("DS;");
     }
 
-    public static void send(String message){
-        System.out.println(message);
+    public static String send(String message){
+        return message;
     }
 
     public static void makeDrink(String[] ingridientList){
@@ -28,7 +29,7 @@ public class BluetoothTest {
         send("G;finish");
     }
 
-    public static String bluetooth(String input){
+    public static void bluetooth(String input){
         String[] drinkList;
         drinkList = input.split(";");
 
@@ -49,8 +50,5 @@ public class BluetoothTest {
             int numberOfSlaves = slaveUnits.length;
             send("DS;"+numberOfSlaves); // gehört die nummber die abgesteckt wurde
         }
-
-
-        return"";
     }
 }
