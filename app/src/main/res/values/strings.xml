@@ -38,10 +38,13 @@
     <string name="Fuellstand">Füllstand</string>
     <string name="FuellstandInMl">Füllstand in ml</string>
     <string name="NamederSlaveunit">Name der Slave-Einheit</string>
+    <string name="slaveunit_erstellen_sucess">Die Slaveunit wurde erfolgreich erstellt</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="test">TEST</string>
 
 </resources>

@@ -28,7 +28,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     /**
      * Table Names
      */
-    private static final String TABLE_BARBOT = "barbot";
+    //private static final String TABLE_BARBOT = "barbot";
     private static final String TABLE_SLAVEUNIT = "slaveunit";
     private static final String TABLE_INGREDIENT = "ingredient";
     private static final String TABLE_DRINK_HAS_INGREDIENT = "drink_has_ingredient";
@@ -38,9 +38,9 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
      * Table Columns
      */
 
-    //Table BarBot columns
+    /*Table BarBot columns
     private static final String COLUMN_BARBOT_PK_ID_BARBOT = "pk_id_barbot";
-    private static final String COLUMN_BARBOT_NAME = "name";
+    private static final String COLUMN_BARBOT_NAME = "name";*/
 
     //Table Slaveunit columns
     private static final String COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT = "pk_id_slaveunit";
@@ -86,17 +86,17 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_table_barbot = "CREATE TABLE IF NOT EXISTS " + TABLE_BARBOT +
+        /*String create_table_barbot = "CREATE TABLE IF NOT EXISTS " + TABLE_BARBOT +
                 "(" +   COLUMN_BARBOT_PK_ID_BARBOT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_BARBOT_NAME + " VARCHAR(45)" +
-                ")";
+                ")";*/
         String create_table_slaveunit = "CREATE TABLE IF NOT EXISTS " + TABLE_SLAVEUNIT +
                 "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COLUMN_SLAVEUNIT_NAME + " VARCHAR(45)," +
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_BARBOT + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + " INTEGER," +
-                        "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")," +
+                        //"FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_BARBOT + ") REFERENCES " + TABLE_BARBOT + "(" + COLUMN_BARBOT_PK_ID_BARBOT + ")," +
                         "FOREIGN KEY(" + COLUMN_SLAVEUNIT_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")" +
                 ")";
         String create_table_ingredient = "CREATE TABLE IF NOT EXISTS " + TABLE_INGREDIENT +
@@ -119,7 +119,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
                 ")";
 
-        db.execSQL(create_table_barbot);
+        //db.execSQL(create_table_barbot);
         db.execSQL(create_table_ingredient);
         db.execSQL(create_table_slaveunit);
         db.execSQL(create_table_drink);
@@ -130,7 +130,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         if (oldV != newV) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARBOT);
+            //db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARBOT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SLAVEUNIT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRINK_HAS_INGREDIENT);
@@ -145,8 +145,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Einen neuen BarBot hinzufuegen
-     * @param barBot: Ein Model, welches den BarBot repraesentiert
-     */
+     * Ein Model, welches den BarBot repraesentiert
+     *
     public void addBarBot (BarBot barBot){
         // create and/or open database
         SQLiteDatabase db = getWritableDatabase();
@@ -164,7 +164,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
-    }
+    } */
 
     public void addSlaveunit (Slaveunit slave){
         SQLiteDatabase db = getWritableDatabase();
@@ -250,7 +250,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         ----------------------- Update Actions -----------------------
      */
 
-    public void updateBarBot (BarBot barBot){
+    /*public void updateBarBot (BarBot barBot){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -266,7 +266,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
-    }
+    } */
 
     public void updateSlaveUnit (Slaveunit slave){
         SQLiteDatabase db = getWritableDatabase();
@@ -350,7 +350,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         ----------------------- Delete Actions -----------------------
      */
 
-    public void deleteBarBot (BarBot barBot){
+    /*public void deleteBarBot (BarBot barBot){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -361,7 +361,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
-    }
+    } */
 
     public void deleteSlaveunit (Slaveunit slaveunit){
         SQLiteDatabase db = getWritableDatabase();
@@ -415,7 +415,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public BarBot getBarBot(){
+    /*public BarBot getBarBot(){
         BarBot barBot = new BarBot();
         String selectQuery = String.format(
                 "SELECT * FROM %s",
@@ -437,7 +437,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return barBot;
-    }
+    } */
 
     public List<Slaveunit> getAllSlaveunits(){
         List<Slaveunit> slaveunitList = new ArrayList<Slaveunit>();

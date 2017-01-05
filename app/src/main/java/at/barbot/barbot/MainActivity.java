@@ -22,7 +22,7 @@ import at.barbot.barbot.database.Ingredient;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener,
         CreateIngredientFragment.OnCreateIngredientFragmentInteractionListener, ListIngredientFragment.OnIngredientListFragmentInteractionListener,
-        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener, BarbotSettingFragment.OnSettingsFragmentInteractionListener{
+        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener, BarbotSettingFragment.OnSettingsFragmentInteractionListener, CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener{
 
     private static final String TAG = "Main Activity";
 
@@ -103,7 +103,9 @@ public class MainActivity extends AppCompatActivity
             Fragment barBotSettingFragment = new BarbotSettingFragment();
             selectItem(barBotSettingFragment);
         } else if (id == R.id.nav_manage) {
-
+            // TODO: dieses Fragment nach dem testen wieder löschen (Wird nachher von Bluetooth-Service Aufgerufen)
+            Fragment createSlaveunitFragment = new CreateSlaveunitFragment();
+            selectItem(createSlaveunitFragment);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -152,6 +154,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSettingsFragmentInteraction() {
+
+    }
+
+    @Override
+    public void onCreateSlaveunitFragmentInteraction() {
 
     }
 }
