@@ -10,28 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:text="@string/Speichern"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableListView"
-            android:layout_alignLeft="@+id/expandableListView"
-            android:layout_alignStart="@+id/expandableListView"
-            android:layout_marginTop="540dp"
-            android:id="@+id/button2"
-            android:layout_marginLeft="420dp" />
-
-        <TextView
-            android:text="@string/Zutat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView10"
-            android:textSize="18sp"
-            android:layout_alignTop="@+id/expandableListView"
-            android:layout_toLeftOf="@+id/expandableListView"
-            android:layout_toStartOf="@+id/expandableListView"
-            android:layout_marginTop="15dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,26 +30,33 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <ExpandableListView
-            android:layout_height="100dp"
-            android:layout_marginTop="98dp"
-            android:id="@+id/expandableListView"
-            android:layout_width="150dp"
-            android:layout_below="@+id/textView3"
-            android:layout_alignRight="@+id/imageView3"
-            android:layout_alignEnd="@+id/imageView3" />
-
-        <EditText
+        <Button
+            android:text="@string/Speichern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="@string/Slave1"
-            android:ems="10"
-            android:layout_below="@+id/textView3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
-            android:id="@+id/editText2"
-            android:textAlignment="center" />
+            android:layout_marginTop="34dp"
+            android:id="@+id/button2"
+            android:layout_marginLeft="420dp"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="@string/Zutat"
+            android:layout_width="wrap_content"
+            android:id="@+id/textView10"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/editText2"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="@string/ZutatWaehlen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4"
+            android:layout_below="@+id/textView10"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:text="@string/Fuellstand"
@@ -81,20 +66,30 @@
             android:textSize="18sp"
             android:textStyle="normal|bold"
             android:textAlignment="center"
-            android:layout_below="@+id/expandableListView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="42dp"
+            android:layout_below="@+id/button4"
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:layout_marginTop="36dp"
             android:id="@+id/editText3"
             android:textAlignment="center"
             android:layout_width="175dp"
             android:hint="@string/FuellstandInMl"
-            android:layout_alignTop="@+id/textView11"
+            android:layout_below="@+id/textView11"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/Slave1"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:textAlignment="center"
+            android:layout_below="@+id/textView3"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
