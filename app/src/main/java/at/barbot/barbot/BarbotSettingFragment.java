@@ -89,82 +89,25 @@ public class BarbotSettingFragment extends Fragment {
     }
 
     public void showSlaveunits (View view){
+        LayoutInflater inflater = (LayoutInflater.from(view.getContext()));
+        LinearLayout ll = (LinearLayout) view.getRootView().findViewById(R.id.barBot_setting);
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         mItems = databaseHelper.getAllSlaveunits();
 
-        LinearLayout ll = (LinearLayout) view.getRootView().findViewById(R.id.barBot_setting);
         for (int i=0; i<mItems.size(); i++){
             Slaveunit sl = mItems.get(i);
 
-            RelativeLayout rl = new RelativeLayout(getContext());
-            TextView headtv = new TextView(getContext());
-            ImageView iv = new ImageView(getContext());
-            TextView ingrtv = new TextView(getContext());
-            TextView leveltv = new TextView(getContext());
-            ProgressBar pb = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
+            View v = inflater.inflate(R.layout.slaveunit, null);
 
-            headtv.setId(View.generateViewId());
-            iv.setId(View.generateViewId());
-            ingrtv.setId(View.generateViewId());
-            leveltv.setId(View.generateViewId());
-            pb.setId(View.generateViewId());
-
-            RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            rl.setLayoutParams(rlParams);
-
-            RelativeLayout.LayoutParams headtvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            headtvParams.setMarginStart(191);
-            headtvParams.setMargins(191,243,0,0);
-            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            headtvParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-            headtv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-            headtv.setTypeface(headtv.getTypeface(), Typeface.BOLD);
-            headtv.setLayoutParams(headtvParams);
-
-            RelativeLayout.LayoutParams ivParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            ivParams.setMarginStart(167);
-            ivParams.leftMargin = 167;
-            ivParams.bottomMargin = 58;
-            ivParams.height = 150;
-            ivParams.width = 200;
-            ivParams.addRule(RelativeLayout.ALIGN_BOTTOM, headtv.getId());
-            ivParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            ivParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-            iv.setLayoutParams(ivParams);
-
-            RelativeLayout.LayoutParams ingrtvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,50);
-            ingrtvParams.topMargin = 30;
-            ingrtvParams.leftMargin = 15;
-            ingrtvParams.setMarginStart(15);
-            ingrtvParams.addRule(RelativeLayout.ALIGN_LEFT, leveltv.getId());
-            ingrtvParams.addRule(RelativeLayout.ALIGN_START, leveltv.getId());
-            ingrtvParams.addRule(RelativeLayout.BELOW, headtv.getId());
-            ingrtv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            ingrtv.setTypeface(headtv.getTypeface(), Typeface.BOLD);
-            ingrtv.setLayoutParams(ingrtvParams);
-
-            RelativeLayout.LayoutParams leveltvParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,50);
-            leveltvParams.rightMargin = 35;
-            leveltvParams.bottomMargin = 34;
-            leveltvParams.setMarginEnd(35);
-            leveltvParams.addRule(RelativeLayout.ALIGN_RIGHT, pb.getId());
-            leveltvParams.addRule(RelativeLayout.ALIGN_BOTTOM, pb.getId());
-            leveltvParams.addRule(RelativeLayout.ALIGN_END, pb.getId());
-            leveltv.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            leveltv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            leveltv.setLayoutParams(leveltvParams);
-
-            RelativeLayout.LayoutParams pbParams = new RelativeLayout.LayoutParams(150,20);
-            pbParams.topMargin = 107;
-            pbParams.addRule(RelativeLayout.BELOW, ingrtv.getId());
-            pbParams.addRule(RelativeLayout.ALIGN_LEFT, headtv.getId());
-            pbParams.addRule(RelativeLayout.ALIGN_START, headtv.getId());
-            pb.setLayoutParams(pbParams);
+            TextView headtv = (TextView) v.findViewById(R.id.textView3);
+            ImageView iv = (ImageView) v.findViewById(R.id.imageView3);
+            TextView ingrtv = (TextView) v.findViewById(R.id.textView10);
+            TextView leveltv = (TextView) v.findViewById(R.id.textView6);
+            ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
 
             headtv.setText(sl.name);
             iv.setImageResource(R.drawable.ic_menu_camera);
-            ingrtv.setText(databaseHelper.getIngredientNameFromSlaveunit(sl));
+            ingrtv.setText(String.format("%s %s", "Zutat:", databaseHelper.getIngredientNameFromSlaveunit(sl)));
             leveltv.setText(R.string.Fuellstand);
             pb.setMax(1500); // 1500ml = 1,5L
             if(Build.VERSION.SDK_INT < 24) {
@@ -173,15 +116,7 @@ public class BarbotSettingFragment extends Fragment {
                 pb.setProgress(sl.filling_level_in_ml, true);
             }
 
-            // Add the View Elements of one Slaveunit to the surrounding relative Layout
-            rl.addView(headtv);
-            rl.addView(iv);
-            rl.addView(ingrtv);
-            rl.addView(leveltv);
-            rl.addView(pb);
-
-            // Add the relative Layout to the linear Layout
-            ll.addView(rl);
+            ll.addView(v);
         }
     }
 

@@ -144,7 +144,6 @@ public class CreateSlaveunitFragment extends Fragment {
         Slaveunit slaveunit = new Slaveunit();
         slaveunit.filling_level_in_ml = filling_level_in_ml;
         slaveunit.name = name;
-        slaveunit.fk_id_barbot = 1;
         slaveunit.fk_id_ingredient = mItem.pk_id_ingredient;
 
         databaseHelper.addSlaveunit(slaveunit);
