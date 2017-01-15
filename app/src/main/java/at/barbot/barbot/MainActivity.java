@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content_frame, mainFragment).commit();
         }
+
     }
 
     @Override
