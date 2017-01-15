@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -68,13 +67,45 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/editTextBeschreibung"
-            android:hint="@string/getraenke_erstellen_textview_Beschreibung"
+            android:hint="@string/getraenke_erstellen_textview_getraenkeName"
             android:singleLine="true"
             android:layout_alignLeft="@+id/editTextGetraenkeName"
             android:layout_alignStart="@+id/editTextGetraenkeName"
             android:layout_above="@+id/editTextPicture"
-            android:layout_alignTop="@+id/textViewBeschreibung"
-            android:windowSoftInputMode="adjustPan"/>
+            android:layout_alignTop="@+id/textViewBeschreibung" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:text="@string/getraenke_erstellen_textview_Bild"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/textViewBeschreibung"
+            android:layout_alignStart="@+id/textViewBeschreibung" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextPicture"
+            android:hint="@string/getraenke_erstellen_textview_Bild"
+            android:singleLine="true"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/editTextBeschreibung"
+            android:layout_alignStart="@+id/editTextBeschreibung" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:text="@string/getraenke_erstellen_textview_BestellenButton"
+            android:onClick="addNewDrink"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="129dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -89,10 +120,22 @@
             android:layout_marginStart="28dp"
             android:hint="@string/getraenke_erstellen_ml" />
 
+        <Button
+            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="116dp"
+            android:layout_marginStart="116dp"
+            android:id="@+id/addIngredientButton"
+            android:layout_above="@+id/button3"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
+
         <ScrollView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2"
             android:layout_above="@+id/addIngredientAmount"
             android:layout_below="@+id/textView2">
 
@@ -102,47 +145,6 @@
                 android:orientation="vertical"
                 android:id="@+id/drinksIngredients"/>
         </ScrollView>
-
-        <Button
-            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="116dp"
-            android:id="@+id/addIngredientButton"
-            android:layout_marginEnd="130dp"
-            android:layout_alignBaseline="@+id/button"
-            android:layout_alignBottom="@+id/button"
-            android:layout_alignParentEnd="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button3"
-            android:text="@string/createIngredientPictureButton"
-            android:layout_marginStart="77dp"
-            android:layout_marginTop="39dp"
-            android:layout_below="@+id/editTextBeschreibung"
-            android:layout_alignStart="@+id/textViewBeschreibung" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_menu_camera"
-            android:layout_below="@+id/button3"
-            android:layout_toEndOf="@+id/textViewBeschreibung"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="64dp"
-            android:id="@+id/imageView2" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:text="@string/getraenke_erstellen_textview_BestellenButton"
-            android:onClick="addNewDrink"
-            android:layout_marginTop="54dp"
-            android:layout_below="@+id/imageView2"
-            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
