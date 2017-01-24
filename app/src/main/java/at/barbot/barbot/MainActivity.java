@@ -20,9 +20,14 @@ import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Ingredient;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnListFragmentInteractionListener, CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener,
-        CreateIngredientFragment.OnCreateIngredientFragmentInteractionListener, ListIngredientFragment.OnIngredientListFragmentInteractionListener,
-        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener, BarbotSettingFragment.OnSettingsFragmentInteractionListener, CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+        MainFragment.OnListFragmentInteractionListener,
+        CreateDrinkFragment.OnCreateDrinkFragmentInteractionListener,
+        CreateIngredientFragment.OnCreateIngredientFragmentInteractionListener,
+        ListIngredientFragment.OnIngredientListFragmentInteractionListener,
+        DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener,
+        BarbotSettingFragment.OnSettingsFragmentInteractionListener,
+        CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener {
 
     private static final String TAG = "Main Activity";
 
@@ -91,21 +96,16 @@ public class MainActivity extends AppCompatActivity
             Fragment mainFragment = new MainFragment();
             selectItem(mainFragment);
         } else if (id == R.id.add_drink) {
-            Fragment createDrinkFragment = new CreateDrinkFragment();
-            selectItem(createDrinkFragment);
-        } else if (id == R.id.show_ingredients){
-            Fragment showIngredientsFragment = new ListIngredientFragment();
-            selectItem(showIngredientsFragment);
-        } else if (id == R.id.add_ingredient){
-            Fragment createIngredientFragment = new CreateIngredientFragment();
-            selectItem(createIngredientFragment);
+            selectItem(new CreateDrinkFragment());
+        } else if (id == R.id.show_ingredients) {
+            selectItem(new ListIngredientFragment());
+        } else if (id == R.id.add_ingredient) {
+            selectItem(new CreateIngredientFragment());
         } else if (id == R.id.nav_slideshow) {
-            Fragment barBotSettingFragment = new BarbotSettingFragment();
-            selectItem(barBotSettingFragment);
+            selectItem(new BarbotSettingFragment());
         } else if (id == R.id.nav_manage) {
             // TODO: dieses Fragment nach dem testen wieder löschen (Wird nachher von Bluetooth-Service Aufgerufen)
-            Fragment createSlaveunitFragment = new CreateSlaveunitFragment();
-            selectItem(createSlaveunitFragment);
+            selectItem(new CreateSlaveunitFragment());
         } /*else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void selectItem(Fragment fragment){
+    public void selectItem(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_frame, fragment);
         transaction.addToBackStack(null);
@@ -143,13 +143,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onIngredientListFragmentInteraction(Ingredient ingredient){
+    public void onIngredientListFragmentInteraction(Ingredient ingredient) {
 
     }
 
     @Override
-    public void onDrinkDetailsFragmentInteraction(Drink drink){
-
+    public void onDrinkDetailsFragmentInteraction(Drink drink) {
+        // nothing to do
     }
 
     @Override

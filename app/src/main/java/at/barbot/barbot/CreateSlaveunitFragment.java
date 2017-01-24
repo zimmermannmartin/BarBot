@@ -3,7 +3,6 @@ package at.barbot.barbot;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
@@ -50,8 +47,7 @@ public class CreateSlaveunitFragment extends Fragment {
      * @return A new instance of fragment CreateSlaveunitFragment.
      */
     public static CreateSlaveunitFragment newInstance() {
-        CreateSlaveunitFragment fragment = new CreateSlaveunitFragment();
-        return fragment;
+        return new CreateSlaveunitFragment();
     }
 
     @Override
@@ -106,8 +102,7 @@ public class CreateSlaveunitFragment extends Fragment {
         CharSequence ingrNameList[] = new CharSequence[allIngredients.size()];
         int counter = 0;
         for (Ingredient item : allIngredients){
-            ingrNameList[counter] = item.name;
-            counter++;
+            ingrNameList[counter++] = item.name;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
@@ -148,7 +143,8 @@ public class CreateSlaveunitFragment extends Fragment {
 
         databaseHelper.addSlaveunit(slaveunit);
 
-        Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout), R.string.slaveunit_erstellen_sucess, Snackbar.LENGTH_SHORT);
+        Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout),
+                R.string.slaveunit_erstellen_sucess, Snackbar.LENGTH_SHORT);
         showSuccessDialog.show();
     }
 

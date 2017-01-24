@@ -280,7 +280,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
             values.put(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT, slave.fk_id_ingredient);
 
-            int rows = db.update(TABLE_SLAVEUNIT, values, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?", new String[]{""+slave.pk_id_slaveunit});
+            int rows = db.update(TABLE_SLAVEUNIT, values, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?",
+                    new String[]{""+slave.pk_id_slaveunit});
             db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error updating Slaveunit" + e);
@@ -299,7 +300,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_INGREDIENT_NAME, ingredient.name);
             values.put(COLUMN_INGREDIENT_VOL_PERCENT, ingredient.vol_percent);
 
-            int rows = db.update(TABLE_INGREDIENT, values, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?", new String[]{""+ingredient.pk_id_ingredient});
+            int rows = db.update(TABLE_INGREDIENT, values, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?",
+                    new String[]{""+ingredient.pk_id_ingredient});
             db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error updating Ingredient" + e);
@@ -368,7 +370,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            int rows = db.delete(TABLE_SLAVEUNIT, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?", new String[]{""+slaveunit.pk_id_slaveunit});
+            int rows = db.delete(TABLE_SLAVEUNIT, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?",
+                    new String[]{String.valueOf(slaveunit.pk_id_slaveunit)});
         }catch (Exception e){
             Log.d(TAG, "Error deleting Slaveunit" + e);
         }finally {
@@ -381,7 +384,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            int rows = db.delete(TABLE_INGREDIENT, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?", new String[]{""+ingredient.pk_id_ingredient});
+            int rows = db.delete(TABLE_INGREDIENT, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?",
+                    new String[]{Integer.toString(ingredient.pk_id_ingredient)});
         }catch (Exception e){
             Log.d(TAG, "Error deleting ingredient" + e);
         }finally {
