@@ -37,7 +37,6 @@ public class ListBluetoothDevicesFragment extends Fragment {
     //Bluetooth
     private BluetoothAdapter mAdapter = null;
     private Set<BluetoothDevice> pairedDevices;
-    public static String EXTRA_ADDRESS = "device_address";
 
     public ListBluetoothDevicesFragment() {
         // Required empty public constructor
