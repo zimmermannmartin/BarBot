@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             // TODO: dieses Fragment nach dem testen wieder löschen (Wird nachher von Bluetooth-Service Aufgerufen)
             selectItem(new CreateSlaveunitFragment());
-        } /*else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_bluetooth) {
+            selectItem(new ListBluetoothDevicesFragment());
+        } /*else if (id == R.id.nav_send) {
 
         }*/
 

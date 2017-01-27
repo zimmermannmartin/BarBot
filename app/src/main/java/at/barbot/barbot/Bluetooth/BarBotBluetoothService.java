@@ -34,6 +34,8 @@ public class BarBotBluetoothService {
     public BarBotBluetoothService(String address) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
+
+        Log.d(TAG, "BarBotBluetoothService: HALLO");
     }
 
     /**
