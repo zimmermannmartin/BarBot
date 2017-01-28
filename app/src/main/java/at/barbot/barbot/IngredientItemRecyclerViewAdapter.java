@@ -1,16 +1,15 @@
 package at.barbot.barbot;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import at.barbot.barbot.ListIngredientFragment.OnIngredientListFragmentInteractionListener;
 import at.barbot.barbot.database.Ingredient;
-
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Ingredient} and makes a call to the

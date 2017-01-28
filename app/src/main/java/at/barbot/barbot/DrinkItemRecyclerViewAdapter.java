@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import at.barbot.barbot.MainFragment.OnListFragmentInteractionListener;
 import at.barbot.barbot.database.Drink;
-
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Drink} and makes a call to the
