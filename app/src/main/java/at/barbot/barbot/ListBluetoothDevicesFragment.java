@@ -119,7 +119,7 @@ public class ListBluetoothDevicesFragment extends Fragment {
             String address = info.substring(info.length() - 17);
 
             //TODO: überlegen ob eine newInstance Methode für Bluetooth gut wäre
-            BarBotBluetoothService bluetoothService = new BarBotBluetoothService(address);
+            BarBotBluetoothService bluetoothService = new BarBotBluetoothService(address, getActivity().getApplicationContext());
 
             mListener.onBluetoothFragmentInteraction();
         }
