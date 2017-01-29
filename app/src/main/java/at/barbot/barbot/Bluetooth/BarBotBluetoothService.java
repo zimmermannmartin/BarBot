@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ import at.barbot.barbot.R;
 public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
 
+    private static BarBotBluetoothService sInstance;
+
     BluetoothAdapter mAdapter;
     private int mState;
     private String mAddress;
@@ -35,7 +38,7 @@ public class BarBotBluetoothService {
     private OutputStream mOutputStream;
     private String mData;
 
-    private Context mAppContext;
+    public Context mAppContext;
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
@@ -58,7 +61,20 @@ public class BarBotBluetoothService {
 
         new ConnectBT().execute(); //Call the class to connect
 
+        sInstance = this;
+
         Log.d(TAG, "BarBotBluetoothService -> Adress: " + mAddress);
+    }
+
+    @Nullable
+    public static synchronized BarBotBluetoothService getInstance() throws ClassNotFoundException{
+        if (sInstance == null){
+            Log.d(TAG, "You haven't created a Bluetooth Connection yet, please connect to Bluetooth" +
+                    "before getting a Instance");
+            throw new ClassNotFoundException();
+        }else {
+            return sInstance;
+        }
     }
 
     /**
@@ -119,7 +135,7 @@ public class BarBotBluetoothService {
         workerThread.start();
     }
 
-    public void writeData (String data){
+    public void writeData(String data){
         try {
             mOutputStream.write(data.getBytes());
         }catch (IOException e){
@@ -173,10 +189,9 @@ public class BarBotBluetoothService {
 
             if (!ConnectSuccess) {
                 Log.d(TAG, "Connection Failed. Is it a SPP Bluetooth? Try again.");
-                return;
             } else {
                 Log.d(TAG, "Connected.");
-                Toast.makeText(mAppContext, "Connected.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mAppContext, "Connected.", Toast.LENGTH_SHORT).show();
                 mState = STATE_CONNECTED;
                 beginListenForData();
             }

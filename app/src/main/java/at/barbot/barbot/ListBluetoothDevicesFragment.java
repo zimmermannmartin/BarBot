@@ -51,8 +51,6 @@ public class ListBluetoothDevicesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_bluetooth_devices, container, false);
 
-        //Calling widgets
-        btnPaired = (Button) view.findViewById(R.id.listPairedDevices);
         devicelist = (ListView) view.findViewById(R.id.pairedDevicesList);
 
         //if the device has bluetooth
@@ -74,13 +72,7 @@ public class ListBluetoothDevicesFragment extends Fragment {
             startActivityForResult(turnBTon,1);
         }
 
-        btnPaired.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                pairedDevicesList();
-            }
-        });
+        pairedDevicesList();
 
 
         // Inflate the layout for this fragment
@@ -118,7 +110,6 @@ public class ListBluetoothDevicesFragment extends Fragment {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
-            //TODO: überlegen ob eine newInstance Methode für Bluetooth gut wäre
             BarBotBluetoothService bluetoothService = new BarBotBluetoothService(address, getActivity().getApplicationContext());
 
             mListener.onBluetoothFragmentInteraction();

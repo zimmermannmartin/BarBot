@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,6 +72,15 @@ public class DrinkDetailsFragment extends Fragment {
             tv.setText("" + in.name + "     " + val + "ml");
             lv.addView(tv);
         }
+
+        Button submitOrder = (Button) view.findViewById(R.id.drinkDetailOrderButton);
+        submitOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Order order = new Order(drink, ingredient_amount);
+                order.submit();
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

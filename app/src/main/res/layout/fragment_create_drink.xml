@@ -71,7 +71,6 @@
             android:singleLine="true"
             android:layout_alignLeft="@+id/editTextGetraenkeName"
             android:layout_alignStart="@+id/editTextGetraenkeName"
-            android:layout_above="@+id/editTextPicture"
             android:layout_alignTop="@+id/textViewBeschreibung" />
 
         <Button
@@ -84,24 +83,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="129dp" />
 
-        <Button
-            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="116dp"
-            android:layout_marginStart="116dp"
-            android:id="@+id/addIngredientButton"
-            android:layout_above="@+id/button3"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2" />
-
         <ScrollView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_toRightOf="@+id/textView2"
             android:layout_toEndOf="@+id/textView2"
-            android:layout_above="@+id/addIngredientAmount"
-            android:layout_below="@+id/textView2">
+            android:layout_below="@+id/textView2"
+            android:layout_above="@+id/addIngredientButton">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,6 +106,17 @@
             android:layout_centerVertical="true"
             android:layout_alignStart="@+id/textViewBeschreibung"
             android:layout_marginStart="81dp" />
+
+        <Button
+            android:text="@string/getraenke_erstellen_button_weitere_zutaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="116dp"
+            android:id="@+id/addIngredientButton"
+            android:layout_alignBaseline="@+id/button3"
+            android:layout_alignBottom="@+id/button3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="125dp" />
 
 
     </RelativeLayout>

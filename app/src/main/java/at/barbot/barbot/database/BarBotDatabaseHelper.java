@@ -503,6 +503,35 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         return slaveunit;
     }
 
+    public Slaveunit getSlaveunitByIngredient (Ingredient in){
+        Slaveunit slaveunit = new Slaveunit();
+        String selectQuery = String.format(
+                "SELECT * FROM %s WHERE %s = %s",
+                TABLE_SLAVEUNIT,
+                COLUMN_SLAVEUNIT_FK_ID_INGREDIENT,
+                in.pk_id_ingredient
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
+                slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
+                slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
+                slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
+                slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error querying Slaveunit" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return slaveunit;
+    }
+
     public String getIngredientNameFromSlaveunit (Slaveunit sl){
         String ingr = "";
         String selectQuery = String.format(
