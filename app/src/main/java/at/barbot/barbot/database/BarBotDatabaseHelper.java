@@ -78,10 +78,12 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         return sInstance;
     }
 
+
     @Override
     public void onConfigure(SQLiteDatabase db) {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
+
     }
 
     @Override
@@ -111,6 +113,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         "PRIMARY KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "," + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ")," +
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + ") REFERENCES " + TABLE_INGREDIENT + "(" + COLUMN_INGREDIENT_PK_ID_INGREDIENT + ")," +
                         "FOREIGN KEY(" + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + ") REFERENCES " + TABLE_DRINK + "(" + COLUMN_DRINK_PK_ID_DRINK + ")" +
+                        "ON DELETE CASCADE" +
                 ")";
         String create_table_drink = "CREATE TABLE IF NOT EXISTS " + TABLE_DRINK +
                 "(" +   COLUMN_DRINK_PK_ID_DRINK + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -399,6 +402,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             int rows = db.delete(TABLE_DRINK_HAS_INGREDIENT, COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_DRINK + "= ? AND " + COLUMN_DRINK_HAS_INGREDIENT_PK_FK_ID_INGREDIENT + "= ?", new String[]{""+drinkHasIngredient.pk_fk_id_drink, ""+drinkHasIngredient.pk_fk_id_ingredient});
+            db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error deleting Drink_has_Ingredient" + e);
         }finally {
@@ -412,8 +416,9 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             int rows = db.delete(TABLE_DRINK, COLUMN_DRINK_PK_ID_DRINK + "= ?", new String[]{""+drink.pk_id_drink});
+            db.setTransactionSuccessful();
         }catch (Exception e){
-            Log.d(TAG, "Error deleting Drink" + e);
+            Log.d(TAG, "Error deleting Drink " + e);
         }finally {
             db.endTransaction();
         }

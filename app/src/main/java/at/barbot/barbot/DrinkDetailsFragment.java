@@ -1,8 +1,10 @@
 package at.barbot.barbot;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
 
 
@@ -81,6 +84,35 @@ public class DrinkDetailsFragment extends Fragment {
                 order.submit();
             }
         });
+
+
+        final BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+
+        Button deleteOrder = (Button) view.findViewById(R.id.drinkDetailDeleteButton);
+        deleteOrder.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                databaseHelper.deleteDrink(drink);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(R.string.getraenke_loeschen_message)
+                        .setTitle(R.string.createIngredientTitle)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
     }

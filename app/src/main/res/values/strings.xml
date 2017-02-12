@@ -40,10 +40,16 @@
     <string name="NamederSlaveunit">Name der Slave-Einheit</string>
     <string name="slaveunit_erstellen_sucess">Die Slaveunit wurde erfolgreich erstellt</string>
 
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="getraenke_loeschen_message">Dein Getränk wurde erfolgreich gelöscht!</string>
+    <string name="getraenke_loeschen_title">Getränk gelöscht</string>
 
     <string name="test">TEST</string>
 
