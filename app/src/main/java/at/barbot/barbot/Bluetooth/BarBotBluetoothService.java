@@ -26,8 +26,9 @@ import at.barbot.barbot.R;
 
 public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
+    private OnBluetoothInteractionListener mListener;
 
-    private static BarBotBluetoothService sInstance;
+    private BarBotBluetoothService sInstance;
 
     BluetoothAdapter mAdapter;
     private int mState;
@@ -36,17 +37,16 @@ public class BarBotBluetoothService {
     BluetoothSocket mSocket;
     private InputStream mInputStream;
     private OutputStream mOutputStream;
-    private String mData;
 
     public Context mAppContext;
 
     // Constants that indicate the current connection state
-    public static final int STATE_NONE = 0;       // we're doing nothing
-    public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
-    public static final int STATE_CONNECTED = 3;  // now connected to a remote device
+    private static final int STATE_NONE = 0;       // we're doing nothing
+    private static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
+    private static final int STATE_CONNECTED = 3;  // now connected to a remote device
 
-    boolean stopWorker = false;
-    int readBufferPosition = 0;
+    private boolean stopWorker = false;
+    private int readBufferPosition = 0;
 
     /**
      * Constructor. Prepares a new BluetoothService.
@@ -67,12 +67,12 @@ public class BarBotBluetoothService {
     }
 
     @Nullable
-    public static synchronized BarBotBluetoothService getInstance() throws ClassNotFoundException{
-        if (sInstance == null){
+    public synchronized BarBotBluetoothService getInstance() throws ClassNotFoundException {
+        if (sInstance == null) {
             Log.d(TAG, "You haven't created a Bluetooth Connection yet, please connect to Bluetooth" +
                     "before getting a Instance");
             throw new ClassNotFoundException();
-        }else {
+        } else {
             return sInstance;
         }
     }
@@ -87,12 +87,7 @@ public class BarBotBluetoothService {
         mState = state;
     }
 
-    private synchronized String getData(){
-        return mData;
-    }
-
-    void beginListenForData()
-    {
+    void beginListenForData() {
         final Handler handler = new Handler();
         final byte delimiter = 10; //This is the ASCII code for a newline character
 
@@ -115,9 +110,12 @@ public class BarBotBluetoothService {
 
                                     handler.post(new Runnable() {
                                         public void run() {
-                                            mData = data;
+                                            String[] cmd = data.split(";");
+                                            if (cmd[0].equals("NS")){
+                                                mListener.onBluetoothInteraction(cmd[0], cmd[1]);
+                                            }
                                             Log.d(TAG, "Data: " + data);
-                                            Toast.makeText(mAppContext, data, Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(mAppContext, data, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 } else {
@@ -135,10 +133,10 @@ public class BarBotBluetoothService {
         workerThread.start();
     }
 
-    public void writeData(String data){
+    public void writeData(String data) {
         try {
             mOutputStream.write(data.getBytes());
-        }catch (IOException e){
+        } catch (IOException e) {
             Log.d(TAG, "writeData: " + e);
         }
 
@@ -196,5 +194,11 @@ public class BarBotBluetoothService {
                 beginListenForData();
             }
         }
+    }
+
+    public interface OnBluetoothInteractionListener {
+        void onBluetoothInteraction(String cmd, String[] data);
+        void onBluetoothInteraction(String cmd, String data);
+        void onBluetoothInteraction(String cmd);
     }
 }
