@@ -37,6 +37,8 @@ public class CreateSlaveunitFragment extends Fragment {
 
     public Ingredient mItem;
 
+    public int mSlaveID;
+
     public CreateSlaveunitFragment() {
         // Required empty public constructor
     }
@@ -58,6 +60,8 @@ public class CreateSlaveunitFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        final int pk = bundle.getInt("pk_slave");
         View view = inflater.inflate(R.layout.fragment_create_slaveunit, container, false);
 
         Button addIngredient = (Button) view.findViewById(R.id.button4);
@@ -72,7 +76,7 @@ public class CreateSlaveunitFragment extends Fragment {
         saveSlaveunit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSlaveunit(v);
+                saveSlaveunit(v, pk);
             }
         });
         // Inflate the layout for this fragment
@@ -132,11 +136,12 @@ public class CreateSlaveunitFragment extends Fragment {
         builder.show();
     }
 
-    public void saveSlaveunit (View v){
+    public void saveSlaveunit (View v, int pk_slave){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         String name = ((EditText) v.getRootView().findViewById(R.id.editText2)).getText().toString();
         int filling_level_in_ml = Integer.parseInt(((EditText) v.getRootView().findViewById(R.id.editText3)).getText().toString());
         Slaveunit slaveunit = new Slaveunit();
+        slaveunit.pk_id_slaveunit = pk_slave;
         slaveunit.filling_level_in_ml = filling_level_in_ml;
         slaveunit.name = name;
         slaveunit.fk_id_ingredient = mItem.pk_id_ingredient;

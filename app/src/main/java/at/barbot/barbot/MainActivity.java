@@ -9,11 +9,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import at.barbot.barbot.Bluetooth.BarBotBluetoothService;
+import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Ingredient;
+import at.barbot.barbot.database.Slaveunit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -25,7 +29,9 @@ public class MainActivity extends AppCompatActivity
         BarbotSettingFragment.OnSettingsFragmentInteractionListener,
         CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener,
         ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener,
-        EditDrinkFragment.OnEditDrinkFragmentInteractionListener{
+        EditDrinkFragment.OnEditDrinkFragmentInteractionListener,
+        BarBotBluetoothService.OnBluetoothInteractionListener{
+
 
     private static final String TAG = "Main Activity";
 
@@ -168,7 +174,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+
     public void onEditDrinkInteraction() {
-        
+
+    }
+    @Override
+    public void onBluetoothInteraction(String cmd, String data) {
+        if(cmd.equals("NS")){
+            CreateSlaveunitFragment crsl = new CreateSlaveunitFragment();
+            Bundle args = new Bundle();
+            args.putInt("pk_slave", Integer.parseInt(data));
+            crsl.setArguments(args);
+            selectItem(crsl);
+        }else if (cmd.equals("G")){
+            Log.d(TAG, "onBluetoothInteraction: Getränk: " + data);
+        }else if (cmd.equals("S")){
+            Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
+
+        }else if (cmd.equals("DS")){
+            BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
+            Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
+            databaseHelper.deleteSlaveunit(sl);
+        }else{
+            Log.e(TAG, "onBluetoothInteraction: Got not known command: " + data);
+        }
+    }
+
+    @Override
+    public void onBluetoothInteraction(String cmd, String[] data) {
+        Log.d(TAG, "onBluetoothInteraction: " + cmd + "data: " + data[0] + "; " + data[1]);
     }
 }
