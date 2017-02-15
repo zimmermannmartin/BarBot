@@ -199,6 +199,5 @@ public class BarBotBluetoothService {
     public interface OnBluetoothInteractionListener {
         void onBluetoothInteraction(String cmd, String[] data);
         void onBluetoothInteraction(String cmd, String data);
-        void onBluetoothInteraction(String cmd);
     }
 }

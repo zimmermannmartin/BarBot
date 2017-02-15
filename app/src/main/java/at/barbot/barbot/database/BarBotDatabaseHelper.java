@@ -93,7 +93,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_BARBOT_NAME + " VARCHAR(45)" +
                 ")";*/
         String create_table_slaveunit = "CREATE TABLE IF NOT EXISTS " + TABLE_SLAVEUNIT +
-                "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "(" +   COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + " INTEGER PRIMARY KEY," +
                         COLUMN_SLAVEUNIT_NAME + " VARCHAR(45)," +
                         COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML + " INTEGER," +
                         COLUMN_SLAVEUNIT_FK_ID_BARBOT + " INTEGER," +
@@ -175,7 +175,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            //values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
+            values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
             values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
             values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
             values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
