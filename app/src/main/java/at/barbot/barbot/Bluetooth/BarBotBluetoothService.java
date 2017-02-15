@@ -15,8 +15,10 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.UUID;
 
+import at.barbot.barbot.ListBluetoothDevicesFragment;
 import at.barbot.barbot.MainActivity;
 import at.barbot.barbot.R;
 
@@ -26,7 +28,7 @@ import at.barbot.barbot.R;
 
 public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
-    private OnBluetoothInteractionListener mListener;
+    static OnBluetoothInteractionListener mListener;
 
     private static BarBotBluetoothService sInstance;
 
@@ -111,8 +113,13 @@ public class BarBotBluetoothService {
                                     handler.post(new Runnable() {
                                         public void run() {
                                             String[] cmd = data.split(";");
-                                            if (cmd[0].equals("NS")){
+                                            if (cmd.length == 2){
                                                 mListener.onBluetoothInteraction(cmd[0], cmd[1]);
+                                            }else if (cmd.length > 2){
+                                                String[] cmds = Arrays.copyOfRange(cmd, 1, cmd.length);
+                                                mListener.onBluetoothInteraction(cmd[0], cmds);
+                                            }else {
+                                                Log.d(TAG, "run: Length of Array not allowed; LENGTH: " + cmd.length);
                                             }
                                             Log.d(TAG, "Data: " + data);
                                             //Toast.makeText(mAppContext, data, Toast.LENGTH_LONG).show();
