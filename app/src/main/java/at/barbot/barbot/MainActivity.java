@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity
         DrinkDetailsFragment.OnDrinkDetailsFragmentInteractionListener,
         BarbotSettingFragment.OnSettingsFragmentInteractionListener,
         CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener,
-        ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener{
+        ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener,
+        EditDrinkFragment.OnEditDrinkFragmentInteractionListener{
 
     private static final String TAG = "Main Activity";
 
@@ -146,7 +147,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDrinkDetailsFragmentInteraction(Drink drink) {
-        // nothing to do
+        EditDrinkFragment editDrinkFragment = new EditDrinkFragment();
+        editDrinkFragment.setDrink(drink);
+        selectItem(editDrinkFragment);
     }
 
     @Override
@@ -162,5 +165,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBluetoothFragmentInteraction() {
         selectItem(new MainFragment());
+    }
+
+    @Override
+    public void onEditDrinkInteraction() {
+        
     }
 }

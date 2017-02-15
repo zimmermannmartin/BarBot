@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,10 +39,6 @@ public class DrinkDetailsFragment extends Fragment {
 
     public DrinkDetailsFragment() {
         // Required empty public constructor
-    }
-
-    public Drink getDrink() {
-        return drink;
     }
 
     public void setDrink(Drink drink_obj) {
@@ -88,11 +86,12 @@ public class DrinkDetailsFragment extends Fragment {
 
         final BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
 
-        Button deleteOrder = (Button) view.findViewById(R.id.drinkDetailDeleteButton);
-        deleteOrder.setOnClickListener(new View.OnClickListener(){
+        Button deleteDrinkButton = (Button) view.findViewById(R.id.drinkDetailDeleteButton);
+        deleteDrinkButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
+
                 databaseHelper.deleteDrink(drink);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -102,13 +101,21 @@ public class DrinkDetailsFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-
-
                             }
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
 
+        Button editDrinkButton = (Button) view.findViewById(R.id.edit_button);
+        editDrinkButton.setOnClickListener(new View.OnClickListener(){
+
+
+
+            @Override
+            public void onClick(View v) {
+                mListener.onDrinkDetailsFragmentInteraction(drink);
 
             }
         });

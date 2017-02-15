@@ -1,0 +1,136 @@
+<FrameLayout
+    android:id="@+id/fragment_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="at.barbot.barbot.EditDrinkFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:id="@+id/textView2"
+                android:text="@string/getraenke_erstellen_title"
+                android:textSize="36sp"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editTextGetraenkeName"
+                android:hint="@string/getraenke_erstellen_textview_getraenkeName"
+                android:layout_marginRight="89dp"
+                android:layout_marginEnd="89dp"
+                android:layout_marginTop="127dp"
+                android:singleLine="true"
+                android:layout_below="@+id/textView2"
+                android:layout_toLeftOf="@+id/textView2"
+                android:layout_toStartOf="@+id/textView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"
+                android:id="@+id/textViewGetraenkeName"
+                android:text="@string/getraenke_erstellen_textview_getraenkeName"
+                android:textSize="18sp"
+                android:layout_alignBaseline="@+id/editTextGetraenkeName"
+                android:layout_alignBottom="@+id/editTextGetraenkeName"
+                android:layout_toLeftOf="@+id/editTextGetraenkeName"
+                android:layout_toStartOf="@+id/editTextGetraenkeName" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewBeschreibung"
+                android:text="@string/getraenke_erstellen_textview_Beschreibung"
+                android:textSize="18sp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/editTextGetraenkeName"
+                android:layout_alignLeft="@+id/textViewGetraenkeName"
+                android:layout_alignStart="@+id/textViewGetraenkeName" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editTextBeschreibung"
+                android:hint="@string/getraenke_erstellen_textview_Beschreibung"
+                android:singleLine="true"
+                android:layout_alignLeft="@+id/editTextGetraenkeName"
+                android:layout_alignStart="@+id/editTextGetraenkeName"
+                android:layout_alignTop="@+id/textViewBeschreibung" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button3"
+                android:text="@string/save_changes"
+                android:onClick="addNewDrink"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="129dp" />
+
+            <ScrollView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_toRightOf="@+id/textView2"
+                android:layout_toEndOf="@+id/textView2"
+                android:layout_below="@+id/textView2"
+                android:layout_above="@+id/addIngredientButton">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/drinksIngredients"/>
+            </ScrollView>
+
+            <Button
+                android:text="@string/change_ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="116dp"
+                android:id="@+id/addIngredientButton"
+                android:layout_alignBaseline="@+id/button3"
+                android:layout_alignBottom="@+id/button3"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="125dp" />
+
+            <Button
+                android:text="@string/change_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button5"
+                android:layout_marginStart="87dp"
+                android:layout_alignBaseline="@+id/button3"
+                android:layout_alignBottom="@+id/button3"
+                android:layout_alignStart="@+id/textViewBeschreibung" />
+
+            <ImageView
+                android:layout_width="225dp"
+                app:srcCompat="@mipmap/ic_launcher_barbot"
+                android:id="@+id/imageView2"
+                android:layout_marginStart="37dp"
+                android:layout_height="225dp"
+                android:layout_above="@+id/button5"
+                android:layout_alignStart="@+id/textViewBeschreibung" />
+
+
+        </RelativeLayout>
+</FrameLayout>
