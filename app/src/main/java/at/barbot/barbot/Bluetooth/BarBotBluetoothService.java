@@ -28,7 +28,7 @@ public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
     private OnBluetoothInteractionListener mListener;
 
-    private BarBotBluetoothService sInstance;
+    private static BarBotBluetoothService sInstance;
 
     BluetoothAdapter mAdapter;
     private int mState;
@@ -67,7 +67,7 @@ public class BarBotBluetoothService {
     }
 
     @Nullable
-    public synchronized BarBotBluetoothService getInstance() throws ClassNotFoundException {
+    public static synchronized BarBotBluetoothService getInstance() throws ClassNotFoundException {
         if (sInstance == null) {
             Log.d(TAG, "You haven't created a Bluetooth Connection yet, please connect to Bluetooth" +
                     "before getting a Instance");
