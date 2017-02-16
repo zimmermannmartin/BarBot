@@ -92,7 +92,8 @@
                 android:layout_toRightOf="@+id/textView2"
                 android:layout_toEndOf="@+id/textView2"
                 android:layout_below="@+id/textView2"
-                android:layout_above="@+id/addIngredientButton">
+                android:layout_above="@+id/addIngredientButton"
+                android:id="@+id/drinkDetail_IngredientsList">
 
                 <LinearLayout
                     android:layout_width="match_parent"

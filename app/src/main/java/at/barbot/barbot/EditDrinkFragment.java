@@ -16,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
@@ -38,6 +40,7 @@ public class EditDrinkFragment extends Fragment {
     private OnEditDrinkFragmentInteractionListener mListener;
     private List<Ingredient> mItems = new ArrayList<>();
     private List<Ingredient> allIngredients = getAllIngredients();
+    private HashMap<Ingredient, Integer> ingredient_amount;
     public Drink mDrink;
 
     public EditDrinkFragment() {
@@ -72,6 +75,40 @@ public class EditDrinkFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: name: " + mDrink.name);
 
+        final TextView drinkName = (TextView) view.findViewById(R.id.editTextGetraenkeName);
+        drinkName.setText(mDrink.name);
+
+        final TextView drinkDesc = (TextView) view.findViewById(R.id.editTextBeschreibung);
+        drinkDesc.setText(mDrink.description);
+
+        getIngredientsWithAmounts(mDrink);
+        //Log.d(TAG, "" + ingredient_amount);
+        LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinksIngredients);
+        for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
+            Ingredient in = entry.getKey();
+            int val = entry.getValue();
+            TextView tv = new TextView(getContext());
+            tv.setText("" + in.name + "     " + val + "ml");
+            lv.addView(tv);
+        }
+
+        Button updateDrinkButton = (Button) view.findViewById(R.id.button3);
+        updateDrinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDrink.name = drinkName.getText().toString();
+                mDrink.description = drinkDesc.getText().toString();
+
+                BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+                databaseHelper.updateDrink(mDrink);
+            }
+        });
+
+
+
+
+
 
         return view;
     }
@@ -87,6 +124,11 @@ public class EditDrinkFragment extends Fragment {
         List<Ingredient> ingrList = databaseHelper.getAllIngredients();
 
         return ingrList;
+    }
+
+    public void getIngredientsWithAmounts(Drink drink){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        ingredient_amount = databaseHelper.getIngredientswithAmounts(drink);
     }
 
     public void openIngredientDialog(View v){
