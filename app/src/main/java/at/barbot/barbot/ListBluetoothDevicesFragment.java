@@ -110,7 +110,7 @@ public class ListBluetoothDevicesFragment extends Fragment {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
-            BarBotBluetoothService bluetoothService = new BarBotBluetoothService(address, getActivity().getApplicationContext());
+            BarBotBluetoothService bluetoothService = new BarBotBluetoothService(address, getActivity().getApplicationContext(), (BarBotBluetoothService.OnBluetoothInteractionListener) getActivity());
 
             mListener.onBluetoothFragmentInteraction();
         }

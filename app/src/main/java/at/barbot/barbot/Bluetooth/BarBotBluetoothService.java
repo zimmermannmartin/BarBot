@@ -28,7 +28,7 @@ import at.barbot.barbot.R;
 
 public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
-    static OnBluetoothInteractionListener mListener;
+    OnBluetoothInteractionListener mListener;
 
     private static BarBotBluetoothService sInstance;
 
@@ -53,13 +53,14 @@ public class BarBotBluetoothService {
     /**
      * Constructor. Prepares a new BluetoothService.
      *
-     * @param address The mac adress of the bluetooth device to connect to
+     * @param address The mac address of the bluetooth device to connect to
      */
-    public BarBotBluetoothService(String address, Context context) {
+    public BarBotBluetoothService(String address, Context context, OnBluetoothInteractionListener listener) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mAddress = address;
         mAppContext = context;
+        mListener = listener;
 
         new ConnectBT().execute(); //Call the class to connect
 

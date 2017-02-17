@@ -190,7 +190,6 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "onBluetoothInteraction: Getränk: " + data);
         }else if (cmd.equals("S")){
             Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
-
         }else if (cmd.equals("DS")){
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
             Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
