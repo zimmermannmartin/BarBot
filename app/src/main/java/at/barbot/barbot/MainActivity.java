@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
         }else if (cmd.equals("DS")){
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
+            Log.d(TAG, "onBluetoothInteraction: delete Slaveunit: " + data);
             Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
             databaseHelper.deleteSlaveunit(sl);
         }else{
