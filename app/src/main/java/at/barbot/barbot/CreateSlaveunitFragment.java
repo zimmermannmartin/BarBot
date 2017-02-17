@@ -122,7 +122,7 @@ public class CreateSlaveunitFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 TextView tv = (TextView) getActivity().findViewById(R.id.textView10);
-                tv.setText("Zutat: " + mItem.name);
+                tv.setText(R.string.slaveunitIngredient + mItem.name);
                 tv.setTextColor(Color.BLACK);
             }
         });

@@ -39,6 +39,7 @@
     <string name="FuellstandInMl">Füllstand in ml</string>
     <string name="NamederSlaveunit">Name der Slave-Einheit</string>
     <string name="slaveunit_erstellen_sucess">Die Slaveunit wurde erfolgreich erstellt</string>
+    <string name="slaveunitIngredient">Zutat: </string>
 
     <string name="save_changes">Änderungen speichern</string>
     <string name="change_ingredient">Zutaten ändern</string>
