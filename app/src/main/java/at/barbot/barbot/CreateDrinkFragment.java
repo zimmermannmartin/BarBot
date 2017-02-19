@@ -2,9 +2,14 @@ package at.barbot.barbot;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.content.Context;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +31,8 @@ import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -46,6 +57,11 @@ public class CreateDrinkFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
+    private int PICK_IMAGE_REQUEST = 1;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,8 +84,35 @@ public class CreateDrinkFragment extends Fragment {
             }
         });
 
+        Button imageButton = (Button) view.findViewById(R.id.button5);
+        imageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                // Show only images, no videos or anything else
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                // Always show the chooser (if there are multiple options available)
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+            }
+        });
+
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+                //TODO: Image verarbeiten!!
+
+        }
+    }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
