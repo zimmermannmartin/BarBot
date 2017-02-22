@@ -56,6 +56,11 @@
     <string name="getraenke_loeschen_message">Dein Getränk wurde erfolgreich gelöscht!</string>
     <string name="getraenke_loeschen_title">Getränk gelöscht</string>
 
+    <string name="theIngredient">Die Zutat wurde erfolgreich gelöscht!</string>
+
+    <string name="changesDone">Die Änderungen wurden ergfolgreich übernommen!</string>
+
+
     <string name="test">TEST</string>
 
     <string name="showBluetoothDevices">Bluetooth Geräte</string>
