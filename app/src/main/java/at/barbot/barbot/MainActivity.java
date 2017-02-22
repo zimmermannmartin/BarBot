@@ -1,5 +1,6 @@
 package at.barbot.barbot;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import at.barbot.barbot.Bluetooth.BarBotBluetoothService;
 import at.barbot.barbot.database.BarBotDatabaseHelper;
@@ -30,10 +36,15 @@ public class MainActivity extends AppCompatActivity
         CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener,
         ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener,
         EditDrinkFragment.OnEditDrinkFragmentInteractionListener,
-        BarBotBluetoothService.OnBluetoothInteractionListener{
+        BarBotBluetoothService.OnBluetoothInteractionListener {
 
 
     private static final String TAG = "Main Activity";
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,9 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content_frame, mainFragment).commit();
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -174,28 +188,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-
     public void onEditDrinkInteraction() {
 
     }
+
     @Override
     public void onBluetoothInteraction(String cmd, String data) {
-        if(cmd.equals("NS")){
+        if (cmd.equals("NS")) {
             CreateSlaveunitFragment crsl = new CreateSlaveunitFragment();
             Bundle args = new Bundle();
             args.putInt("pk_slave", Integer.parseInt(data));
             crsl.setArguments(args);
             selectItem(crsl);
-        }else if (cmd.equals("G")){
+        } else if (cmd.equals("G")) {
             Log.d(TAG, "onBluetoothInteraction: Getränk: " + data);
-        }else if (cmd.equals("S")){
+        } else if (cmd.equals("S")) {
             Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
-        }else if (cmd.equals("DS")){
+        } else if (cmd.equals("DS")) {
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
             Log.d(TAG, "onBluetoothInteraction: delete Slaveunit: " + data);
             Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
             databaseHelper.deleteSlaveunit(sl);
-        }else{
+        } else {
             Log.e(TAG, "onBluetoothInteraction: Got not known command: " + data);
         }
     }
@@ -203,5 +217,41 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBluetoothInteraction(String cmd, String[] data) {
         Log.d(TAG, "onBluetoothInteraction: " + cmd + "data: " + data[0] + "; " + data[1]);
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }
