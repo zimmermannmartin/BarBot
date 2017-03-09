@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity
         CreateSlaveunitFragment.OnCreateSlaveunitFragmentInteractionListener,
         ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener,
         EditDrinkFragment.OnEditDrinkFragmentInteractionListener,
-        BarBotBluetoothService.OnBluetoothInteractionListener {
+        BarBotBluetoothService.OnBluetoothInteractionListener,
+        StatisticFragment.OnStatisticFragmentInteractionListener{
 
 
     private static final String TAG = "Main Activity";
@@ -121,9 +122,8 @@ public class MainActivity extends AppCompatActivity
             selectItem(new CreateIngredientFragment());
         } else if (id == R.id.nav_slideshow) {
             selectItem(new BarbotSettingFragment());
-        } else if (id == R.id.nav_manage) {
-            // TODO: dieses Fragment nach dem testen wieder löschen (Wird nachher von Bluetooth-Service Aufgerufen)
-            selectItem(new CreateSlaveunitFragment());
+        } else if (id == R.id.nav_statistics) {
+            selectItem(new StatisticFragment());
         } else if (id == R.id.nav_bluetooth) {
             selectItem(new ListBluetoothDevicesFragment());
         } /*else if (id == R.id.nav_send) {
@@ -217,6 +217,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBluetoothInteraction(String cmd, String[] data) {
         Log.d(TAG, "onBluetoothInteraction: " + cmd + "data: " + data[0] + "; " + data[1]);
+    }
+
+    @Override
+    public void onStatisticFragmentInteraction() {
+
     }
 
     /**

@@ -63,6 +63,8 @@
 
     <string name="test">TEST</string>
 
+    <string name="statistics">Statistik</string>
+
     <string name="showBluetoothDevices">Bluetooth Geräte</string>
 
     <!-- TODO: Remove or change this placeholder text -->
