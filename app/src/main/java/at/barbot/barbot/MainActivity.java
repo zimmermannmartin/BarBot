@@ -1,5 +1,10 @@
 package at.barbot.barbot;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.BluetoothLeAdvertiser;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -68,6 +73,23 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content_frame, mainFragment).commit();
         }
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
+        if (prefs.contains("address") && BluetoothAdapter.getDefaultAdapter() != null && BluetoothAdapter.getDefaultAdapter().isEnabled()){
+            for (BluetoothDevice device : BluetoothAdapter.getDefaultAdapter().getBondedDevices()) {
+                if (device.getAddress().equalsIgnoreCase(prefs.getString("address", ""))){
+                    BarBotBluetoothService bluetoothService = new BarBotBluetoothService(prefs.getString("address", ""),
+                            getApplicationContext(), (BarBotBluetoothService.OnBluetoothInteractionListener) this);
+                }
+            }
+        }else {
+            if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
+                Log.d(TAG, "onCreate: bluetooth is deactivated");
+            }
+            Log.d(TAG, "onCreate: no bluetooth device to automatically connect to");
+        }
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();

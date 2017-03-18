@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -54,6 +55,8 @@ public class BarBotBluetoothService {
      * Constructor. Prepares a new BluetoothService.
      *
      * @param address The mac address of the bluetooth device to connect to
+     * @param context The Context in which the Bluetooth-Service should connect (application context)
+     * @param listener An {@link OnBluetoothInteractionListener} listener Interface
      */
     public BarBotBluetoothService(String address, Context context, OnBluetoothInteractionListener listener) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -65,6 +68,19 @@ public class BarBotBluetoothService {
         new ConnectBT().execute(); //Call the class to connect
 
         sInstance = this;
+
+        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
+        if (!prefs.contains("address")){
+            boolean success = prefs.edit().putString("address", mAddress).commit();
+            if (!success){
+                Log.e(TAG, "BarBotBluetoothService: failed to set preference for BT-address");
+            }
+        }else if (!prefs.getString("address", "").equalsIgnoreCase(mAddress)){
+            boolean success = prefs.edit().putString("address", mAddress).commit();
+            if (!success){
+                Log.e(TAG, "BarBotBluetoothService: failed to update preference for BT-address");
+            }
+        }
 
         Log.d(TAG, "BarBotBluetoothService -> Adress: " + mAddress);
     }
