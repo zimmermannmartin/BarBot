@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.content_frame, mainFragment).commit();
         }
 
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
+        /*SharedPreferences prefs = getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
         if (prefs.contains("address") && BluetoothAdapter.getDefaultAdapter() != null && BluetoothAdapter.getDefaultAdapter().isEnabled()){
             for (BluetoothDevice device : BluetoothAdapter.getDefaultAdapter().getBondedDevices()) {
                 if (device.getAddress().equalsIgnoreCase(prefs.getString("address", ""))){
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
             }
             Log.d(TAG, "onCreate: no bluetooth device to automatically connect to");
         }
+        */ //TODO: entfernen
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.

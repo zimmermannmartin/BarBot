@@ -56,7 +56,7 @@ public class DrinkDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_drink_details, container, false);
-
+        final BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         TextView drinkName = (TextView) view.findViewById(R.id.detailDrinkName);
         drinkName.setText(drink.name);
 
@@ -80,11 +80,12 @@ public class DrinkDetailsFragment extends Fragment {
             public void onClick(View v) {
                 Order order = new Order(drink, ingredient_amount);
                 order.submit();
+                databaseHelper.updateStatisticDrink(drink);
             }
         });
 
 
-        final BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+
 
         Button deleteDrinkButton = (Button) view.findViewById(R.id.drinkDetailDeleteButton);
         deleteDrinkButton.setOnClickListener(new View.OnClickListener(){

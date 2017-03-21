@@ -152,6 +152,7 @@ public class CreateDrinkFragment extends Fragment {
 
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         databaseHelper.addDrink(drink);
+        databaseHelper.addStatisticDrink(drink);
 
         drink.pk_id_drink = databaseHelper.getDrinkByName(name).pk_id_drink;
 
