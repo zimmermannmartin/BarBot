@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -16,10 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
+import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
 
 
@@ -38,6 +42,7 @@ public class EditDrinkFragment extends Fragment {
     private OnEditDrinkFragmentInteractionListener mListener;
     private List<Ingredient> mItems = new ArrayList<>();
     private List<Ingredient> allIngredients = getAllIngredients();
+    private HashMap<Ingredient, Integer> ingredient_amount;
     public Drink mDrink;
 
     public EditDrinkFragment() {
@@ -72,6 +77,81 @@ public class EditDrinkFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: name: " + mDrink.name);
 
+        final TextView drinkName = (TextView) view.findViewById(R.id.editTextGetraenkeName);
+        drinkName.setText(mDrink.name);
+
+        final TextView drinkDesc = (TextView) view.findViewById(R.id.editTextBeschreibung);
+        drinkDesc.setText(mDrink.description);
+
+        getIngredientsWithAmounts(mDrink);
+        //Log.d(TAG, "" + ingredient_amount);
+        final LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinksIngredients);
+        for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
+
+            final Ingredient in = entry.getKey();
+            final Drink_has_ingredient drinkHasIngredient = new Drink_has_ingredient();
+            drinkHasIngredient.pk_fk_id_drink = mDrink.pk_id_drink;
+            drinkHasIngredient.pk_fk_id_ingredient = in.pk_id_ingredient;
+
+            int val = entry.getValue();
+            final TextView tv = new TextView(getContext());
+            tv.setText("" + in.name + "     " + val + "ml");
+            final Button btn = new Button(getContext());
+            btn.setText("X");
+            btn.setWidth(25);
+            btn.setHeight(25);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    lv.removeView(tv);
+                    lv.removeView(btn);
+                    BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+                    databaseHelper.deleteDrinkHasIngredient(drinkHasIngredient);
+                    Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout), R.string.theIngredient, Snackbar.LENGTH_SHORT);
+                    showSuccessDialog.show();
+
+                }
+            });
+            lv.addView(tv);
+            lv.addView(btn);
+
+        }
+
+        Button updateDrinkButton = (Button) view.findViewById(R.id.button3);
+        updateDrinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDrink.name = drinkName.getText().toString();
+                mDrink.description = drinkDesc.getText().toString();
+
+                BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+                databaseHelper.updateDrink(mDrink);
+
+                mDrink.pk_id_drink = databaseHelper.getDrinkByName(mDrink.name).pk_id_drink;
+
+                for (Ingredient i : mItems){
+                    EditText ingrAmount = (EditText) v.getRootView().findViewById(i.pk_id_ingredient);
+
+                    Drink_has_ingredient drink_has_ingredient = new Drink_has_ingredient();
+                    drink_has_ingredient.pk_fk_id_drink = mDrink.pk_id_drink;
+                    drink_has_ingredient.pk_fk_id_ingredient = i.pk_id_ingredient;
+                    drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
+
+                    databaseHelper.addDrinkHasIngredient(drink_has_ingredient);
+                }
+
+                Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout), R.string.changesDone, Snackbar.LENGTH_SHORT);
+                showSuccessDialog.show();
+
+
+            }
+        });
+
+
+
+
+
 
         return view;
     }
@@ -89,11 +169,18 @@ public class EditDrinkFragment extends Fragment {
         return ingrList;
     }
 
+    public void getIngredientsWithAmounts(Drink drink){
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
+        ingredient_amount = databaseHelper.getIngredientswithAmounts(drink);
+    }
+
     public void openIngredientDialog(View v){
+
         mItems = new ArrayList<>();
         CharSequence ingrNameList[] = new CharSequence[allIngredients.size()];
         int counter = 0;
         for (Ingredient item : allIngredients){
+            if (!ingredient_amount.containsValue(item.name) ) /// edit
             ingrNameList[counter] = item.name;
             counter++;
         }

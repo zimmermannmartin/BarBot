@@ -1,8 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="at.barbot.barbot.CreateDrinkFragment">
+
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -10,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,15 +102,6 @@
         </ScrollView>
 
         <Button
-            android:text="@string/createIngredientPictureButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button5"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/textViewBeschreibung"
-            android:layout_marginStart="81dp" />
-
-        <Button
             android:text="@string/getraenke_erstellen_button_weitere_zutaten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,6 +111,23 @@
             android:layout_alignBottom="@+id/button3"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="125dp" />
+
+        <Button
+            android:text="@string/createIngredientPictureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button5"
+            android:layout_alignBaseline="@+id/button3"
+            android:layout_alignBottom="@+id/button3"
+            android:layout_toEndOf="@+id/textViewBeschreibung" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextBeschreibung"
+            android:layout_alignStart="@+id/editTextBeschreibung"
+            android:layout_marginTop="104dp"
+            android:id="@+id/imageView4" />
 
 
     </RelativeLayout>

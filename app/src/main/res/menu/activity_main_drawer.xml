@@ -23,9 +23,9 @@
             android:icon="@drawable/ic_list_black_24dp"
             android:title="@string/show_BarBot" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_add_black_24dp"
-            android:title="@string/test" />
+            android:title="@string/statistics" />
     </group>
 
     <item android:title="Communicate">

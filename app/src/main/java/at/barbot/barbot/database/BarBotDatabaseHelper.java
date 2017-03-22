@@ -33,6 +33,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_INGREDIENT = "ingredient";
     private static final String TABLE_DRINK_HAS_INGREDIENT = "drink_has_ingredient";
     private static final String TABLE_DRINK = "drink";
+    private static final String TABLE_STATISTIC_DRINK = "statistic_drink";
+    private static final String TABLE_STATISTIC_INGREDIENT = "statistic_ingredient";
 
     /**
      * Table Columns
@@ -64,6 +66,18 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DRINK_NAME = "name";
     private static final String COLUMN_DRINK_PICTURE = "picture";
     private static final String COLUMN_DRINK_DESCRIPTION = "description";
+
+    //Table statistic_drink
+    private static final String COLUMN_STATISTIC_DRINK_PK_STATISTIC_DRINK = "pk_statistic_drink";
+    private static final String COLUMN_STATISTIC_DRINK_NAME = "name";
+    private static final String COLUMN_STATISTIC_DRINK_AMMOUNT = "amount";
+
+    //Table statistic_ingredient
+    private static final String COLUMN_STATISTIC_INGREDIENT_PK_STATISTIC_INGREDIENT = "pk_statistic_drink";
+    private static final String COLUMN_STATISTIC_INGREDIENT_NAME = "name";
+    private static final String COLUMN_STATISTIC_INGREDIENT_AMMOUNT = "amount";
+
+
 
     private static final String TAG = "BarBotDatabaseHelper";
 
@@ -121,12 +135,24 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DRINK_DESCRIPTION + " MEDIUMTEXT," +
                         COLUMN_DRINK_PICTURE + " VARCHAR(200)" +
                 ")";
+        String create_table_statistic_drink = "CREATE TABLE IF NOT EXISTS " + TABLE_STATISTIC_DRINK +
+                "(" +   COLUMN_STATISTIC_DRINK_PK_STATISTIC_DRINK + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        COLUMN_STATISTIC_DRINK_NAME + "VARCHAR(100) UNIQUE," +
+                        COLUMN_STATISTIC_DRINK_AMMOUNT + "INTEGER" +
+                ")";
+        String create_table_statistic_ingredient = "CREATE TABLE IF NOT EXISTS" + TABLE_STATISTIC_INGREDIENT +
+                "(" +   COLUMN_STATISTIC_INGREDIENT_PK_STATISTIC_INGREDIENT + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        COLUMN_STATISTIC_INGREDIENT_NAME + "VARCHAR(100) UNIQUE," +
+                        COLUMN_STATISTIC_INGREDIENT_AMMOUNT + "INTEGER" +
+                ")";
 
         //db.execSQL(create_table_barbot);
         db.execSQL(create_table_ingredient);
         db.execSQL(create_table_slaveunit);
         db.execSQL(create_table_drink);
         db.execSQL(create_table_drink_has_ingredient);
+        //db.execSQL(create_table_statistic_drink);
+        //db.execSQL(create_table_statistic_ingredient);
 
     }
 
@@ -249,6 +275,44 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addStatisticDrink (Drink drink){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(COLUMN_STATISTIC_DRINK_NAME, drink.name);
+
+            db.insertOrThrow(TABLE_STATISTIC_DRINK, null, values);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error adding a new Statistic_Drink: " + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void updateStatisticDrink (Drink drink){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(COLUMN_STATISTIC_DRINK_NAME, +1);
+
+            int rows = db.update(TABLE_STATISTIC_DRINK, values, COLUMN_STATISTIC_DRINK_NAME + "= ?", new String[]{""+drink.name});
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.d(TAG, "Error updating Statistic Drink" + e);
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+
+
     /*
         ----------------------- Update Actions -----------------------
      */
@@ -349,6 +413,34 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
+    }
+
+    public List<StatisticDrink> getAllStatisticsDrinks(){
+        List<StatisticDrink> statisticDrinkList = new ArrayList<StatisticDrink>();
+        String selectQuery = String.format(
+                "SELECT * FROM %s",
+                TABLE_STATISTIC_DRINK
+        );
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()){
+                do {
+                    StatisticDrink statisticDrink = new StatisticDrink();
+                    statisticDrink.name = cursor.getString(cursor.getColumnIndex(COLUMN_STATISTIC_DRINK_NAME));
+                    statisticDrink.amount = cursor.getString(cursor.getColumnIndex(COLUMN_STATISTIC_INGREDIENT_AMMOUNT));
+                    statisticDrinkList.add(statisticDrink);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error querying StatisticDrinks" + e);
+        }finally {
+            if (cursor != null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return statisticDrinkList;
     }
 
     /*

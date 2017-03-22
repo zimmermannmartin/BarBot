@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.UUID;
 
+import at.barbot.barbot.ListBluetoothDevicesFragment;
 import at.barbot.barbot.MainActivity;
 import at.barbot.barbot.R;
 
@@ -26,7 +29,7 @@ import at.barbot.barbot.R;
 
 public class BarBotBluetoothService {
     private static final String TAG = "BarBotBluetoothService";
-    private OnBluetoothInteractionListener mListener;
+    OnBluetoothInteractionListener mListener;
 
     private static BarBotBluetoothService sInstance;
 
@@ -51,17 +54,33 @@ public class BarBotBluetoothService {
     /**
      * Constructor. Prepares a new BluetoothService.
      *
-     * @param address The mac adress of the bluetooth device to connect to
+     * @param address The mac address of the bluetooth device to connect to
+     * @param context The Context in which the Bluetooth-Service should connect (application context)
+     * @param listener An {@link OnBluetoothInteractionListener} listener Interface
      */
-    public BarBotBluetoothService(String address, Context context) {
+    public BarBotBluetoothService(String address, Context context, OnBluetoothInteractionListener listener) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mAddress = address;
         mAppContext = context;
+        mListener = listener;
 
         new ConnectBT().execute(); //Call the class to connect
 
         sInstance = this;
+
+        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
+        if (!prefs.contains("address")){
+            boolean success = prefs.edit().putString("address", mAddress).commit();
+            if (!success){
+                Log.e(TAG, "BarBotBluetoothService: failed to set preference for BT-address");
+            }
+        }else if (!prefs.getString("address", "").equalsIgnoreCase(mAddress)){
+            boolean success = prefs.edit().putString("address", mAddress).commit();
+            if (!success){
+                Log.e(TAG, "BarBotBluetoothService: failed to update preference for BT-address");
+            }
+        }
 
         Log.d(TAG, "BarBotBluetoothService -> Adress: " + mAddress);
     }
@@ -111,8 +130,13 @@ public class BarBotBluetoothService {
                                     handler.post(new Runnable() {
                                         public void run() {
                                             String[] cmd = data.split(";");
-                                            if (cmd[0].equals("NS")){
+                                            if (cmd.length == 2){
                                                 mListener.onBluetoothInteraction(cmd[0], cmd[1]);
+                                            }else if (cmd.length > 2){
+                                                String[] cmds = Arrays.copyOfRange(cmd, 1, cmd.length);
+                                                mListener.onBluetoothInteraction(cmd[0], cmds);
+                                            }else {
+                                                Log.d(TAG, "run: Length of Array not allowed; LENGTH: " + cmd.length);
                                             }
                                             Log.d(TAG, "Data: " + data);
                                             //Toast.makeText(mAppContext, data, Toast.LENGTH_LONG).show();
