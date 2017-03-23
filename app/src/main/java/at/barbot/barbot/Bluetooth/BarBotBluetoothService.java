@@ -116,8 +116,15 @@ public class BarBotBluetoothService {
                 while (!Thread.currentThread().isInterrupted() && !stopWorker) {
                     try {
                         int bytesAvailable = mInputStream.available();
+                        //TODO: Debugging ausgabe fertigstellen
+                        if (mInputStream.read() > 0){
+                            byte b = (byte) mInputStream.read();
+                            char c = (char) b;
+                            Log.d(TAG, "run: " + c);
+                        }
                         if (bytesAvailable > 0) {
                             byte[] packetBytes = new byte[bytesAvailable];
+                            Log.d(TAG, "run: bytesAviable: " + bytesAvailable);
                             mInputStream.read(packetBytes);
                             for (int i = 0; i < bytesAvailable; i++) {
                                 byte b = packetBytes[i];
@@ -129,6 +136,9 @@ public class BarBotBluetoothService {
 
                                     handler.post(new Runnable() {
                                         public void run() {
+
+                                            Log.d(TAG, "BLUETOOTH-DATA: " + data);
+
                                             String[] cmd = data.split(";");
                                             if (cmd.length == 2){
                                                 mListener.onBluetoothInteraction(cmd[0], cmd[1]);
