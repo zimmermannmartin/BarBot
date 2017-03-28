@@ -111,13 +111,9 @@ public class DrinkDetailsFragment extends Fragment {
 
         Button editDrinkButton = (Button) view.findViewById(R.id.edit_button);
         editDrinkButton.setOnClickListener(new View.OnClickListener(){
-
-
-
             @Override
             public void onClick(View v) {
                 mListener.onDrinkDetailsFragmentInteraction(drink);
-
             }
         });
 

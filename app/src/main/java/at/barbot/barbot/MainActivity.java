@@ -4,15 +4,18 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -201,7 +204,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCreateSlaveunitFragmentInteraction() {
-
+        MainFragment fragment = new MainFragment();
+        selectItem(fragment);
     }
 
     @Override
@@ -223,6 +227,18 @@ public class MainActivity extends AppCompatActivity
             crsl.setArguments(args);
             selectItem(crsl);
         } else if (cmd.equals("G")) {
+            if(data.equalsIgnoreCase("finished")){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.drinkFinishedInformation)
+                        .setTitle(R.string.drinkFinished)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
             Log.d(TAG, "onBluetoothInteraction: Getränk: " + data);
         } else if (cmd.equals("S")) {
             Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
@@ -230,6 +246,7 @@ public class MainActivity extends AppCompatActivity
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
             Log.d(TAG, "onBluetoothInteraction: delete Slaveunit: " + data);
             Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
+            Log.d(TAG, "onBluetoothInteraction: slaveunit ingredient: " + sl.filling_level_in_ml);
             databaseHelper.deleteSlaveunit(sl);
         } else {
             Log.e(TAG, "onBluetoothInteraction: Got not known command: " + data);

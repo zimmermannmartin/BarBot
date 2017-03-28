@@ -117,11 +117,12 @@ public class BarBotBluetoothService {
                     try {
                         int bytesAvailable = mInputStream.available();
                         //TODO: Debugging ausgabe fertigstellen
+                        /*
                         if (mInputStream.read() > 0){
                             byte b = (byte) mInputStream.read();
                             char c = (char) b;
                             Log.d(TAG, "run: " + c);
-                        }
+                        }*/
                         if (bytesAvailable > 0) {
                             byte[] packetBytes = new byte[bytesAvailable];
                             Log.d(TAG, "run: bytesAviable: " + bytesAvailable);

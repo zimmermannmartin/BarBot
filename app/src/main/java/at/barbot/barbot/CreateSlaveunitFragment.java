@@ -148,6 +148,8 @@ public class CreateSlaveunitFragment extends Fragment {
 
         databaseHelper.addSlaveunit(slaveunit);
 
+        mListener.onCreateSlaveunitFragmentInteraction();
+
         Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout),
                 R.string.slaveunit_erstellen_sucess, Snackbar.LENGTH_SHORT);
         showSuccessDialog.show();

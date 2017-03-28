@@ -8,6 +8,8 @@
     <string name="show_BarBot">Automat anzeigen</string>
     <string name="addIngredient">Neue Zutat hinzufügen</string>
     <string name="show_ingredients">Zutaten anzeigen</string>
+    <string name="drinkFinished">Getränk abgefüllt!</string>
+    <string name="drinkFinishedInformation">Ihr Getränk wurde erfolgreich abgefüllt und steht nun für Sie bereit.</string>
 
     <string name="empty_list">Noch keine Elemente vorhanden</string>
     <string name="getraenke_erstellen_title">Getränke erstellen</string>

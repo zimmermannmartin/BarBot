@@ -466,7 +466,8 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             int rows = db.delete(TABLE_SLAVEUNIT, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?",
-                    new String[]{String.valueOf(slaveunit.pk_id_slaveunit)});
+                    new String[]{"" + slaveunit.pk_id_slaveunit});
+            db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error deleting Slaveunit" + e);
         }finally {
@@ -481,6 +482,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         try {
             int rows = db.delete(TABLE_INGREDIENT, COLUMN_INGREDIENT_PK_ID_INGREDIENT + "= ?",
                     new String[]{Integer.toString(ingredient.pk_id_ingredient)});
+            db.setTransactionSuccessful();
         }catch (Exception e){
             Log.d(TAG, "Error deleting ingredient" + e);
         }finally {

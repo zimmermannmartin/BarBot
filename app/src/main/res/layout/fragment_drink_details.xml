@@ -95,11 +95,10 @@
             android:text="@string/delete"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:id="@+id/drinkDetailDeleteButton"
-            android:layout_below="@+id/drinkDetailOrderButton"
-            android:layout_toEndOf="@+id/edit_button"
-            android:layout_marginTop="29dp" />
+            android:layout_alignBaseline="@+id/edit_button"
+            android:layout_alignBottom="@+id/edit_button"
+            android:layout_toStartOf="@+id/drinkDetail_IngredientsList" />
 
         <Button
             android:text="@string/edit"
@@ -107,10 +106,8 @@
             android:id="@+id/edit_button"
             android:textSize="14sp"
             android:layout_width="110dp"
-            android:layout_alignBaseline="@+id/drinkDetailDeleteButton"
-            android:layout_alignBottom="@+id/drinkDetailDeleteButton"
-            android:layout_toEndOf="@+id/textView7"
-            android:layout_marginStart="14dp" />
+            android:layout_alignTop="@+id/drinkDetailOrderButton"
+            android:layout_alignEnd="@+id/drinkDetailsPicture" />
 
     </RelativeLayout>
 </FrameLayout>
