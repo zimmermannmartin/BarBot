@@ -122,12 +122,16 @@
             android:layout_toEndOf="@+id/textViewBeschreibung" />
 
         <ImageView
+            android:id="@+id/drinkImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button5"
+            android:layout_alignStart="@+id/textViewBeschreibung"
+            android:layout_alignTop="@+id/editTextBeschreibung"
             android:layout_below="@+id/editTextBeschreibung"
-            android:layout_alignStart="@+id/editTextBeschreibung"
-            android:layout_marginTop="104dp"
-            android:id="@+id/imageView4" />
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp" />
 
 
     </RelativeLayout>

@@ -3,7 +3,9 @@ package at.barbot.barbot;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -89,12 +91,18 @@ public class CreateDrinkFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 // Show only images, no videos or anything else
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 // Always show the chooser (if there are multiple options available)
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);*/
+
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, 1);
 
             }
         });
@@ -110,6 +118,25 @@ public class CreateDrinkFragment extends Fragment {
 
                 //TODO: Image verarbeiten!!
 
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            try {
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                ImageView imageView = (ImageView) getActivity().findViewById(R.id.drinkImage);
+                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            }catch (Exception e){
+                Log.e(TAG, "onActivityResult: " + e);
+            }
         }
     }
 
