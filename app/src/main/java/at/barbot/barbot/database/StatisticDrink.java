@@ -7,5 +7,5 @@ package at.barbot.barbot.database;
 public class StatisticDrink {
     public int pk_statistic_drink;
     public String name;
-    public String amount;
+    public int amount;
 }

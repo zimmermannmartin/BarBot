@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Ingredient;
+import at.barbot.barbot.database.StatisticIngredient;
 
 
 /**
@@ -114,8 +115,13 @@ public class CreateIngredientFragment extends Fragment {
         ingredient.name = name;
         ingredient.vol_percent = 40;
 
+        StatisticIngredient statisticIngredient = new StatisticIngredient();
+        statisticIngredient.name = name;
+        statisticIngredient.amount = 0;
+
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         databaseHelper.addIngredient(ingredient);
+        databaseHelper.addStatisticIngredient(statisticIngredient);
 
         Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout), R.string.ingredient_erstellen_sucess, Snackbar.LENGTH_SHORT);
         showSuccessDialog.show();

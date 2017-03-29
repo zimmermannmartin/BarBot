@@ -33,6 +33,7 @@ import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
+import at.barbot.barbot.database.StatisticDrink;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -176,10 +177,14 @@ public class CreateDrinkFragment extends Fragment {
         drink.name = name;
         drink.description = desc;
         //drink.picture = picture;
+        StatisticDrink stDrink = new StatisticDrink();
+        stDrink.name = name;
+        stDrink.amount =0;
 
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
         databaseHelper.addDrink(drink);
-        databaseHelper.addStatisticDrink(drink);
+        databaseHelper.addStatisticDrink(stDrink);
+        Log.d("Statistic Added",stDrink.name);
 
         drink.pk_id_drink = databaseHelper.getDrinkByName(name).pk_id_drink;
 

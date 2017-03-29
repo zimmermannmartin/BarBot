@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,8 @@ import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
 import at.barbot.barbot.database.Drink_has_ingredient;
 import at.barbot.barbot.database.Ingredient;
+import at.barbot.barbot.database.StatisticDrink;
+import at.barbot.barbot.database.StatisticIngredient;
 
 
 /**
@@ -34,6 +37,8 @@ public class DrinkDetailsFragment extends Fragment {
     private Drink drink;
     private HashMap<Ingredient, Integer> ingredient_amount;
     private OnDrinkDetailsFragmentInteractionListener mListener;
+    private StatisticDrink statisticDrink = new StatisticDrink();
+    private StatisticIngredient[] statisticIngredient =  new StatisticIngredient[255];
 
     private static final String TAG = "DrinkDetailsFragment";
 
@@ -60,11 +65,15 @@ public class DrinkDetailsFragment extends Fragment {
         TextView drinkName = (TextView) view.findViewById(R.id.detailDrinkName);
         drinkName.setText(drink.name);
 
+        statisticDrink.name=drink.name;
+        statisticDrink.amount=databaseHelper.getStatisticDrink(drink.pk_id_drink).amount+1;
+
         TextView desc = (TextView) view.findViewById(R.id.drinkDescription);
         desc.setText(drink.description);
 
         getIngredientsWithAmounts(drink);
         Log.d(TAG, "" + ingredient_amount);
+        int x=0;
         LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinkDetail_IngredientsList);
         for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
             Ingredient in = entry.getKey();
@@ -72,6 +81,12 @@ public class DrinkDetailsFragment extends Fragment {
             TextView tv = new TextView(getContext());
             tv.setText("" + in.name + "     " + val + "ml");
             lv.addView(tv);
+            StatisticIngredient st = new StatisticIngredient();
+            st.name = in.name;
+            st.amount = val + databaseHelper.getStatisticIngredient(in.pk_id_ingredient).amount;
+            statisticIngredient[x] = st;
+            x++;
+
         }
 
         Button submitOrder = (Button) view.findViewById(R.id.drinkDetailOrderButton);
@@ -80,7 +95,15 @@ public class DrinkDetailsFragment extends Fragment {
             public void onClick(View v) {
                 Order order = new Order(drink, ingredient_amount);
                 order.submit();
-                databaseHelper.updateStatisticDrink(drink);
+                statisticDrink.name=drink.name;
+                statisticDrink.amount=databaseHelper.getStatisticDrink(drink.pk_id_drink).amount+1;
+                databaseHelper.updateStatisticDrink(statisticDrink);
+
+                for (StatisticIngredient st: statisticIngredient) {
+
+                    databaseHelper.updateStatisticIngredient(st);
+                }
+
             }
         });
 
@@ -94,6 +117,7 @@ public class DrinkDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 databaseHelper.deleteDrink(drink);
+                databaseHelper.deleteDrinkStatistic(statisticDrink);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage(R.string.getraenke_loeschen_message)
