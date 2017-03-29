@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.content_frame, mainFragment).commit();
         }
 
-        
+
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("BTSession", Context.MODE_PRIVATE);
         if (prefs.contains("address") && BluetoothAdapter.getDefaultAdapter() != null && BluetoothAdapter.getDefaultAdapter().isEnabled()){
             for (BluetoothDevice device : BluetoothAdapter.getDefaultAdapter().getBondedDevices()) {
