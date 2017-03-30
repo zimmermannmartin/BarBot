@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,11 +22,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import at.barbot.barbot.Bluetooth.BarBotBluetoothService;
 import at.barbot.barbot.database.BarBotDatabaseHelper;
@@ -54,6 +60,11 @@ public class MainActivity extends AppCompatActivity
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
+    private ProgressBar mProgress;
+    private int mProgressStatus = 0;
+    private android.os.Handler mHandler = new android.os.Handler();
+    private boolean drinkIsFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +181,51 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
+    public void showDrinkFillingProgress (View v){
+        final Snackbar showFillingProgress = Snackbar.make(v.getRootView(), "Ihr Getränk wird abgefüllt", Snackbar.LENGTH_INDEFINITE);
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) showFillingProgress.getView();
+        mProgress = new ProgressBar(v.getRootView().getContext());
+        mProgress.setMax(100);
+        snackbarLayout.addView(mProgress);
+        showFillingProgress.show();
+
+        // Start lengthy operation in a background thread
+        new Thread(new Runnable() {
+            public void run() {
+                while (mProgressStatus < 100) {
+                    mProgressStatus = doWork(mProgressStatus);
+                    try{
+                        Thread.sleep(200);
+                    }catch (Exception e){
+                        Log.e(TAG, "run: Thread sleep has thrown an Exception", e);
+                    }
+
+                    // Update the progress bar
+                    mHandler.post(new Runnable() {
+                        public void run() {
+                            if (drinkIsFinished){
+                                mProgressStatus = 100;
+                                showFillingProgress.dismiss();
+                                drinkIsFinished = false;
+                                return;
+                            }
+                            mProgress.setProgress(mProgressStatus);
+                        }
+                    });
+                }
+            }
+            protected int doWork(int progress){
+                progress = progress + 1;
+                if (progress >= 80 && progress < 100){
+                    progress = 80;
+                }else if(progress >= 100){
+                    progress = 100;
+                }
+                return progress;
+            }
+        }).start();
+    }
+
     @Override
     public void onListFragmentInteraction(Drink drink) {
         DrinkDetailsFragment drinkDetailsFragment = new DrinkDetailsFragment();
@@ -197,6 +253,11 @@ public class MainActivity extends AppCompatActivity
         EditDrinkFragment editDrinkFragment = new EditDrinkFragment();
         editDrinkFragment.setDrink(drink);
         selectItem(editDrinkFragment);
+    }
+
+    @Override
+    public void onDrinkDetailsFragmentInteraction(View v) {
+        showDrinkFillingProgress(v);
     }
 
     @Override
@@ -230,6 +291,7 @@ public class MainActivity extends AppCompatActivity
             selectItem(crsl);
         } else if (cmd.equals("G")) {
             if(data.equalsIgnoreCase("finished")){
+                drinkIsFinished = true;
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.drinkFinishedInformation)
                         .setTitle(R.string.drinkFinished)

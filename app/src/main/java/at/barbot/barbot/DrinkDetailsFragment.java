@@ -3,6 +3,8 @@ package at.barbot.barbot;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogRecord;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
@@ -98,6 +102,8 @@ public class DrinkDetailsFragment extends Fragment {
                 statisticDrink.name=drink.name;
                 statisticDrink.amount=databaseHelper.getStatisticDrink(drink.pk_id_drink).amount+1;
                 databaseHelper.updateStatisticDrink(statisticDrink);
+
+                mListener.onDrinkDetailsFragmentInteraction(v);
 
                 for (StatisticIngredient st: statisticIngredient) {
 
@@ -185,5 +191,6 @@ public class DrinkDetailsFragment extends Fragment {
      */
     public interface OnDrinkDetailsFragmentInteractionListener {
         void onDrinkDetailsFragmentInteraction(Drink drink);
+        void onDrinkDetailsFragmentInteraction(View v);
     }
 }

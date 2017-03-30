@@ -103,7 +103,7 @@ public class CreateDrinkFragment extends Fragment {
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                startActivityForResult(i, 1);
+                startActivityForResult(i, PICK_IMAGE_REQUEST);
 
             }
         });
@@ -121,7 +121,7 @@ public class CreateDrinkFragment extends Fragment {
 
         }
 
-        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
