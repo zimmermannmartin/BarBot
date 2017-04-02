@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity
         ListBluetoothDevicesFragment.OnBluetoothFragmentInteractionListener,
         EditDrinkFragment.OnEditDrinkFragmentInteractionListener,
         BarBotBluetoothService.OnBluetoothInteractionListener,
-        StatisticFragment.OnStatisticFragmentInteractionListener{
+        StatisticFragment.OnStatisticFragmentInteractionListener,
+        EditSlaveFragment.OnEditSlaveFragmentInteractionListener{
 
 
     private static final String TAG = "Main Activity";
@@ -261,8 +262,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSettingsFragmentInteraction() {
-
+    public void onSettingsFragmentInteraction(int pk_slave) {
+        Log.d(TAG, "onSettingsFragmentInteraction: PK_SLAVE: " + pk_slave);
     }
 
     @Override
@@ -324,6 +325,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onStatisticFragmentInteraction() {
+
+    }
+
+    @Override
+    public void onEditSlaveFragmentInteraction() {
 
     }
 

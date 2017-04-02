@@ -69,4 +69,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp" />
 
+    <Button
+        android:id="@+id/editSlaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="24dp"
+        android:text="@string/editSlave" />
+
 </RelativeLayout>

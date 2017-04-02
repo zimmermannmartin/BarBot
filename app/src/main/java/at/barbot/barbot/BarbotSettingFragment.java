@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -96,6 +97,7 @@ public class BarbotSettingFragment extends Fragment {
             TextView ingrtv = (TextView) v.findViewById(R.id.textView10);
             TextView leveltv = (TextView) v.findViewById(R.id.textView6);
             ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
+            Button editButton = (Button) v.findViewById(R.id.editSlaveButton);
 
             headtv.setText(sl.name);
             iv.setImageResource(R.drawable.ic_menu_camera);
@@ -107,6 +109,14 @@ public class BarbotSettingFragment extends Fragment {
             }else {
                 pb.setProgress(sl.filling_level_in_ml, true);
             }
+
+            final int slaveId = sl.pk_id_slaveunit;
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onSettingsFragmentInteraction(slaveId);
+                }
+            });
 
             ll.addView(v);
         }
@@ -123,6 +133,6 @@ public class BarbotSettingFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnSettingsFragmentInteractionListener {
-        void onSettingsFragmentInteraction();
+        void onSettingsFragmentInteraction(int pk_slave);
     }
 }
