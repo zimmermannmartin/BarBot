@@ -44,6 +44,7 @@
     <string name="slaveunitIngredient">Zutat: </string>
     <string name="Drink_Statistic">Drink Statistic</string>
     <string name="Ingredient_Statistic">Ingredient Statistic</string>
+    <string name="editSlave">Editieren</string>
 
     <string name="save_changes">Änderungen speichern</string>
     <string name="change_ingredient">Zutaten ändern</string>
