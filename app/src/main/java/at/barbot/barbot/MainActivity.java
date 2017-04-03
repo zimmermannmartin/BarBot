@@ -1,18 +1,22 @@
 package at.barbot.barbot;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -184,8 +188,9 @@ public class MainActivity extends AppCompatActivity
     public void showDrinkFillingProgress (View v){
         final Snackbar showFillingProgress = Snackbar.make(v.getRootView(), "Ihr Getränk wird abgefüllt", Snackbar.LENGTH_INDEFINITE);
         Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) showFillingProgress.getView();
-        mProgress = new ProgressBar(v.getRootView().getContext());
+        mProgress = new ProgressBar(v.getRootView().getContext(), null, android.R.attr.progressBarStyleHorizontal);
         mProgress.setMax(100);
+        mProgress.setIndeterminate(false);
         snackbarLayout.addView(mProgress);
         showFillingProgress.show();
 
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity
                     mHandler.post(new Runnable() {
                         public void run() {
                             if (drinkIsFinished){
-                                mProgressStatus = 100;
+                                mProgressStatus = 0;
                                 showFillingProgress.dismiss();
                                 drinkIsFinished = false;
                                 return;

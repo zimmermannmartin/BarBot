@@ -9,9 +9,11 @@ import android.util.Log;
 
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Martin on 10.10.2016.
@@ -935,8 +937,13 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         return drink;
     }
 
-    public HashMap<Ingredient, Integer> getIngredientswithAmounts (Drink drink){
-        HashMap<Ingredient, Integer> ingrWAmount = new HashMap<>();
+    public Map<Ingredient, Integer> getIngredientswithAmounts (Drink drink){
+        Map<Ingredient, Integer> ingrWAmount = new TreeMap<>(new Comparator<Ingredient>() {
+            @Override
+            public int compare(Ingredient a, Ingredient b) {
+                return a.name.compareToIgnoreCase(b.name);
+            }
+        });
         String query = String.format("select %s.%s, %s.%s, %s.%s, %s.%s " +
                 "from %s " +
                 "join %s on %s.%s = %s " +

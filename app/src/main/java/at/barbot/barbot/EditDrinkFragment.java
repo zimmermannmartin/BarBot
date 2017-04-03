@@ -42,7 +42,7 @@ public class EditDrinkFragment extends Fragment {
     private OnEditDrinkFragmentInteractionListener mListener;
     private List<Ingredient> mItems = new ArrayList<>();
     private List<Ingredient> allIngredients = getAllIngredients();
-    private HashMap<Ingredient, Integer> ingredient_amount;
+    private Map<Ingredient, Integer> ingredient_amount;
     public Drink mDrink;
 
     public EditDrinkFragment() {

@@ -19,8 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.LogRecord;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
@@ -43,6 +45,7 @@ public class DrinkDetailsFragment extends Fragment {
     private OnDrinkDetailsFragmentInteractionListener mListener;
     private StatisticDrink statisticDrink = new StatisticDrink();
     private StatisticIngredient[] statisticIngredient =  new StatisticIngredient[255];
+    private Map<Ingredient, Integer> ingrAmount;
 
     private static final String TAG = "DrinkDetailsFragment";
 
@@ -76,10 +79,10 @@ public class DrinkDetailsFragment extends Fragment {
         desc.setText(drink.description);
 
         getIngredientsWithAmounts(drink);
-        Log.d(TAG, "" + ingredient_amount);
+        //Log.d(TAG, "" + ingredient_amount);
         int x=0;
         LinearLayout lv = (LinearLayout) view.findViewById(R.id.drinkDetail_IngredientsList);
-        for (Map.Entry<Ingredient, Integer> entry : ingredient_amount.entrySet()){
+        for (Map.Entry<Ingredient, Integer> entry : ingrAmount.entrySet()){
             Ingredient in = entry.getKey();
             int val = entry.getValue();
             TextView tv = new TextView(getContext());
@@ -112,9 +115,6 @@ public class DrinkDetailsFragment extends Fragment {
 
             }
         });
-
-
-
 
         Button deleteDrinkButton = (Button) view.findViewById(R.id.drinkDetailDeleteButton);
         deleteDrinkButton.setOnClickListener(new View.OnClickListener(){
@@ -175,8 +175,8 @@ public class DrinkDetailsFragment extends Fragment {
     }
 
     public void getIngredientsWithAmounts(Drink drink){
-        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
-        ingredient_amount = databaseHelper.getIngredientswithAmounts(drink);
+        BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity().getApplicationContext());
+        ingrAmount = databaseHelper.getIngredientswithAmounts(drink);
     }
 
     /**
