@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.barbot.barbot.Bluetooth.BarBotBluetoothService;
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Slaveunit;
 
@@ -33,6 +35,8 @@ public class BarbotSettingFragment extends Fragment {
     private OnSettingsFragmentInteractionListener mListener;
 
     private List<Slaveunit> mItems = new ArrayList<>();
+
+    private String[] newSlaveunits;
 
     public BarbotSettingFragment() {
         // Required empty public constructor
@@ -58,6 +62,9 @@ public class BarbotSettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_barbot_setting, container, false);
+
+        addNewSlaveunits(view);
+
         showSlaveunits(view);
 
         // Inflate the layout for this fragment
@@ -119,6 +126,16 @@ public class BarbotSettingFragment extends Fragment {
             });
 
             ll.addView(v);
+        }
+    }
+
+    public void addNewSlaveunits (View v){
+        try {
+            BarBotBluetoothService bluetoothService = BarBotBluetoothService.getInstance();
+            Log.d(TAG, "addNewSlaveunits: Slaveunits abfragen");
+            bluetoothService.writeData("S\n");
+        } catch (Exception e){
+            Log.e(TAG, "addNewSlaveunits: Exception thrwon when trying to create new BluetoothService Instance", e);
         }
     }
 

@@ -206,7 +206,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
             values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
             values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
-            values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
             values.put(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT, slave.fk_id_ingredient);
 
             db.insertOrThrow(TABLE_SLAVEUNIT, null, values);
@@ -471,7 +470,7 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
         }
     } */
 
-    public void updateSlaveUnit (Slaveunit slave){
+    public void updateSlaveunit (Slaveunit slave){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -480,7 +479,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT, slave.pk_id_slaveunit);
             values.put(COLUMN_SLAVEUNIT_NAME, slave.name);
             values.put(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML, slave.filling_level_in_ml);
-            values.put(COLUMN_SLAVEUNIT_FK_ID_BARBOT, slave.fk_id_barbot);
             values.put(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT, slave.fk_id_ingredient);
 
             int rows = db.update(TABLE_SLAVEUNIT, values, COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT + "= ?",
@@ -694,7 +692,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
                     slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
                     slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
-                    slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
                     slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
                     slaveunitList.add(slaveunit);
                 }while (cursor.moveToNext());
@@ -725,11 +722,11 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                     slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
                     slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
                     slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
-                    slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
                     slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
             }
         }catch (Exception e){
             Log.d(TAG, "Error querying Slaveunit" + e);
+            return null;
         }finally {
             if (cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -754,7 +751,6 @@ public class BarBotDatabaseHelper extends SQLiteOpenHelper {
                 slaveunit.pk_id_slaveunit = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_PK_ID_SLAVEUNIT));
                 slaveunit.name = cursor.getString(cursor.getColumnIndex(COLUMN_SLAVEUNIT_NAME));
                 slaveunit.filling_level_in_ml = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FILLING_LEVEL_IN_ML));
-                slaveunit.fk_id_barbot = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_BARBOT));
                 slaveunit.fk_id_ingredient = cursor.getInt(cursor.getColumnIndex(COLUMN_SLAVEUNIT_FK_ID_INGREDIENT));
             }
         }catch (Exception e){

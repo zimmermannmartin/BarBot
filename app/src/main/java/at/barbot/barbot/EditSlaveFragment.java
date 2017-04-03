@@ -40,7 +40,6 @@ public class EditSlaveFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -132,12 +131,12 @@ public class EditSlaveFragment extends Fragment {
         slaveunit.name = name;
         slaveunit.fk_id_ingredient = mItem.pk_id_ingredient;
 
-        databaseHelper.addSlaveunit(slaveunit);
+        databaseHelper.updateSlaveunit(slaveunit);
 
         mListener.onEditSlaveFragmentInteraction();
 
         Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout),
-                R.string.slaveunit_erstellen_sucess, Snackbar.LENGTH_SHORT);
+                R.string.slaveunit_updaten_sucess, Snackbar.LENGTH_SHORT);
         showSuccessDialog.show();
     }
 

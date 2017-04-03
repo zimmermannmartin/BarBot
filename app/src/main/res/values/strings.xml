@@ -41,6 +41,7 @@
     <string name="FuellstandInMl">Füllstand in ml</string>
     <string name="NamederSlaveunit">Name der Slave-Einheit</string>
     <string name="slaveunit_erstellen_sucess">Die Slaveunit wurde erfolgreich erstellt</string>
+    <string name="slaveunit_updaten_sucess">Die Slaveunit wurde erfolgreich aktualisiert</string>
     <string name="slaveunitIngredient">Zutat: </string>
     <string name="Drink_Statistic">Drink Statistic</string>
     <string name="Ingredient_Statistic">Ingredient Statistic</string>
@@ -74,5 +75,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="error_no_ingredient">Es sind noch keine Zutaten zum zuweisen zu Slaveunits vorhanden, bevor Sie Slaveunits konfigureren können fügen SIe bitte mindestens eine Zuatat hinzu</string>
+    <string name="error_no_ingredient_title">Fehler: keine Zutaten vorhanden</string>
 
 </resources>

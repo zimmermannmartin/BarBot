@@ -34,6 +34,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -268,7 +269,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSettingsFragmentInteraction(int pk_slave) {
-        Log.d(TAG, "onSettingsFragmentInteraction: PK_SLAVE: " + pk_slave);
+        EditSlaveFragment fragment = new EditSlaveFragment();
+        Bundle args = new Bundle();
+        args.putInt("pk_slave", pk_slave);
+        fragment.setArguments(args);
+        selectItem(fragment);
     }
 
     @Override
@@ -311,6 +316,26 @@ public class MainActivity extends AppCompatActivity
             }
             Log.d(TAG, "onBluetoothInteraction: Getränk: " + data);
         } else if (cmd.equals("S")) {
+            BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getApplicationContext());
+            List<Slaveunit> slaveunitList = databaseHelper.getAllSlaveunits();
+            Slaveunit sl = databaseHelper.getSlaveunit(Integer.parseInt(data));
+            if (sl == null){
+                Slaveunit slaveunit = new Slaveunit();
+                slaveunit.pk_id_slaveunit = Integer.parseInt(data);
+                slaveunit.name = "";
+                slaveunit.filling_level_in_ml = 0;
+                slaveunit.fk_id_ingredient = 0;
+
+                databaseHelper.addSlaveunit(slaveunit);
+            }else if (slaveunitList.size() > 0){
+                for (Slaveunit slave : slaveunitList){
+                    if (slave.pk_id_slaveunit != sl.pk_id_slaveunit){
+                        databaseHelper.deleteSlaveunit(slave);
+                    }
+                }
+            }
+            BarbotSettingFragment settingFragment = new BarbotSettingFragment();
+            selectItem(settingFragment);
             Log.d(TAG, "onBluetoothInteraction: Anzahl der Slaves: " + data);
         } else if (cmd.equals("DS")) {
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(this.getApplicationContext());
@@ -325,7 +350,89 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBluetoothInteraction(String cmd, String[] data) {
-        Log.d(TAG, "onBluetoothInteraction: " + cmd + "data: " + data[0] + "; " + data[1]);
+        if (cmd.equalsIgnoreCase("S")) {
+            BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getApplicationContext());
+            List<Slaveunit> slaveunitList = databaseHelper.getAllSlaveunits();
+            if (slaveunitList.isEmpty()) {
+                for (String pk : data) {
+                    Slaveunit slaveunit = new Slaveunit();
+                    slaveunit.pk_id_slaveunit = Integer.parseInt(pk);
+                    slaveunit.name = "";
+                    slaveunit.filling_level_in_ml = 0;
+                    List<Ingredient> ingrList = databaseHelper.getAllIngredients();
+                    if (ingrList.isEmpty()){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        builder.setMessage(R.string.error_no_ingredient)
+                                .setTitle(R.string.error_no_ingredient_title)
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    //nothing to do
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        return;
+                    }
+                    slaveunit.fk_id_ingredient = ingrList.get(0).pk_id_ingredient;
+
+                    Log.d(TAG, "onBluetoothInteraction: new slave ingr-ID: " + ingrList.get(0).pk_id_ingredient);
+
+                    databaseHelper.addSlaveunit(slaveunit);
+                }
+            } else if (slaveunitList.size() > 0) {
+                Log.d(TAG, "onBluetoothInteraction: slavunitList-size: " + slaveunitList.size());
+                for (String pk : data) {
+                    Slaveunit slaveunit = databaseHelper.getSlaveunit(Integer.parseInt(pk));
+                    Log.d(TAG, "onBluetoothInteraction: Slaveunit: " + slaveunit);
+                    if (slaveunit.name == null) {
+                        Log.d(TAG, "onBluetoothInteraction: Hinzufügen-PK: " + pk);
+                        Slaveunit s = new Slaveunit();
+                        s.pk_id_slaveunit = Integer.parseInt(pk);
+                        s.name = "";
+                        s.filling_level_in_ml = 0;
+
+                        List<Ingredient> ingrList = databaseHelper.getAllIngredients();
+                        if (ingrList.isEmpty()){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                            builder.setMessage(R.string.error_no_ingredient)
+                                    .setTitle(R.string.error_no_ingredient_title)
+                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //nothing to do
+                                        }
+                                    });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            return;
+                        }
+                        slaveunit.fk_id_ingredient = ingrList.get(0).pk_id_ingredient;
+
+                        Log.d(TAG, "onBluetoothInteraction: new slave ingr-ID: " + ingrList.get(0).pk_id_ingredient);
+
+                        databaseHelper.addSlaveunit(s);
+                    }
+                }
+                slaveunitList = databaseHelper.getAllSlaveunits();
+                for (Slaveunit sl : slaveunitList) {
+                    boolean exists = false;
+                    for (String pk : data) {
+                        if (sl.pk_id_slaveunit == Integer.parseInt(pk)) {
+                            Log.d(TAG, "onBluetoothInteraction: Slaveunit-PK: " + pk + " existiert");
+                            exists = true;
+                        }
+                    }
+                    if (!exists) {
+                        Log.d(TAG, "onBluetoothInteraction: löscht Slaveunit PK: " + sl.pk_id_slaveunit);
+                        databaseHelper.deleteSlaveunit(sl);
+                    }
+                }
+            }
+
+            BarbotSettingFragment settingFragment = new BarbotSettingFragment();
+            selectItem(settingFragment);
+        }
     }
 
     @Override
@@ -335,7 +442,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onEditSlaveFragmentInteraction() {
-
+        BarbotSettingFragment settingsFragment = new BarbotSettingFragment();
+        selectItem(settingsFragment);
     }
 
     /**
