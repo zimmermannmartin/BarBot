@@ -165,6 +165,8 @@ public class CreateDrinkFragment extends Fragment {
         mListener = null;
     }
 
+
+
     public void addNewDrink (View view){
         final EditText name_field = (EditText) view.getRootView().findViewById(R.id.editTextGetraenkeName);
         final EditText desc_field = (EditText) view.getRootView().findViewById(R.id.editTextBeschreibung);
@@ -172,8 +174,8 @@ public class CreateDrinkFragment extends Fragment {
         String name = name_field.getText().toString();
         String desc = desc_field.getText().toString();
         //String picture = picture_field.getText().toString();
-
         
+
 
         Drink drink = new Drink();
         drink.name = name;
