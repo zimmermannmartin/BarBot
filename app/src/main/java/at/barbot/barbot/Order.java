@@ -33,7 +33,9 @@ public class Order {
             String orderString = "G";
             for (HashMap.Entry<Ingredient, Integer> entry: ingredients.entrySet()){
                 Slaveunit sl = databaseHelper.getSlaveunitByIngredient(entry.getKey());
+
                 if (sl != null){
+                    sl.filling_level_in_ml = sl.filling_level_in_ml - entry.getValue();
                     orderString += ";" + sl.pk_id_slaveunit + ":" + entry.getValue();
                 }else {
                     Log.d(TAG, "submit: slaveunit doesn't exist");

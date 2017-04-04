@@ -173,6 +173,8 @@ public class CreateDrinkFragment extends Fragment {
         String desc = desc_field.getText().toString();
         //String picture = picture_field.getText().toString();
 
+        
+
         Drink drink = new Drink();
         drink.name = name;
         drink.description = desc;
