@@ -2,7 +2,6 @@ package at.barbot.barbot;
 
 import android.util.Log;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import at.barbot.barbot.Bluetooth.BarBotBluetoothService;
