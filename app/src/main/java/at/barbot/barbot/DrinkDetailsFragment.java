@@ -41,7 +41,6 @@ import at.barbot.barbot.database.StatisticIngredient;
  */
 public class DrinkDetailsFragment extends Fragment {
     private Drink drink;
-    private HashMap<Ingredient, Integer> ingredient_amount;
     private OnDrinkDetailsFragmentInteractionListener mListener;
     private StatisticDrink statisticDrink = new StatisticDrink();
     private StatisticIngredient[] statisticIngredient =  new StatisticIngredient[255];
@@ -100,19 +99,31 @@ public class DrinkDetailsFragment extends Fragment {
         submitOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Order order = new Order(drink, ingredient_amount);
-                order.submit();
-                statisticDrink.name=drink.name;
-                statisticDrink.amount=databaseHelper.getStatisticDrink(drink.pk_id_drink).amount+1;
-                databaseHelper.updateStatisticDrink(statisticDrink);
+                Order order = new Order(drink, ingrAmount);
+                boolean success = order.submit();
+                if (success) {
+                    statisticDrink.name = drink.name;
+                    statisticDrink.amount = databaseHelper.getStatisticDrink(drink.pk_id_drink).amount + 1;
+                    databaseHelper.updateStatisticDrink(statisticDrink);
 
-                mListener.onDrinkDetailsFragmentInteraction(v);
+                    mListener.onDrinkDetailsFragmentInteraction(v);
 
-                for (StatisticIngredient st: statisticIngredient) {
+                    for (StatisticIngredient st : statisticIngredient) {
 
-                    databaseHelper.updateStatisticIngredient(st);
+                        databaseHelper.updateStatisticIngredient(st);
+                    }
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(R.string.orderError)
+                            .setTitle(R.string.orderErrorTitle)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
-
             }
         });
 

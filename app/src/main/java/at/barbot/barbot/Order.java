@@ -19,9 +19,9 @@ public class Order {
     private static final String TAG = "Order";
 
     public Drink drink;
-    public HashMap<Ingredient, Integer> ingredients;
+    public Map<Ingredient, Integer> ingredients;
 
-    public Order(Drink d, HashMap<Ingredient, Integer> i){
+    public Order(Drink d, Map<Ingredient, Integer> i){
         drink = d;
         ingredients = i;
     }
@@ -31,12 +31,22 @@ public class Order {
             BarBotBluetoothService bluetoothService = BarBotBluetoothService.getInstance();
             BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(bluetoothService.mAppContext);
             String orderString = "G";
-            for (HashMap.Entry<Ingredient, Integer> entry: ingredients.entrySet()){
+            for (Map.Entry<Ingredient, Integer> entry: ingredients.entrySet()){
                 Slaveunit sl = databaseHelper.getSlaveunitByIngredient(entry.getKey());
-                if (sl != null){
+                if ((sl.filling_level_in_ml-entry.getValue()) >= 0){
+                    Slaveunit slaveunit = new Slaveunit();
+                    slaveunit = sl;
+                    slaveunit.filling_level_in_ml = sl.filling_level_in_ml-entry.getValue();
+
+                    databaseHelper.updateSlaveunit(slaveunit);
+                }else {
+                    Log.d(TAG, "submit: filling level of Slaveunit is too low! Fillinglevel: " + sl.filling_level_in_ml + ", needed level: " + entry.getValue());
+                    return false;
+                }
+                if (sl.name != null){
                     orderString += ";" + sl.pk_id_slaveunit + ":" + entry.getValue();
                 }else {
-                    Log.d(TAG, "submit: slaveunit doesn't exist");
+                    Log.d(TAG, "submit: slaveunit doesn't exist or duplicate Slaveunit exists.");
                     return false;
                 }
             }
@@ -45,7 +55,7 @@ public class Order {
 
             return true;
         }catch (Exception e){
-            Log.d(TAG, "submit: " + e);
+            Log.e(TAG, "submit: " + e, e);
             return false;
         }
     }

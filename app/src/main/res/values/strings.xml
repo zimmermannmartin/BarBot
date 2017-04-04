@@ -27,6 +27,9 @@
     <string name="drinkDetailPlaceholder">Hier kommt die Beschreibung des Getränkes hin....</string>
     <string name="drinkDetailIngr">Zutaten: </string>
     <string name="drinkDetailOrderButton">Getränk Bestellen</string>
+    <string name="orderError">Dein Getränk kann nicht bestellt werden, bitte überprüfe deine Slaveunits
+    ob der Füllstand zu gering ist oder es zwei Slaveunits mit der gleichen Zutat gibt.</string>
+    <string name="orderErrorTitle">Fehler beim bestellen des Getränks</string>
 
     <string name="createIngredientTitle">Zutat erstellen</string>
     <string name="createIngredientNameOfIngredient">Name der Zutat</string>

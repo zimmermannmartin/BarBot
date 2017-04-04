@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Exchanger;
 
 import at.barbot.barbot.database.BarBotDatabaseHelper;
 import at.barbot.barbot.database.Drink;
@@ -136,8 +137,13 @@ public class EditDrinkFragment extends Fragment {
                     Drink_has_ingredient drink_has_ingredient = new Drink_has_ingredient();
                     drink_has_ingredient.pk_fk_id_drink = mDrink.pk_id_drink;
                     drink_has_ingredient.pk_fk_id_ingredient = i.pk_id_ingredient;
-                    drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
-
+                    try {
+                        drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
+                    }catch (Exception e){
+                        Log.e(TAG, "onClick: ", e);
+                        ingrAmount.setError("No valid Format! Please insert a number only.");
+                        return;
+                    }
                     databaseHelper.addDrinkHasIngredient(drink_has_ingredient);
                 }
 

@@ -123,21 +123,31 @@ public class EditSlaveFragment extends Fragment {
 
     public void updateSlaveunit (View v, int pk_slave){
         BarBotDatabaseHelper databaseHelper = BarBotDatabaseHelper.getInstance(getActivity());
-        String name = ((EditText) v.getRootView().findViewById(R.id.editText2)).getText().toString();
-        int filling_level_in_ml = Integer.parseInt(((EditText) v.getRootView().findViewById(R.id.editText3)).getText().toString());
-        Slaveunit slaveunit = new Slaveunit();
-        slaveunit.pk_id_slaveunit = pk_slave;
-        slaveunit.filling_level_in_ml = filling_level_in_ml;
-        slaveunit.name = name;
-        slaveunit.fk_id_ingredient = mItem.pk_id_ingredient;
+        String name = ((EditText) v.getRootView().findViewById(R.id.editText2)).getText().toString().trim();
+        EditText fillLevel = (EditText) v.getRootView().findViewById(R.id.editText3);
+        try {
+            int filling_level_in_ml = Integer.parseInt(fillLevel.getText().toString());
+            if (filling_level_in_ml > 1500){
+                fillLevel.setError("No valid input! The maximum filling level is 1500ml.");
+                return;
+            }
+            Slaveunit slaveunit = new Slaveunit();
+            slaveunit.pk_id_slaveunit = pk_slave;
+            slaveunit.filling_level_in_ml = filling_level_in_ml;
+            slaveunit.name = name;
+            slaveunit.fk_id_ingredient = mItem.pk_id_ingredient;
 
-        databaseHelper.updateSlaveunit(slaveunit);
+            databaseHelper.updateSlaveunit(slaveunit);
 
-        mListener.onEditSlaveFragmentInteraction();
+            mListener.onEditSlaveFragmentInteraction();
 
-        Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout),
-                R.string.slaveunit_updaten_sucess, Snackbar.LENGTH_SHORT);
-        showSuccessDialog.show();
+            Snackbar showSuccessDialog = Snackbar.make(getActivity().findViewById(R.id.drawer_layout),
+                    R.string.slaveunit_updaten_sucess, Snackbar.LENGTH_SHORT);
+            showSuccessDialog.show();
+        }catch (Exception e){
+            Log.e(TAG, "updateSlaveunit: ", e);
+            fillLevel.setError("No valid Format! Please insert a Number only.");
+        }
     }
 
     public void initValues(View v, int pk){

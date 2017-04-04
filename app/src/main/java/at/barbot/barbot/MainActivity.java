@@ -206,16 +206,16 @@ public class MainActivity extends AppCompatActivity
                     }catch (Exception e){
                         Log.e(TAG, "run: Thread sleep has thrown an Exception", e);
                     }
+                    if (drinkIsFinished){
+                        mProgressStatus = 0;
+                        showFillingProgress.dismiss();
+                        drinkIsFinished = false;
+                        return;
+                    }
 
                     // Update the progress bar
                     mHandler.post(new Runnable() {
                         public void run() {
-                            if (drinkIsFinished){
-                                mProgressStatus = 0;
-                                showFillingProgress.dismiss();
-                                drinkIsFinished = false;
-                                return;
-                            }
                             mProgress.setProgress(mProgressStatus);
                         }
                     });

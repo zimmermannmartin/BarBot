@@ -169,8 +169,8 @@ public class CreateDrinkFragment extends Fragment {
         final EditText name_field = (EditText) view.getRootView().findViewById(R.id.editTextGetraenkeName);
         final EditText desc_field = (EditText) view.getRootView().findViewById(R.id.editTextBeschreibung);
         //final EditText picture_field = (EditText) view.getRootView().findViewById(R.id.editTextPicture);
-        String name = name_field.getText().toString();
-        String desc = desc_field.getText().toString();
+        String name = name_field.getText().toString().trim();
+        String desc = desc_field.getText().toString().trim();
         //String picture = picture_field.getText().toString();
 
         Drink drink = new Drink();
@@ -194,8 +194,13 @@ public class CreateDrinkFragment extends Fragment {
             Drink_has_ingredient drink_has_ingredient = new Drink_has_ingredient();
             drink_has_ingredient.pk_fk_id_drink = drink.pk_id_drink;
             drink_has_ingredient.pk_fk_id_ingredient = i.pk_id_ingredient;
-            drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
-
+            try{
+                drink_has_ingredient.ingredient_amount_in_ml = Integer.parseInt(ingrAmount.getText().toString());
+            } catch (Exception e){
+                Log.e(TAG, "addNewDrink: ", e);
+                ingrAmount.setError("No valid Format! Please insert a number only.");
+                return;
+            }
             databaseHelper.addDrinkHasIngredient(drink_has_ingredient);
         }
 
