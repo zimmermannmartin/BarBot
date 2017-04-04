@@ -13,14 +13,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="53dp"
-                android:id="@+id/textView2"
-                android:text="@string/getraenke_erstellen_title"
+                android:text="Getränk bearbeiten"
                 android:textSize="36sp"
                 android:textStyle="normal|bold" />
 
@@ -28,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+
                 android:ems="10"
                 android:id="@+id/editTextGetraenkeName"
                 android:hint="@string/getraenke_erstellen_textview_getraenkeName"
